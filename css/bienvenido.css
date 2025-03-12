@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+.continer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: #fffdef;
+    flex-direction: column;
+}
+
+.header{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    background: rgb(166, 171, 144);
+    background: linear-gradient(180deg, #a6ab98 0%, #e9edc9 100%);
+}
+
+.text{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    width: 50%;
+    height: 100%;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+    background-image: url(../img/bienvenidosGanado.png);
+    background-size: cover;
+}
+
+.content{
+    width: 100%;
+    height: 60%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.clima-continer{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clima{
+    width: 100%;
+    height: 70%;
+    background: rgb(166, 171, 144);
+    background: linear-gradient(90deg, #ccd5ae 0%, #e9edc9 100%);
+    border: 4px solid #2b3701;
+    border-radius: 10%;
+}
+
+.options{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
