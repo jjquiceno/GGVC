@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    height: 100vh;
+    width: 100vw;
+    background: url('../img/header.jpg') center/cover no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.header-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10%;
+    margin-right: 25%;
+
+}
+
+.header-buttons button {
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #e9edc9;
+    border: 1px solid #907655;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease-in;
+    z-index: 1;
+    font-size: 16px;
+}
+
+a button::before,
+a button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    transform: skew(15deg);
+    transition: all 0.5s;
+    overflow: hidden;
+    z-index: -1;
+}
+
+a button::before {
+    left: -10px;
+    background: #a9b882;
+}
+
+a button::after {
+    right: -10px;
+    background: #788a47;
+}
+
+a button:hover::before,
+a button:hover::after {
+    width: 58%;
+}
+
+a button:hover span {
+    color: #e9edc9;
+    transition: 0.3s;
+}
+
+a button span {
+    color: #2b3701;
+    font-size: 18px;
+    transition: all 0.3s ease-in;
+}
+
+.content,
+.objective {
+    background-color: #E9EDC9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    margin-top: 100vh;
+    height: 70vh;
+}
+
+.text {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content p {
+    font-size: 20px;
+    max-width: 60%;
+}
+
+.content h1 {
+    font-size: 50px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    background-color: #9ea182;
+    border-radius: 10%;
+}
+
+.logo img {
+    width: 500px;
+}
+
+.objective {
+    height: 30vh;
+    background-color: #FAEDCD;
+    text-align: center;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.objective button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #9ea182;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

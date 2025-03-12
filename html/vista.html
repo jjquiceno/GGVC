@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Ciclos de Vacunación</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f7;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    header {
+        background-color: #4CAF50;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        color: white;
+    }
+    
+    h1 {
+        margin: 0;
+        font-size: 36px;
+    }
+    
+    .add-button {
+        background-color: #2e7d32;
+        border: none;
+        padding: 10px 15px;
+        font-size: 20px;
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    
+    .add-button:hover {
+        background-color: #1b5e20;
+    }
+    
+    .comparison {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .cycle {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .cycle:hover {
+        transform: translateY(-5px);
+    }
+    
+    h2 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+    
+    .details {
+        font-size: 16px;
+        color: #555;
+    }
+    
+    .details p {
+        margin: 10px 0;
+    }
+    
+    strong {
+        color: #2c6e2f;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comparación de Ciclos de Vacunación</h1>
+            <button class="add-button">+</button>
+        </header>
+
+        <section class="comparison">
+            <div class="cycle">
+                <h2>Ciclo #1</h2>
+                <div class="details">
+                    <p><strong>Fecha de inicio:</strong> 01/01/2025</p>
+                    <p><strong>Duración:</strong> 3 semanas</p>
+                    <p><strong>Dosis:</strong> 3 dosis</p>
+                    <p><strong>Tipo de vacuna:</strong> Vacuna A</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet libero in nisl placerat.</p>
+                </div>
+            </div>
+            <div class="cycle">
+                <h2>Ciclo #2</h2>
+                <div class="details">
+                    <p><strong>Fecha de inicio:</strong> 15/01/2025</p>
+                    <p><strong>Duración:</strong> 4 semanas</p>
+                    <p><strong>Dosis:</strong> 2 dosis</p>
+                    <p><strong>Tipo de vacuna:</strong> Vacuna B</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet libero in nisl placerat.</p>
+                </div>
+            </div>
+            <div class="cycle">
+                <h2>Ciclo #3</h2>
+                <div class="details">
+                    <p><strong>Fecha de inicio:</strong> 01/02/2025</p>
+                    <p><strong>Duración:</strong> 5 semanas</p>
+                    <p><strong>Dosis:</strong> 4 dosis</p>
+                    <p><strong>Tipo de vacuna:</strong> Vacuna C</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet libero in nisl placerat.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

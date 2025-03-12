@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+.continer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: #fffdef;
+}
+
+.left {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(166, 171, 144);
+    background: linear-gradient(90deg, rgba(166, 171, 144, 1) 0%, rgba(233, 237, 201, 1) 100%);
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+.logo {
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+.right {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login h1 {
+    font-weight: 700
+}
+
+.input-icon {
+    height: 35px;
+    width: 400px;
+    position: relative;
+    display: inline-block;
+}
+
+form .input-icon input{
+    height: 35px;
+    width: 100%;
+    background-color: #fffdef;
+    padding: 0px 0px 0px 30px;
+    border: 3px solid #0c2001;
+    border-radius: 10px;
+}
+
+.login form button{
+    height: 35px;
+    width: 400px;
+    background-color: #909777;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.login p{
+    color: black;
+    font-weight: 600;
+}
+
+.login a{
+    color: #6e9347;
+}
+
+i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px; 
+    color: #aaa;
+}
+
+
