@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/bienvenido.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
+
     <div class="continer">
         <div class="header">
-            <nav class="">
-                <button class="menu">
-                    <i class="fas fa-bars fa-2x"></i>
-                </button>
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <input type="checkbox" id="menu-toggle">
+
+            <nav id="menu-container">
+                <div class="nav-links">
+                    <ul class="principal-options">
+                        <a href="./bienvenido.html"><i class="fas fa-home"></i> Inicio</a>
+                        <a href="#"><i class="fas fa-cow"></i> Ganado</a>
+                        <a href="#"><i class="fas fa-seedling"></i> Cultivos</a>
+                        <a href="#"><i class="fas fa-tractor"></i> Potreros</a>
+                        <a href="#"><i class="fas fa-file-invoice-dollar"></i> Nómina</a>
+                        <a href="#"><i class="fas fa-book"></i> Manuales</a>
+                    </ul>
+
+                    <ul class="other-options">
+                        <a href="#"><i class="fas fa-cog"></i> Ajustes</a>
+                        <a href="#"><i class="fas fa-envelope"></i> Contacto</a>
+                    </ul>
+                </div>
+
             </nav>
+
             <div class="text">
                 <h1>Bienvenido Yusef</h1>
                 <p>G.G.V.C</p>
@@ -53,4 +74,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 
-.header{
+.header {
     width: 100%;
     height: 40%;
     display: flex;
@@ -24,7 +24,7 @@
     background: linear-gradient(180deg, #a6ab98 0%, #e9edc9 100%);
 }
 
-.menu{
+.menu {
     background-color: transparent;
     border-style: none;
     position: absolute;
@@ -32,7 +32,19 @@
     margin-top: 2%;
 }
 
-.text{
+#menu-container {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ccd5ae;
+    width: 250px;
+    height: 100vh;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+.text {
     width: 50%;
     height: 100%;
     display: flex;
@@ -41,15 +53,15 @@
     align-items: center;
 }
 
-.text h1{
+.text h1 {
     font-size: 300%;
 }
 
-.text p{
+.text p {
     font-size: 150%;
 }
 
-.img{
+.img {
     width: 50%;
     height: 100%;
     border-top-left-radius: 10%;
@@ -58,7 +70,7 @@
     background-size: cover;
 }
 
-.content{
+.content {
     width: 100%;
     height: 60%;
     display: grid;
@@ -67,7 +79,7 @@
     align-items: center;
 }
 
-.clima{
+.clima {
     width: 60%;
     height: 70%;
     background: rgb(166, 171, 144);
@@ -80,7 +92,7 @@
     flex-direction: column;
 }
 
-.options{
+.options {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -90,7 +102,10 @@
     align-items: center;
 }
 
-.ganado, .potreros, .nomina, .cultivos{
+.ganado,
+.potreros,
+.nomina,
+.cultivos {
     background-color: #e9edc9;
     width: 90%;
     height: 60%;
@@ -102,52 +117,53 @@
     justify-items: center;
 }
 
-.ganado> h1, 
-.potreros> h1, 
-.nomina> h1, 
-.cultivos> h1{
+.ganado>h1,
+.potreros>h1,
+.nomina>h1,
+.cultivos>h1 {
     font-size: 100%;
 }
 
-.ganado> .img,
-.cultivos> .img,
-.potreros> .img,
-.nomina> .img{
+.ganado>.img,
+.cultivos>.img,
+.potreros>.img,
+.nomina>.img {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
     border-radius: 10%;
 }
-.ganado> .img{
-    background-image: url(../img/optionGanado.jpg); 
+
+.ganado>.img {
+    background-image: url(../img/optionGanado.jpg);
 }
 
-.cultivos> .img{
+.cultivos>.img {
     background-image: url(../img/cultivos.jpg);
 }
 
-.potreros> .img{
+.potreros>.img {
     background-image: url(../img/potreros.jpg);
 }
 
-.nomina> .img{
+.nomina>.img {
     background-image: url(../img/nomina.jpg);
 }
 
-.ubicacion{
+.ubicacion {
     display: flex;
 }
 
-.ubicacion h3{
+.ubicacion h3 {
     font-size: 30px;
 }
 
-.clima span{
+.clima span {
     font-size: 400%;
     font-weight: 800;
 }
 
-#icon-clima{
+#icon-clima {
     color: rgb(236, 198, 93);
 }
