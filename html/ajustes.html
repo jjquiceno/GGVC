@@ -11,11 +11,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="../css/menu.css">
 </head>
 
 <body>
     <div class="continer">
         <div class="header">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <input type="checkbox" id="menu-toggle">
+
+            <nav id="menu-container">
+                <div class="nav-links">
+                    <ul class="principal-options">
+                        <a href="./bienvenido.html"><i class="fas fa-home"></i> Inicio</a>
+                        <a href="#"><i class="fas fa-cow"></i> Ganado</a>
+                        <a href="#"><i class="fas fa-seedling"></i> Cultivos</a>
+                        <a href="#"><i class="fas fa-tractor"></i> Potreros</a>
+                        <a href="#"><i class="fas fa-file-invoice-dollar"></i> Nómina</a>
+                        <a href="#"><i class="fas fa-book"></i> Manuales</a>
+                    </ul>
+
+                    <ul class="other-options">
+                        <a href="./ajustes.html"><i class="fas fa-cog"></i> Ajustes</a>
+                        <a href="#"><i class="fas fa-envelope"></i> Contacto</a>
+                    </ul>
+                </div>
+
+            </nav>
+
             <h1>Ajustes</h1>
             <div class="img"></div>
         </div>
@@ -23,7 +47,7 @@
             <div class="options">
                 <h5>Privacidad</h5>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" type="button">Cambiar usuario</button>
+                    <button class="btn btn-primary custom-btn" type="button">Cambiar usuario</button>
                     <button class="btn btn-primary" type="button">Cambiar correo</button>
                     <button class="btn btn-primary" type="button">Cambiar contraseña</button>
                 </div>
@@ -32,6 +56,37 @@
                     <button class="btn btn-primary" type="button">Generar copia de seguridad</button>
                 </div>
             </div>
+
+            <div class="perfil">
+                <div class="img-perfil">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="info">
+                    <div class="input">
+                        <span class="input-icono"><i class="fas fa-user fa-2x"></i></span>
+                        <div class="textos">
+                            <strong>Nombre</strong> 
+                            <br>
+                            Camilo
+                        </div>
+                    </div>
+                    <div class="input">
+                        <span class="input-icono"><i class="fas fa-envelope fa-2x"></i></span>
+                        <div class="textos">
+                            <strong>Correo</strong> 
+                            <br>
+                            camiloa@gmail.com
+                        </div>
+                    </div>
+                    <div class="input">
+                        <span class="input-icono"><i class="fas fa-user fa-2x"></i></span>
+                        <div class="textos">
+                            <strong>Usuario</strong> 
+                            <br>
+                            Camiloa
+                        </div>
+                    </div>
+                </div>
 
         </div>
     </div>

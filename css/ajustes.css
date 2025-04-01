@@ -26,13 +26,21 @@
     background: linear-gradient(180deg, #a6ab98 0%, #e9edc9 100%);
     align-items: center;
     justify-items: center;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+}
+
+.header h1{
+    font-weight: 700;
 }
 
 .img{
     height: 100%;
     width: 100%;
-    background-image: url(../img/vacaMirandoCamara.jpg);
+    background-image: url(../img/dosVacas.jpg);
+    background-position: 0px 25%;
     background-size: cover;
+    border-radius: 5%;
 }
 
 .body{
@@ -41,11 +49,68 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
 }
 
-.btn-personal{
-    background-color: #e9edc9;
+.options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.options h5{
+    font-weight: 600;
+
 }
 
+.btn-primary{
+    background-color: #e9edc9 !important;
+    border-color: transparent !important;
+    color: black !important;
+}
 
+.perfil{
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30%;
+}
+
+.img-perfil {
+    width: 100px;
+    height: 100px;
+    background-color: #3b3f1f; /* Color del círculo */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.input{
+    border: 3px solid #3b3f1f; /* Borde verde oscuro */
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #fffdef;
+    display: flex;
+}
+.input-icono {
+    background-color: transparent;
+    border: none;
+    color: #3b3f1f;
+    font-weight: bold;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.texto {
+    border: none;
+    box-shadow: none;
+}
 
