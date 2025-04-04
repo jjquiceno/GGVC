@@ -1,0 +1,24 @@
+.tablas-main{
+    width: 100%;
+    height: fit-content;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+.tablas{
+    width: 90%;
+    height: fit-content;
+}
+.tablaAnimal{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+}
+th, td{
+    border: 1px solid #a2a88d;
+    padding: 10px;
+    text-align: left;
+}
+th{
+    background-color: #a2a88d;
+}
