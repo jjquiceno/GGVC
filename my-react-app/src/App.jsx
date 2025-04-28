@@ -8,14 +8,13 @@ function App() {
 
   return (
     <>
-      <h1 class="text-3xl font-bold underline text-green-200">
       <a href="../pruebas.html" className="text-3xl font-bold underline">
         ir a las pruebas
       </a>
       
-      <h1>Esto es ggvc</h1>
+      <h1 className="text-3xl font-bold underline text-green-500">Esto es ggvc</h1>
       <br />
-      <hr />
+      <br />
       <br />
     </>
   )
