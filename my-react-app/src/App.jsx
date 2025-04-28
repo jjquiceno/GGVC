@@ -11,6 +11,10 @@ function App() {
       <a href="../pruebas.html" className="text-3xl font-bold underline">
         ir a las pruebas
       </a>
+      <br />
+      <a href="../login.html" className="text-3xl font-bold underline">
+        ir a formulario
+      </a>
       
       <h1 className="text-3xl font-bold underline text-green-500">Esto es ggvc</h1>
       <br />

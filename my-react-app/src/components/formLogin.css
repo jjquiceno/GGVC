@@ -1,0 +1,56 @@
+:root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fffdef;
+}
+
+.input-icon {
+    height: 35px;
+    width: 400px;
+    position: relative;
+    display: inline-block;
+}
+
+form .input-icon input{
+    height: 35px;
+    width: 100%;
+    background-color: #fffdef;
+    padding: 0px 0px 0px 30px;
+    border: 3px solid #0c2001;
+    border-radius: 10px;
+    color: grey;
+}
+
+.login form button{
+    height: 35px;
+    width: 400px;
+    background-color: #909777;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.login form button a{
+    color: black;
+    text-decoration: none;
+}
+
+.login p{
+    color: black;
+    font-weight: 600;
+}
+
+.login a{
+    color: #6e9347;
+}
+
+i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px; 
+    color: #aaa;
+}

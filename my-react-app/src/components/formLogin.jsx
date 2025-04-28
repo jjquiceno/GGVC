@@ -1,9 +1,10 @@
 import React from 'react'
+import './formLogin.css'
 
 export const FormLogin = () => {
   return (
     <div className="login">
-      <h1>INICIAR SESIÓN</h1>
+      <h1 className='text-black font-bold'>INICIAR SESIÓN</h1>
 
       <br /><br />
 
