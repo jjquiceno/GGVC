@@ -3,13 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import { Pa } from './components/header.jsx'
-
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <a href="../pruebas.html" className="text-3xl font-bold underline">
+        ir a las pruebas
+      </a>
       <h1 class="text-3xl font-bold underline">
         Hello world!
       </h1>
@@ -36,7 +37,6 @@ function App() {
       <br />
       <hr />
       <br />
-      <Pa />
     </>
   )
 }
