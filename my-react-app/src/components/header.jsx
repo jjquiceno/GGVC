@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const Pa = () => {
+export const Header = () => {
   return (
     <>
         <h1 className='text-3xl font-bold underline'>
-            primer componente
+            este es el header
         </h1>
     </>
   )
