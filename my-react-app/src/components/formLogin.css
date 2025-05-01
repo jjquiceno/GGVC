@@ -46,7 +46,7 @@ form .input-icon input{
     color: #6e9347;
 }
 
-i {
+.icon {
     position: absolute;
     left: 10px;
     top: 50%;
