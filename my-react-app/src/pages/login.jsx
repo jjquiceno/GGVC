@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import './components/formLogin.css'
-import { FormLogin } from './components/formLogin.jsx'
+import { FormLogin } from '../components/formLogin.jsx'
 
-function App() {
+function LoginPage() {
   const [count, setCount] = useState(0)
 
   return (
@@ -12,4 +11,4 @@ function App() {
   )
 }
 
-export default App
+export default LoginPage

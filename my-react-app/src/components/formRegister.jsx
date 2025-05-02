@@ -1,38 +1,53 @@
 import React from 'react'
 import './formLogin.css'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 
-export const FormLogin = () => {
+export const FormRegister = () => {
   return (
-    <div className="login">
-      <h1 className='text-black font-bold'>INICIAR SESIÓN</h1>
+    <div className="form">
+                <h1 className='text-black font-bold'>REGISTRARSE</h1>
 
-      <br /><br />
+                <br/><br/>
 
-      <form action="">
-        <div className="input-icon">
-          <input type="text" id="usuario" placeholder="Usuario" required />
-          <FontAwesomeIcon icon={faUser} className="icon" />
-        </div>
+                <form action="">
 
-        <br /><br />
+                    <div className="input-icon">
+                        <input type="text" id="nombre" placeholder="Nombre" required/>
+                        <FontAwesomeIcon icon={faUser} className="icon" />
+                    </div>
+                    
+                    <br/><br/>
 
-        <div className="input-icon">
-          <input type="password" id="password" name="password" placeholder="Contraseña" required />
-          <FontAwesomeIcon icon={faLock} className="icon" />
-        </div>
+                    <div className="input-icon">
+                        <input type="email" id="email" placeholder="Correo electrónico" required/>
+                        <FontAwesomeIcon icon={faEnvelope} className="icon" />
+                    </div>
+                    
+                    <br/><br/>
 
-        <br /><br />
+                    <div className="input-icon">
+                        <input type="text" id="usuario" placeholder="Usuario" required/>
+                        <FontAwesomeIcon icon={faUser} className="icon" />
+                    </div>
+                    
+                    <br/><br/>
 
-        <button type="submit">Ingresar</button>
+                    <div className="input-icon">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required/>
+                        <FontAwesomeIcon icon={faLock} className="icon" />
+                    </div>
 
-        <br /><br />
+                    <br/><br/>
 
-        <p>Olvidé mi <a href="html/#">Contraseña</a></p>
-        <p>Aún no tengo una cuenta <a href="../html/registro.html">Registrarse</a></p>
-      </form>
-    </div>
+                    <button type="submit">Registrarse</button>
+                </form>
+
+                <br/><br/>
+                
+                <p>Ya tengo una cuenta <a href="./inicio.html">Iniciar sesión </a></p>
+            </div>
   )
 }

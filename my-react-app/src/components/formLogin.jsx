@@ -6,7 +6,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 export const FormLogin = () => {
   return (
-    <div className="login">
+    <div className="form">
       <h1 className='text-black font-bold'>INICIAR SESIÓN</h1>
 
       <br /><br />
