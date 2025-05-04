@@ -1,14 +1,17 @@
 import React from 'react'
 import './header.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
+
+import { Menu } from './Menuh.jsx' 
 
 export const Header = () => {
   return (
     <>
-      <div className='bg-[rgb(233,237,201)] contenedor text-black flex justify-between items-center pl-4'>
+      <div className='bg-[rgb(233,237,201)] contenedor text-black flex justify-between items-center'>
         <div className=''>
-          <FontAwesomeIcon icon={faBars} size='2x'/>
+          <Menu/>
         </div>
         <div className=''>
           <h1 className='text-3xl font-bold'>My React App</h1>

@@ -4,6 +4,7 @@ import './pruebas.css'
 
 import { Header } from '../components/header.jsx'
 import { FormLogin } from '../components/formLogin.jsx'
+import { Menu } from '../components/Menuh.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,6 +13,7 @@ function App() {
     <>
     
       <Header/>
+      {/* <Menu/> */}
       
     </>
   )
