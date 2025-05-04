@@ -16,7 +16,6 @@
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
 }
 .menu-float {
-    border: solid red;
     position: absolute;
     width: 20vw;
     height: 100vh;
@@ -31,6 +30,7 @@
 }
 .menu-float.active {
     left: 0;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.342);
 }
 .menu-float-items{
     width: 90%;
@@ -61,5 +61,16 @@
 }
 .opciones nav ul li a{
     color: black;
+    font-size: 1.3rem;
+    transition: .2s ease;
+}
+.opciones nav ul li a:hover{
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+    transition: .2s ease;
+}
+.opciones1 ul, .opciones2 ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 

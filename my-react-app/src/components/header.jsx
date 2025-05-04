@@ -9,7 +9,7 @@ import { Menu } from './Menuh.jsx'
 export const Header = () => {
   return (
     <>
-      <div className='bg-[rgb(233,237,201)] contenedor text-black flex justify-between items-center'>
+      <div className='contenedor text-black flex justify-between items-center'>
         <div className=''>
           <Menu/>
         </div>
