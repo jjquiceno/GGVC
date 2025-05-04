@@ -73,4 +73,20 @@
     flex-direction: column;
     gap: 10px;
 }
-
+.menu-float-left{
+    position: absolute;
+    width: 20vw;
+    height: 100vh;
+    border-radius: 40px 0 0 40px;
+    right: -20vw;
+    transition: 0.2s ease;
+    background: #ccd5ae;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-float-left.active {
+    right: 0;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.342);
+}
