@@ -1,0 +1,30 @@
+#root{
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.img{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(166, 171, 144);
+    background: linear-gradient(90deg, rgba(166, 171, 144, 1) 0%, rgba(233, 237, 201, 1) 100%);
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+.logo{
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+.login{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

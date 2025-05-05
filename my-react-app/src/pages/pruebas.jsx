@@ -30,7 +30,6 @@ function App() {
       {/* <Header text="hola isa"/> */}
       <HeaderLeft text="hola mundo"/>
       {/* <Menu/> */}
-      
     </>
   )
 }
