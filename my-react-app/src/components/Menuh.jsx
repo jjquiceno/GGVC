@@ -63,7 +63,6 @@ export const MenuLeft = () => {
             <div className="cerrar" onClick={toggleMenu}>
                 <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
-            <div className="separador-menu"></div>
             <div className='opciones'>
                 <nav className='opciones1'>
                     <ul>
