@@ -18,7 +18,7 @@ function App() {
   return (
     <>
 
-      <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="vacunas"/>
+      {/* <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="vacunas"/>
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="Ganado"/>
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="1"/>
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="2"/>
@@ -26,9 +26,9 @@ function App() {
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="4"/>
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="5"/>
       <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="6"/>
-      
+       */}
       {/* <Header text="hola isa"/> */}
-      {/* <HeaderLeft text="hola mundo"/> */}
+      <HeaderLeft text="hola mundo"/>
       {/* <Menu/> */}
       
     </>
