@@ -4,8 +4,11 @@
 .contenedor{
     width: 100vw;
     height: 30vh;
-    background: linear-gradient(180deg, #a6ab98, #e9edc9);
-
+    background: linear-gradient(180deg, #565a49, #e9edc9);
+    position: fixed; /* antes estaba en relative */
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 .img-container{
     height: 100%;

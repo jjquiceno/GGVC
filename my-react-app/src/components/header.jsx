@@ -14,7 +14,7 @@ export const Header = ({ text }) => {
           <Menu/>
         </div>
         <div className=''>
-          <h1 className='text-3xl font-bold'>{text}</h1>
+          <h1 className='text-3xl font-bold'>Bienvenido {text}</h1>
         </div>
         <div className='img-container'>
           <div className='imagen'>

@@ -12,7 +12,7 @@ export const Menu = () => {
   };
 
   return (
-    <div className="menu">
+    <>
       <div className="menuitem" onClick={toggleMenu}>
         <FontAwesomeIcon icon={faBars} size="2x" />
       </div>
@@ -43,9 +43,11 @@ export const Menu = () => {
         </div>
         
       </div>
-    </div>
+    </>
+
   );
 };
+
 export const MenuLeft = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
