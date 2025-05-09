@@ -3,8 +3,12 @@ import './formLogin.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom" 
 
 export const FormLogin = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className="form">
       <h1 className='text-black font-bold'>INICIAR SESIÓN</h1>
@@ -26,7 +30,7 @@ export const FormLogin = () => {
 
         <br /><br />
 
-        <button type="submit">Ingresar</button>
+        <button type="submit" onClick={() => navigate("/welcome")}>Ingresar</button>
 
         <br /><br />
 

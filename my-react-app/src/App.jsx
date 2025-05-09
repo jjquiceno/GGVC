@@ -1,35 +1,18 @@
-import { useState } from 'react'
-import './App.css'
-import './index.css'
+import { Routes, Route } from "react-router-dom"
+import WelcomePage from "./pages/welcome"
+import LoginPage from "./pages/login"
+import RegisterPage from "./pages/register"
+import PruebasApp from "./pages/pruebas"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <a href="./pruebas.html" className="text-3xl font-bold underline">
-        ir a las pruebas
-      </a>
-      <br />
-      <a href="../login.html" className="text-3xl font-bold underline">
-        ir a login
-      </a>
-      <br />
-      <a href="../register.html" className="text-3xl font-bold underline">
-        ir a register
-      </a>
-      <br />
-      <a href="../welcome.html" className="text-3xl font-bold underline">
-        ir a Botones de areas
-      </a>
-      
-      <h1 className="text-3xl font-bold underline text-green-500">Esto es ggvc</h1>
-      <br />
-      <br />
-      <br />
-    </>
+    <Routes>
+      <Route path="/" element={<LoginPage/>} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/welcome" element={<WelcomePage />} />
+      <Route path="/pruebas" element={<PruebasApp/>}/>
+    </Routes>
   )
-    
 }
 
 export default App

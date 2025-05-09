@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TablaSencilla } from '../components/Tablas.jsx' 
 import { TablaAnimal } from '../components/Tablas.jsx'
 
-function App() {
+function PruebasApp() {
   const [count, setCount] = useState(0)
 
   return (
@@ -59,4 +59,4 @@ function App() {
   )
 }
 
-export default App
+export default PruebasApp

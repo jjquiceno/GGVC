@@ -3,9 +3,14 @@
     height: 100vh;
     box-sizing: border-box;
     display: flex;
+    margin: 0;
 }
 
 .img{
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
     height: 100%;
     width: 50%;
     display: flex;
@@ -13,8 +18,7 @@
     justify-content: center;
     background: rgb(166, 171, 144);
     background: linear-gradient(90deg, rgba(166, 171, 144, 1) 0%, rgba(233, 237, 201, 1) 100%);
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
+    border-radius: 0 20px 20px 0;
 }
 
 .logo{

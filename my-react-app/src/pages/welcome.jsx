@@ -13,7 +13,7 @@ function WelcomePage() {
 
   return (
     <>
-      <Header text="Leonardo"/>
+      <Header text="Quice"/>
 
       <div className="content">
         <div className="options">
