@@ -30,12 +30,12 @@ export const FormLogin = () => {
 
         <br /><br />
 
-        <button type="submit" onClick={() => navigate("/welcome")}>Ingresar</button>
+        <button type="submit"><a href="/welcome">Ingresar</a></button>
 
         <br /><br />
 
         <p>Olvidé mi <a href="html/#">Contraseña</a></p>
-        <p>Aún no tengo una cuenta <a href="../html/registro.html">Registrarse</a></p>
+        <p>Aún no tengo una cuenta <a href="/register">Registrarse</a></p>
       </form>
     </div>
   )

@@ -8,12 +8,15 @@ function LoginPage() {
 
   return (
     <>
+    <div className="login-page">
       <div className="img">
         <img src="/img/logoGGVC.png" alt="" className='logo' />
       </div>
       <div className="login">
         <FormLogin/>
       </div>
+    </div>
+      
       
     </>
   )
