@@ -4,6 +4,7 @@ import { faBars, faXmark, faHouse, faCow, faSeedling, faXmarksLines, faDollarSig
 import {  } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 export const Menu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -24,12 +25,12 @@ export const Menu = () => {
             <div className='opciones'>
                 <nav className='opciones1'>
                     <ul>
-                        <li><a href=""><FontAwesomeIcon icon={faHouse}/> Inicio</a></li>
+                        <li><a href="/welcome"><FontAwesomeIcon icon={faHouse}/> Inicio</a></li>
                         <li><a href=""><FontAwesomeIcon icon={faCow}/> Ganado</a></li>
                         <li><a href=""><FontAwesomeIcon icon={faSeedling}/> Cultivos</a></li>
                         <li><a href=""><FontAwesomeIcon icon={faXmarksLines}/> Potreros</a></li>
                         <li><a href=""><FontAwesomeIcon icon={faDollarSign}/> Nómina</a></li>
-                        <li><a href=""><FontAwesomeIcon icon={faBookOpen}/> Manuales</a></li>
+                        <li><a href="/pruebas"><FontAwesomeIcon icon={faBookOpen}/> Manuales</a></li>
                     </ul>
                 </nav>
                 <nav className='opciones2'>
