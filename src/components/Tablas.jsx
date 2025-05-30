@@ -294,7 +294,7 @@ export const TablaAbortos = ({ taTittle, nombreA }) => {
         </div>
     )
 }
-export const TablaSal = ({ taTittle, salper, pesok }) => {
+export const TablaSal = ({ salIdAnimal, salper, pesok, salNomAnimal }) => {
     const [desplegado, setDesplegado] = useState(false);
     
     const toggleDesplegado = () => {
@@ -302,11 +302,17 @@ export const TablaSal = ({ taTittle, salper, pesok }) => {
     };
 
     return (
-        <div className="container">
+        <div className="container ">
             <div className="tabla-sal-container">
                 <div className={`sal-tittle ${desplegado ? 'active' : ''}`} onClick={toggleDesplegado}>
-                    <p>{taTittle}</p>
-                    <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown}/>
+                    <div>
+                        <FontAwesomeIcon icon={faCow}/>
+                        <p>ID: <span>{salIdAnimal}</span></p>
+                    </div>
+                    <div>
+                        <p>{salNomAnimal}</p>
+                        <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown}/>
+                    </div>
                 </div>
                 <div className={`salContainer ${desplegado ? 'active' : ''}`}>
                     <div>

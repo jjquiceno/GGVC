@@ -21,7 +21,26 @@ function PorcentajeSal() {
                 
                 <div className='sal-container'>
                     <TablaSal
-                        taTittle="hola"
+                        salIdAnimal="0021"
+                        salNomAnimal="Lola"
+                        pesok="250"
+                        salper="6"
+                    />
+                    <TablaSal
+                        salIdAnimal="0021"
+                        salNomAnimal="Lola"
+                        pesok="250"
+                        salper="6"
+                    />
+                    <TablaSal
+                        salIdAnimal="0021"
+                        salNomAnimal="Lola"
+                        pesok="250"
+                        salper="6"
+                    />
+                    <TablaSal
+                        salIdAnimal="0021"
+                        salNomAnimal="Lola"
                         pesok="250"
                         salper="6"
                     />

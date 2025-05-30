@@ -12,6 +12,11 @@
     height: 70vh;
     position: relative;
     z-index: 2;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: start;
 }
 .sal-container *{
     position: relative;
@@ -28,5 +33,4 @@
     background-repeat: no-repeat;
     background-position: center;
     opacity: .4;
-    z-index: ;
 }

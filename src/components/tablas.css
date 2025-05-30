@@ -212,8 +212,8 @@
 
 /* tabla abortos */
 .container{
-    /* border: solid black; */
-    height: 60vh;
+    border: solid black;
+    height: fit-content;
     width: fit-content;
     padding: 10px;
 }
@@ -293,17 +293,21 @@
 }
 
 /* tabla sal */
+.sal-container{
+    /* height: 30vh; */
+}
 .tabla-sal-container{
     background-color: #2b3701;
+    margin: 0;
 }
 .salContainer{
     height: 0;
     transition: .3s ease;
-    /* overflow-y: scroll;  */
+    overflow: hidden; 
     display: flex;
-    padding: 2px 0;
     gap: 3px;
     justify-content: space-between;
+    
 }
 .salContainer > div{
     width: 50%;
@@ -313,6 +317,7 @@
 }
 .salContainer.active{
     height: 12vw;
+    padding: 2px 0;
 }
 .saltt-int{
     background-color: #909777;
@@ -326,6 +331,13 @@
     align-items: center;  
     font-size: 1.5rem;
     font-weight: 700;
+}
+.sal-tittle > div{
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 .salinfo-int{
     color: black;
