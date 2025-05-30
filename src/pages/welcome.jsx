@@ -8,7 +8,6 @@ import { Menu } from '../components/Menuh.jsx'
 
 function WelcomePage() {
 
-
   const [count, setCount] = useState(0)
 
   return (

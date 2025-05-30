@@ -6,6 +6,7 @@ import PruebasApp from "./pages/pruebas.jsx"
 import AjustesPage from "./pages/ajustes.jsx"
 import GanadoPage from "./pages/ganado.jsx"
 import GanadoListPage from "./pages/ganadoList.jsx"
+import PorcentajeSal from "./pages/porcentajeSal.jsx"
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
       <Route path="/ajustes" element={<AjustesPage/>}/>
       <Route path="/ganado" element={<GanadoPage/>}/>
       <Route path="/ganadoList" element={<GanadoListPage/>}/>
+      <Route path="/porcentajeSal" element={<PorcentajeSal/>}/>
+
       {/* <Route path="/medica" element={<MedicaPage/>}/> */}
     </Routes>
   )

@@ -39,7 +39,7 @@
     position: absolute;
     left: 5%;
     top: 5%;
-    transform: translate(-50%, 250%);
+    transform: translate(-50%, 200%);
     z-index: 200000;
 }
 .tabla-container{

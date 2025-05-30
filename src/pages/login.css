@@ -26,6 +26,7 @@ html, body{
     background: rgb(166, 171, 144);
     background: linear-gradient(90deg, rgba(166, 171, 144, 1) 0%, rgba(233, 237, 201, 1) 100%);
     border-radius: 0 20px 20px 0;
+    /* border: solid black; */
 }
 
 .logo{
