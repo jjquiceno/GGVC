@@ -1,18 +1,17 @@
-.ajustes-page{
-    height: 100vh;
+.inventarioPage{
     width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: end;
 }
 .content{
+    border: solid red;
     width: 100%;
-    height: 79vh;
+    height: 70vh;
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    justify-content: space-around;
     padding: 20px;
 }
 .content::-webkit-scrollbar{
@@ -26,11 +25,4 @@
 .content::-webkit-scrollbar-thumb:hover{
     cursor: pointer;
     background-color: #2b37018c;
-}
-.image-container{
-    border: solid #2b3701;
-    height: 70%;
-    width: 20%;
-    border-radius: 15px;
-    background-color: #e9edc9;
 }

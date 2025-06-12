@@ -29,7 +29,7 @@ export const Menu = () => {
                         <li><a href="/ganado" ><FontAwesomeIcon icon={faCow}/> Ganado</a></li>
                         <li><a href="/cultivos"><FontAwesomeIcon icon={faSeedling}/> Cultivos</a></li>
                         <li><a href=""><FontAwesomeIcon icon={faXmarksLines}/> Potreros</a></li>
-                        <li><a href="/imagenes"><FontAwesomeIcon icon={faDollarSign}/> Nómina</a></li>
+                        <li><a href="/inventario"><FontAwesomeIcon icon={faDollarSign}/> Inventario</a></li>
                         <li><a href="/pruebas"><FontAwesomeIcon icon={faBookOpen}/> Manuales</a></li>
                     </ul>
                 </nav>

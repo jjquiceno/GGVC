@@ -8,6 +8,7 @@ import GanadoPage from "./pages/ganado.jsx"
 import GanadoListPage from "./pages/ganadoList.jsx"
 import PorcentajeSal from "./pages/porcentajeSal.jsx"
 import ImagenesPage from "./pages/viewImagenes.jsx"
+import InventarioPage from "./pages/inventarioPage.jsx"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/ganadoList" element={<GanadoListPage/>}/>
       <Route path="/porcentajeSal" element={<PorcentajeSal/>}/>
       <Route path="/imagenes" element={<ImagenesPage/>}/>
+      <Route path="/inventario" element={<InventarioPage/>}/>
       {/* <Route path="/medica" element={<MedicaPage/>}/> */}
     </Routes>
   )

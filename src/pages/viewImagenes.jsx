@@ -1,15 +1,10 @@
 import { useState } from 'react'
-import { Avatar } from '../components/avatar.jsx'
 import { HeaderSoloText } from '../components/header.jsx'
-import { InputInfo } from '../components/inputs.jsx'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faCow } from '@fortawesome/free-solid-svg-icons';
-import { ItemsTypes, ImagesItem } from '../components/Items.jsx'
+import { ImagesItem } from '../components/Items.jsx'
 
 import './viewImagenes.css'
 import { Anterior } from '../components/Menuh.jsx'
-
 
 function ImagenesPage() {
     const [count, setCount] = useState(0);

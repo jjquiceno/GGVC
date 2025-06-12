@@ -1,5 +1,7 @@
 import React from 'react'
 import './items.css'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Items = ({ icono, text, ruta}) => {
 
@@ -93,6 +95,21 @@ export const ImagesItem = ({ srcImg, nombre, edad}) => {
             <div className='imagecText'>
                 <p><span>{nombre}</span></p>
                 <p><span>{edad}</span></p>
+            </div>
+        </div>
+    )
+}
+
+export const InventarioItem = ({ srcImg, nombre, cantidad, descarga }) => {
+    return (
+        <div className="inventarioiC">
+            <div className='inventarioiImg'>
+                <img className='inventarioImgInt' src={srcImg} alt={nombre} loading='lazy'/>
+            </div>
+            <div className='inventarioiText'>
+                <p className='inventarioNombre'><span>{nombre}</span></p>
+                <p className='campos'>Cantidad: <span>{cantidad}</span></p>
+                <a className='campos flex gap-3 cursor-pointer transition ease-in-out duration-300' href={descarga} >Manual <FontAwesomeIcon className='descargai' icon={faDownload} size="2x" /></a>
             </div>
         </div>
     )
