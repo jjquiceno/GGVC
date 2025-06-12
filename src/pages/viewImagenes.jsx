@@ -13,26 +13,26 @@ import { Anterior } from '../components/Menuh.jsx'
 
 function ImagenesPage() {
     const [count, setCount] = useState(0);
-
-    const imagenes = [
-        '/img/fondoCultivos.jpg',
-        '/img/Ganado-bovino.jpeg',
-        '/img/dosVacas.png',
-        '/img/cow.jpg',
-        '/img/mitadDeCaraVaca.jpg',
-        '/img/muuu.jpg',
-        '/img/saturnoSaturnita.jpg',
-        '/img/tresVacas.jpg',
-        '/img/vacaMirandoCamara.jpg'
-    ]
+    
+    const imagenes2 = [
+        {src: '/img/fondoCultivos.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/Ganado-bovino.jpeg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/dosVacas.png', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/cow.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/mitadDeCaraVaca.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/muuu.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/tresVacas.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/saturnoSaturnita.jpg', nombre: 'lola', edad: '2a 1m'},
+        {src: '/img/vacaMirandoCamara.jpg', nombre: 'lola', edad: '2a 1m'},
+    ];
 
     return (
         <>
             <div className="ajustes-page">
                 <HeaderSoloText nav={<Anterior />} text="Imagenes" img={"/img/dosVacas.png"} />
                 <div className="content">
-                    {imagenes.map((srcImg, index) => (
-                        <ImagesItem key={index} srcImg={srcImg}/>
+                    {imagenes2.map((imagen, index) => (
+                        <ImagesItem key={index} srcImg={imagen.src} nombre={imagen.nombre} edad={imagen.edad}/>
                     ))}
                 </div>
 

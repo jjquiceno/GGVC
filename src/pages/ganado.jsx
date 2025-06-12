@@ -49,7 +49,7 @@ function GanadoPage() {
                             <Items icono={<FontAwesomeIcon icon={faChartLine} />} text="Rendimiento" /> 
                             <Items icono={<FontAwesomeIcon icon={faScaleBalanced} />} text="Pesaje" /> 
                             <Items icono={<FontAwesomeIcon icon={faLayerGroup} />} text="Clasificación" /> 
-                            <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" /> 
+                            <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"}/> 
                             <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" /> 
                             <Items icono={<FontAwesomeIcon icon={faPills} />} text="Suplementos" ruta={"/porcentajeSal"}/> 
                         </div> 
