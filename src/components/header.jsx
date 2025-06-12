@@ -100,3 +100,18 @@ export const HeaderInvert = ({ text, img }) => {
     </>
   )
 }
+
+export const HeaderSoloText = ({nav, text, img}) => {
+  return (
+    <>
+      <div className='contenedor contenedorST text-black'>
+        <div className=''>
+          {nav}
+        </div>
+        <div className=''>
+          <h1 className='text-3xl font-bold'>{text}</h1>
+        </div>
+      </div> 
+    </>
+  )
+}

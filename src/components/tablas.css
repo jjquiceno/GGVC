@@ -212,7 +212,6 @@
 
 /* tabla abortos */
 .container{
-    border: solid black;
     height: fit-content;
     width: fit-content;
     padding: 10px;
@@ -293,9 +292,6 @@
 }
 
 /* tabla sal */
-.sal-container{
-    /* height: 30vh; */
-}
 .tabla-sal-container{
     background-color: #2b3701;
     margin: 0;

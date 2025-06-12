@@ -11,3 +11,14 @@
     <script type="module" src="/src/pages/cultivosMain.jsx"></script>
   </body>
 </html>
+<script>
+  addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.texture-int').forEach((togle) => {
+      togle.addEventListener("click", () => {
+        const modelUrl = togle.getAttribute('data-model')
+        document.getElementById('model-viewer').src = modelUrl;
+      })
+      
+    })
+  })
+</script>

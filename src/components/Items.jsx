@@ -83,3 +83,17 @@ export const ProblemasPo = ({ plagascant, enfermedadescant, climacant }) => {
         </div>
     )
 }
+
+export const ImagesItem = ({ srcImg, nombre, edad}) => {
+    return(
+        <div className="imageContainer">
+            <div className='imagecInt'>
+                <img className='imagenG' src={srcImg} alt={nombre} loading='lazy'/>
+            </div>
+            <div className='imagecText'>
+                <p><span>{nombre}</span></p>
+                <p><span>{edad}</span></p>
+            </div>
+        </div>
+    )
+}

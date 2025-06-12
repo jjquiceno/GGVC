@@ -166,3 +166,42 @@
 .problemaspo-container > :nth-child(3) > :nth-child(1){
     width: 80%;
 }
+
+/* items de la galeria */
+.imageContainer{
+    border: solid #2b3701;
+    width: 15vw;
+    height: 24vw;
+    border-radius: 10px;
+    background-color: #e9edc9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.7);
+}
+.imagecInt{
+    width: 95%;
+    height: 70%;
+    border-radius: 10px;
+}
+.imagenG{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.349);
+}
+.imagecText{
+    height: 30%;
+    width: 95%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
