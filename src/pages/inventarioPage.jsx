@@ -12,14 +12,26 @@ import { InventarioItem } from '../components/Items.jsx';
 function InventarioPage() {
     const [count, setCount] = useState(0)
 
+    const inventario = [
+        {src: '/img/fondoCultivos.jpg', nombre: 'palas', cantidad: 10},
+        {src: '/img/fondoCultivos.jpg', nombre: 'picos', cantidad: 5},
+        {src: '/img/fondoCultivos.jpg', nombre: 'azadas', cantidad: 8},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+        {src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3},
+    ];
+
     return (
         <>
             <div className="inventarioPage">
                 <Header nav={<Anterior/>} text="Inventario" img={"/img/dosVacas.png"} />
                 <div className="content">
-                    <InventarioItem srcImg={'/img/fondoCultivos.jpg'} nombre={"palas"} cantidad={10} />
-                    <InventarioItem srcImg={'/img/fondoCultivos.jpg'} nombre={"palas"} cantidad={10} />
-                    <InventarioItem srcImg={'/img/fondoCultivos.jpg'} nombre={"palas"} cantidad={10} />
+                    {inventario.map((itemI, index) => (
+                        <InventarioItem key={index} srcImg={itemI.src} nombre={itemI.nombre} cantidad={itemI.cantidad} />
+                    ))}
                 </div>
             </div>
         </>
