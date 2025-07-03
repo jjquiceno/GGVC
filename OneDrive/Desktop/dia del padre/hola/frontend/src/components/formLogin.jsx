@@ -27,9 +27,9 @@ export const FormLogin = () => {
 
       if (response.ok) {
         console.log('Login exitoso:', data);
-        // Guarda el usuario en localStorage si quieres mantener sesión
-        // localStorage.setItem('usuario', JSON.stringify(data));
-        alert('Bienvenido ' + data.usuario);
+        sessionStorage.setItem('token', data.token); //Token en sessionStorage
+        console.log('Token guardado:', sessionStorage.getItem('token'));
+        alert('Bienvenido ' + data.user.usuario);
         navigate('/welcome');
       } else {
         alert(data.message || 'Error al iniciar sesión');
@@ -68,7 +68,7 @@ export const FormLogin = () => {
 
         <br /><br />
 
-        <p>Olvidé mi <Link to="/login">Contraseña</Link></p>
+        <p>Olvidé mi <Link to="/">Contraseña</Link></p>
         <p>Aún no tengo una cuenta <Link to="/register">Registrarse</Link></p>
       </form>
     </div>

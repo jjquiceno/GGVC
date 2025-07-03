@@ -18,7 +18,7 @@ export const FormRegister = () => {
         event.preventDefault();
 
         const formData = {
-            id: idPersona,
+            dni: idPersona,
             nombre_empleado: nombre,
             email_empleado: email,
             telefono_empleado: telefono,

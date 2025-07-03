@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/header.jsx'
 import { ButtonAreas } from '../components/buttonAreas.jsx'
 import { Weather } from '../components/weather.jsx'
@@ -7,6 +8,14 @@ import { Menu } from '../components/Menuh.jsx'
 function WelcomePage() {
 
   const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      navigate('/'); // redirige si no hay token
+    }
+  }, [navigate]);
 
   return (
     <>
