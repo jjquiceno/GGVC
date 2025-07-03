@@ -1,0 +1,101 @@
+.menuitem {
+    width: fit-content;
+    cursor: pointer;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.menuitem *{
+    transition: .3s ease;
+}
+.menuitem:hover *{
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+}
+.menu-float {
+    position: fixed;
+    top: 0;
+    width: 20vw;
+    height: 100vh;
+    border-radius: 0 40px 40px 0;
+    left: -20vw;
+    transition: 0.2s ease;
+    background: #ccd5ae;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-float.active {
+    left: 0;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.342);
+}
+.menu-float-items{
+    width: 90%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.separador-menu{
+    border: 1px solid rgba(0, 0, 0, 0.726);
+}
+.cerrar{
+    width: fit-content;
+    cursor: pointer;
+}
+.cerrar *{
+    transition: .2s ease;
+}
+.cerrar:hover *{
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+}
+.opciones{
+    height: 90%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.opciones nav ul li a{
+    color: black;
+    font-size: 1.3rem;
+    transition: .2s ease;
+}
+.opciones nav ul li a:hover{
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+    transition: .2s ease;
+}
+.opciones1 ul, .opciones2 ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.menu-float-left{
+    position: absolute;
+    width: 20vw;
+    height: 100vh;
+    border-radius: 40px 0 0 40px;
+    right: -20vw;
+    transition: 0.2s ease;
+    background: #ccd5ae;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-float-left.active {
+    right: 0;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.342);
+}
+
+@media screen and (max-width: 768px){
+    .menu-float{
+        width: 50vw;
+        left: -50vw;
+    }
+    .menuOpen{
+        left: 0;
+    }
+}

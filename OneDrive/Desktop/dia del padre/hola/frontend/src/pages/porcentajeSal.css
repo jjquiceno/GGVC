@@ -1,0 +1,36 @@
+.sal-page{
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0;
+    align-items: end;
+}
+.sal-container{
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    z-index: 2;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: start;
+    
+}
+.sal-container *{
+    position: relative;
+    z-index: 2;
+}
+.sal-container::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/img/logoGGVC.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: .4;
+}

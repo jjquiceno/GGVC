@@ -1,0 +1,70 @@
+.ganado-page{
+    height: auto; /* Ajustamos la altura para que se expanda según el contenido */
+    width: 100vw;
+    background-color: #fffdef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden; /* Para evitar barras de desplazamiento horizontales innecesarias */
+}
+
+.continer{
+    display: flex; /* Cambiamos a flex para controlar mejor el flujo vertical */
+    flex-direction: column;
+    width: 90vw; /* Ajustamos el ancho para que coincida con los otros elementos */
+    margin-top: 30vh;
+    justify-content: center;
+}
+
+.items{
+    width: 90vw;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(10, 1fr);
+    align-items: center;
+    justify-items: center;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.items-types{
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adaptativo */
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 2rem;
+    margin-top: 1rem; /* Espacio encima de los tipos de ganado */
+}
+
+.arrow{
+    margin-left: -5vw;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.segunda-fila-container {
+    width: 100%;
+    overflow: hidden; /* Importante para el efecto acordeón */
+    max-height: 0; /* Inicialmente oculto */
+    transition: max-height 0.3s ease-in-out; /* Transición suave para la altura */
+}
+
+.segunda-fila-container.active {
+    max-height: 25vh; /* Ajusta esta altura según el contenido de tu segunda fila */
+}
+
+.segunda-fila {
+    display: grid;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    color: black;
+    font-size: 1.5rem;
+    width: 90vw;
+    height: 100%;
+    grid-template-columns: repeat(10, 1fr);
+    
+}
