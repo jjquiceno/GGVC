@@ -35,8 +35,8 @@ export const HeaderLeft = ({ text, img }) => {
 
   return (
     <>
-      <div className='contenedor text-black flex justify-between items-center'>
-        <div className='img-container-left'>
+      <div className='rounded-bl-[40px] rounded-br-[40px] h-[20vh] w-[100%] bg-gradient-to-b from-[#565a49] to-[#e9edc9] md:h-[30vh] text-black flex md:justify-between items-center'>
+        <div className="h-full md:w-[55%] rounded-r-[30px] shadow-[ -10px_0px_10px_-2px_rgba(0,0,0,0.164)] md:bg-[url('/img/header.jpg')] bg-cover bg-center">
           <div className='imagen p-4 pt-7'>
             <Menu/>
           </div>
