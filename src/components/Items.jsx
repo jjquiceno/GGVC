@@ -10,14 +10,14 @@ export const Items = ({ icono, text, ruta}) => {
       };
 
     return (
-        <div className='item' >
-            <div className='icono-box' onClick={handleClick}>
-                <div className='icono'>
+        <div className='md:w-[6vw] md:h-[10vw] flex flex-col items-center group' >
+            <div className="group-hover:shadow-[0_0_2px_0_rgba(0,0,0,0.75)] w-[20vw] h-[20vw] md:w-[5vw] md:h-[5vw] flex justify-center items-center bg-[#2b3701] rounded-[10px] shadow-[0_0_10px_0_rgba(0,0,0,0.75)] transition-all duration-300 ease-in-out cursor-pointer" onClick={handleClick}>
+                <div className="w-[19vw] h-[19vw] md:w-[4.5vw] md:h-[4.5vw] text-black bg-[#e9edc9] rounded-[10px] flex justify-center items-center text-[1.5rem]">
                     <span>{icono}</span>
                 </div>
             </div>
             <div className='item-texts'>
-                <span className='text'>{text}</span>
+                <span className="text-black text-[0.9rem]">{text}</span>
             </div>
         </div>
     )
