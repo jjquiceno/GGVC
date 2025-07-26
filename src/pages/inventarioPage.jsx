@@ -28,7 +28,7 @@ function InventarioPage() {
         <>
             <div className="w-screen h-screen flex items-end">
                 <Header nav={<Anterior/>} text="Inventario" img={"/img/dosVacas.png"} />
-                <div className="w-full h-[70vh] overflow-y-scroll flex flex-wrap justify-around p-5 gap-5 scrollbar-thin scrollbar-thumb-[#2b3701] scrollbar-thumb-rounded-lg">
+                <div className="w-full h-[80vh] md:h-[70vh] overflow-y-scroll flex flex-wrap justify-around p-5 gap-5 scrollbar-thin scrollbar-thumb-[#2b3701] scrollbar-thumb-rounded-lg">
                     {inventario.map((itemI, index) => (
                         <InventarioItem key={index} srcImg={itemI.src} nombre={itemI.nombre} cantidad={itemI.cantidad} />
                     ))}

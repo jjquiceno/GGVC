@@ -102,14 +102,14 @@ export const ImagesItem = ({ srcImg, nombre, edad}) => {
 
 export const InventarioItem = ({ srcImg, nombre, cantidad, descarga }) => {
     return (
-        <div className="inventarioiC">
-            <div className='inventarioiImg'>
-                <img className='inventarioImgInt' src={srcImg} alt={nombre} loading='lazy'/>
+        <div className="w-[90] h-[40vw] md:w-[28vw] md:h-[15vw] border-2 border-[#2b3701] rounded-[10px] bg-[#e9edc9] flex justify-between items-center px-[5px]">
+            <div className='w-[60%] h-[95%] rounded-[10px]'>
+                <img className='w-full h-full object-cover rounded-[10px] shadow-[1px_1px_10px_1px_rgba(0,0,0,0.342)]' src={srcImg} alt={nombre} loading='lazy'/>
             </div>
-            <div className='inventarioiText'>
-                <p className='inventarioNombre'><span>{nombre}</span></p>
-                <p className='campos'>Cantidad: <span>{cantidad}</span></p>
-                <a className='campos flex gap-3 cursor-pointer transition ease-in-out duration-300' href={descarga} >Manual <FontAwesomeIcon className='descargai' icon={faDownload} size="2x" /></a>
+            <div className='w-[39%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px]'>
+                <p className='text-black text-[1.5rem] font-semibold mb-[10px]'><span>{nombre}</span></p>
+                <p className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-[80%] h-[20%] text-black flex items-center px-[5px] cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]'>Cantidad: <span>{cantidad}</span></p>
+                <a className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-[80%] h-[20%] text-black flex items-center px-[5px] gap-3 cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]' href={descarga} >Manual <FontAwesomeIcon className='text-[1.5rem]' icon={faDownload} /></a>
             </div>
         </div>
     )
