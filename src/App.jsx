@@ -10,6 +10,13 @@ import InventarioPage from './pages/inventarioPage.jsx';
 import GanadoPage from './pages/ganado.jsx';
 import RegisterPage from './pages/register.jsx';
 import GanadoListPage from './pages/ganadoList.jsx';
+import CiclosPage from './pages/ciclosPage.jsx';
+import MedicaPage from './pages/medica.jsx';
+import InfoCiclosVacunacion from './pages/infoCiclosVacunacion.jsx';
+import Graficos from './pages/graficos.jsx';
+import Palpaciones from './pages/palpaciones.jsx';
+import HistorialesPage from './pages/historiales.jsx';
+import Imagenes from './pages/viewImagenes.jsx';
 
 function App() {
   return (
@@ -23,6 +30,9 @@ function App() {
         <Link to="/inventario">Inventario</Link>
         <Link to="/ganado">Ganado</Link>
         <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/ganadoList">Ganado List</Link>
+        <Link to="/ciclosPage">Ciclos Page</Link>
       </nav>   */}
 
       <hr />
@@ -37,6 +47,13 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/ganadoList" element={<GanadoListPage/>}/>
+        <Route path="/ciclosPage" element={<CiclosPage/>}/>
+        <Route path="/medica" element={<MedicaPage/>}/>
+        <Route path="/infoCiclosVacunacion" element={<InfoCiclosVacunacion/>}/>
+        <Route path="/graficos" element={<Graficos/>}/>
+        <Route path="/palpaciones" element={<Palpaciones/>}/>
+        <Route path="/historiales" element={<HistorialesPage/>}/>
+        <Route path="/imagenes" element={<Imagenes/>}/>
       </Routes>
     </div>
   );
