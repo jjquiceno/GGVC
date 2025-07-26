@@ -33,7 +33,6 @@ form .input-icon input, select{
 
 .boton-login{
     height: 35px;
-    /* width: 38vw; */
     background-color: #909777;
     border-radius: 10px;
     font-weight: 500;
@@ -41,7 +40,6 @@ form .input-icon input, select{
 
 .boton-register{
     height: 35px;
-    width: 35vw;
     background-color: #909777;
     border-radius: 10px;
     font-weight: 500;

@@ -55,15 +55,14 @@ export const FormRegister = () => {
 
     return (
         // para el commit 
-        <div className="form">
+        <div className="form text-center">
             <h1 className='text-black font-bold'>REGISTRARSE</h1>
 
             <br /><br />
 
-            <form onSubmit={handleSubmit}>
-
-                <div className="input-icon">
-                    <input type="text" id="nombre" placeholder="Nombre" required value={nombre}
+            <form onSubmit={handleSubmit} className='w-[60vw] lg:w-[40vw] text-center'>
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="text" id="nombre" placeholder="Nombre" required value={nombre}
                         onChange={(e) => setNombre(e.target.value)} />
 
                     <FontAwesomeIcon icon={faUser} className="icon" />
@@ -71,8 +70,8 @@ export const FormRegister = () => {
 
                 <br /><br />
 
-                <div className="input-icon">
-                    <input type="text" id="idPersona" placeholder="Número de documento" required value={idPersona}
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="text" id="idPersona" placeholder="Número de documento" required value={idPersona}
                         onChange={(e) => setIdPersona(e.target.value)} />
 
                     <FontAwesomeIcon icon={faIdCard} className="icon" />
@@ -80,25 +79,25 @@ export const FormRegister = () => {
 
                 <br /><br />
 
-                <div className="input-icon">
-                    <input type="email" id="email" placeholder="Correo electrónico" required value={email}
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="email" id="email" placeholder="Correo electrónico" required value={email}
                         onChange={(e) => setEmail(e.target.value)} />
                     <FontAwesomeIcon icon={faEnvelope} className="icon" />
                 </div>
 
                 <br /><br />
 
-                <div className="input-icon">
-                    <input type="text" id="usuario" placeholder="Usuario" required value={usuario}
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="text" id="usuario" placeholder="Usuario" required value={usuario}
                         onChange={(e) => setUsuario(e.target.value)} />
                     <FontAwesomeIcon icon={faUser} className="icon" />
                 </div>
 
                 <br /><br />
-                <div className="input-icon">
+                <div className="input-icon w-[100%]">
                     {/* <input type="text" id="rol" placeholder="Rol" required value={rol}
                         onChange={(e) => setRol(e.target.value)} /> */}
-                    <select id="rol" required value={rol}
+                    <select className='m-auto w-[100%]' id="rol" required value={rol}
                         onChange={(e) => setRol(e.target.value)}>
                         <option value="">Seleccione un rol</option>
                         <option value="admin">Administrador</option>
@@ -108,23 +107,23 @@ export const FormRegister = () => {
                 </div>
 
                 <br /><br />
-                <div className="input-icon">
-                    <input type="text" id="telefono" placeholder="Telefono" required value={telefono}
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="text" id="telefono" placeholder="Telefono" required value={telefono}
                         onChange={(e) => setTelefono(e.target.value)} />
                     <FontAwesomeIcon icon={faUser} className="icon" />
                 </div>
 
                 <br /><br />
 
-                <div className="input-icon">
-                    <input type="password" id="password" name="password" placeholder="Contraseña" required value={contrasena}
+                <div className="input-icon w-[100%]">
+                    <input className='m-auto w-[100%]' type="password" id="password" name="password" placeholder="Contraseña" required value={contrasena}
                         onChange={(e) => setContrasena(e.target.value)} />
                     <FontAwesomeIcon icon={faLock} className="icon" />
                 </div>
 
                 <br /><br />
 
-                <button className='boton-register' type="submit">Registrarse</button>
+                <button className='boton-register w-[100%]' type="submit">Registrarse</button>
             </form>
 
             <br /><br />
