@@ -1,0 +1,64 @@
+.ajustes-page{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: #fffdef;
+    flex-direction: column;
+}
+.content{
+    height: 70vh;
+    width: 100%;
+    align-items: center;
+    margin-top: 30vh;
+    position: relative;
+    overflow-y: scroll;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.content::-webkit-scrollbar{
+    width: 5px;
+    border-radius: 10px;
+}
+.content::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #2b3701;
+}
+.content::-webkit-scrollbar-thumb:hover{
+    cursor: pointer;
+    background-color: #2b37018c;
+}
+.add-buttom{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    background-color: #5c6d56;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    transform: translate(-50%, 250%);
+    z-index: 200000;
+}
+.tabla-container{
+    
+    padding-left: 3%;
+    padding-top: 2%;
+}
+.tittle{
+    color: black;
+    margin-bottom: 10px;
+}
+.iconomas{
+    font-size: 2rem;
+}
+.jeringa{
+    color: black;
+    font-size: 3rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 150%);
+    z-index: 200000;
+}

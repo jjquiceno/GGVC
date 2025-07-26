@@ -1,0 +1,64 @@
+.ganado-list-page{
+    height: 100vh;
+    width: 100vw;
+    background-color: #fffdef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.ganado-list-content{
+    width: 100%;
+    height: 70vh;
+    margin-top: 30vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.continer-list{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr;
+    justify-items: center;
+}
+
+.add {
+
+    width: 10%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: -5%;
+    background-color: #5c6d56;
+    position: relative;
+    z-index: 10000;
+    cursor: pointer;
+}
+.list{
+    width: 90%;
+    height: 75%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.list::-webkit-scrollbar{
+    width: 4px;
+    border-radius: 10px;
+}
+.list::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #474e2c;
+}
+.list::-webkit-scrollbar-thumb:hover{
+    cursor: pointer;
+    background-color: #2b37018c;
+}
+

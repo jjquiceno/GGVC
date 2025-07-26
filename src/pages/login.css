@@ -1,0 +1,42 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-page{
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0;
+}
+
+.img{
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(166, 171, 144);
+    background: linear-gradient(90deg, rgba(166, 171, 144, 1) 0%, rgba(233, 237, 201, 1) 100%);
+    border-radius: 0 20px 20px 0;
+    /* border: solid black; */
+}
+
+.logo{
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+.login{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
