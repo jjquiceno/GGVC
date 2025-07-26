@@ -23,7 +23,7 @@ function WelcomePage() {
       <Header nav={<Menu/>} text="Bienvenido Quice" img={"/img/bienvenidosGanado.png"}/>
 
       <div className="mt-[25vh] pt-[25vh] pb-[5vh] overflow-auto h-[75vh] w-full md:h-[60%] flex flex-col gap-10 justify-center items-center md:grid md:grid-cols-[2fr_1fr] md:grid-rows-1 md:items-center">
-        <div className="flex flex-col h-fit gap-10 md:grid md:grid-cols-2 md:grid-rows-2 w-[80%] md:h-[90%] md:ml-[20%] items-center">
+        <div className="flex flex-col h-fit gap-20 md:grid md:grid-cols-2 md:grid-rows-2 w-[80%] md:h-[90%] md:ml-[20%] items-center">
           <ButtonAreas img="/img/ganadosobrioia.jpg" text={"Ganado"} ruta="/ganado" />
           <ButtonAreas img="/img/cultivos.jpg" text={"Cultivos"} ruta="#"/>
           <ButtonAreas img="/img/potreros2.jpg" text={"Potreros"} ruta="#"/>
