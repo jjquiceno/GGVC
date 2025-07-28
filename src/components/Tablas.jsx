@@ -97,18 +97,18 @@ export const TablaSencilla = ({ columnas, datos }) => {
     );
   };
 
-export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza, madre, padre, desc, rebanoAc, rebanoAn, fechaAc, fechaAn}) => {
+export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza, madre, padre, desc, rebano}) => {
     return (
         <div className='tabla-animal-container'>
             <div className='encabezado-tabla-animal'>
                 <div className='e-t-1'>
-                    <span className='faicon'><FontAwesomeIcon icon={faCow}/></span>
-                    <span>{nombre}</span>
-                    <span>{id}</span>
+                    <span className='faicon text-white'><FontAwesomeIcon icon={faCow}/></span>
+                    <span className='text-white'>{nombre}</span>
+                    <span className='text-white'>{id}</span>
                 </div>
                 <div className='e-t-2'>
-                    <span>{numeros}</span>
-                    <span className='faicon'>{iconS}</span>
+                    <span className='text-white'>{numeros}</span>
+                    <span className='faicon text-white'>{iconS}</span>
                 </div>
             </div>
             <div className='cuerpo-tabla-animal'>
@@ -129,12 +129,8 @@ export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza,
                         <h3 className='bold ml-2'>Evento</h3>
                         <div className='evento'>
                             <div>
-                                <p className='bold'>Actual rebaño: <span className='light'>{rebanoAc}</span></p>
-                                <p className='bold'>Anterior rebaño: <span className='light'>{rebanoAn}</span></p>
-                            </div>
-                            <div>
-                                <p><span>{fechaAc}</span></p>
-                                <p><span>{fechaAn}</span></p>
+                                <p className='bold'>Potrero: <span className='light'>{rebano}</span></p>
+                                
                             </div>
                         </div>
                     </div>

@@ -41,7 +41,7 @@ export const ItemsTypes = ({ icono, text, ruta}) => {
     )
 }
 
-export const ItemsList = ({ onClick, iconoA, nombre, potrero, genero, iconoS, fecha}) => {
+export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha}) => {
     return (
         <div className='item3' onClick={onClick}>
             <div className='icono'>
@@ -49,7 +49,7 @@ export const ItemsList = ({ onClick, iconoA, nombre, potrero, genero, iconoS, fe
             </div>
             <div className='item-texts'>
                 <strong>{nombre}</strong>
-                <span>{potrero}</span>
+                <span>{id}</span>
                 <span>{genero}</span>
             </div>
             <div className="status">
