@@ -5,22 +5,26 @@ import { ButtonAreas } from '../components/buttonAreas.jsx'
 import { Weather } from '../components/weather.jsx'
 import { Menu } from '../components/Menuh.jsx'
 
+import { jwtDecode } from 'jwt-decode';
+
 function WelcomePage() {
 
   const [count, setCount] = useState(0)
   const navigate = useNavigate();
+  const token = sessionStorage.getItem('token');
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
     if (!token) {
       navigate('/'); // redirige si no hay token
     }
   }, [navigate]);
 
+  const decoded = token ? jwtDecode(token) : null;
+
   return (
     <>
     <div className="flex justify-center items-center w-full h-screen bg-[#fffdef]">
-      <Header nav={<Menu/>} text="Bienvenido Quice" img={"/img/bienvenidosGanado.png"}/>
+      <Header nav={<Menu/>} text={`Bienvenido ${decoded.nombre}`} img={"/img/bienvenidosGanado.png"}/>
 
       <div className="mt-[25vh] pt-[25vh] pb-[5vh] overflow-auto h-[75vh] w-full md:h-[60%] flex flex-col gap-10 justify-center items-center md:grid md:grid-cols-[2fr_1fr] md:grid-rows-1 md:items-center">
         <div className="flex flex-col h-fit gap-20 md:grid md:grid-cols-2 md:grid-rows-2 w-[80%] md:h-[90%] md:ml-[20%] items-center">

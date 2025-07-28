@@ -5,7 +5,6 @@ import { TablaSencilla } from '../components/Tablas.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser, faPlus, faSyringe } from '@fortawesome/free-solid-svg-icons';
 
-// import './ciclosPage.css'
 import { Anterior } from '../components/Menuh.jsx';
 
 const regPalpaciones1Col = ['#A', 'Condición corporal', 'Hallazgo', 'Palpador'];
