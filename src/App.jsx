@@ -17,6 +17,7 @@ import Graficos from './pages/graficos.jsx';
 import Palpaciones from './pages/palpaciones.jsx';
 import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
+import PruebasApp from './pages/pruebas.jsx'; 
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         <Route path="/palpaciones" element={<Palpaciones/>}/>
         <Route path="/historiales" element={<HistorialesPage/>}/>
         <Route path="/imagenes" element={<Imagenes/>}/>
+        <Route path="/pruebas" element={<PruebasApp/>}/>
       </Routes>
     </div>
   );
