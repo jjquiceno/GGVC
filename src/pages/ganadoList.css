@@ -4,14 +4,15 @@
     background-color: #fffdef;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     overflow-x: hidden;
+    padding: 1.8rem;
+    
 }
 
 .ganado-list-content{
     width: 100%;
-    height: 70vh;
-    margin-top: 30vh;
+    height: 100vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
@@ -20,23 +21,23 @@
 }
 
 .continer-list{
-    width: 105%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 4fr;
+    width: 110%;
+    height: 70vh;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-items: center;
 }
 
 .add {
 
     width: 10%;
-    height: 80%;
+    height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    margin-top: -5%;
     background-color: #5c6d56;
     position: relative;
     z-index: 10000;
@@ -44,7 +45,7 @@
 }
 .list{
     width: 90%;
-    height: 75%;
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }

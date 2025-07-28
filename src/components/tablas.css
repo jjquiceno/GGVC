@@ -44,15 +44,16 @@
     /* border: solid black; */
     border-radius: 10px;
     width: 40vw;
-    height: 40vh;
+    height: 80vh;
     background-color: #2b3701;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0px 0px 10px 1px #2b37016b;
+    font-size: 1.4rem;
 }
 .encabezado-tabla-animal{
-    height: 20%;
+    height: 10%;
     border-radius: inherit;
     display: flex;
     justify-content: space-between;
@@ -66,10 +67,12 @@
     gap: 20px;
 }
 .cuerpo-tabla-animal{
-    height: 80%;
+    height: 90%;
+    padding: 10%;
     border-radius: 10px 10px 9px 9px;
     background-color: #e9edc9;
     position: relative;
+    
 }
 .lapiz-tabla-animal{
     background-color: #8ab861;
@@ -107,7 +110,7 @@
     height: 30%;
 }
 .cuerpo-texts p{
-    font-size: .8rem;  
+    font-size: 1.2rem;  
 }
 .evento{
     display: flex;
