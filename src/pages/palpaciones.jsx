@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header} from '../components/header.jsx'
 import { TablaSencilla } from '../components/Tablas.jsx'
 
@@ -7,19 +7,34 @@ import { faEnvelope, faUser, faPlus, faSyringe } from '@fortawesome/free-solid-s
 
 
 import { Anterior } from '../components/Menuh.jsx';
+import { DataTable } from '../components/DataTables.jsx';
 
-const regPalpaciones1Col = ['#A', 'Condición corporal', 'Hallazgo', 'Palpador'];
-const regPalpaciones2Col = ['Utero', 'Ovario izquierdo', 'Ovario derecho', 'Observación'];
 
-const datosGanado = [
-  ['001', 'Brahman', '2 m', 'M'],
-  ['212', 'Brahman', '1 a', 'H'],
-  ['001', 'Brahman', '2 m', 'M'],
-  ['212', 'Brahman', '1 a', 'H'],
-];
 
 function PalpacionesPage() {
-    const [count, setCount] = useState(0)
+
+    const [datosPalpaciones, setDatosPalpaciones] = useState([]);
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const response = await fetch('http://localhost:3000/api/palpaciones');
+            const data = await response.json();
+            setDatosPalpaciones(data);
+        };
+        fetchData();
+    }, []);
+    
+    const palpacionesColums = [
+        { accessorKey: 'id_ganado', header: '# Animal' },
+        { accessorKey: 'condicion_corporal', header: 'Condición corporal' },
+        { accessorKey: 'hallazgo', header: 'Hallazgo' },
+        { accessorKey: 'utero', header: 'Utero' },
+        { accessorKey: 'ovario_izq', header: 'Ovario izquierdo' },
+        { accessorKey: 'ovario_der', header: 'Ovario derecho' },
+        { accessorKey: 'observaciones', header: 'Observación' },
+        { accessorKey: 'palpador', header: 'Palpador' },
+      ];
 
     return (
         <>
@@ -28,13 +43,10 @@ function PalpacionesPage() {
                 <div className='add-buttom'>
                     <FontAwesomeIcon className='iconomas' icon={faPlus}/>
                 </div>
-                <div className="content">
-                    <div className='tabla-container'>
-                        <h1 className='tittle'>Registro de palpaciones</h1>
-                        <TablaSencilla columnas={regPalpaciones1Col} datos={datosGanado} />
-                    </div>
-                    <div className='tabla-container'>
-                        <TablaSencilla columnas={regPalpaciones2Col} datos={datosGanado} />
+                <div className="mt-[30vh]">
+                    <div className='max-w-screen p-10'>
+                        <h1 className='font-bold text-xl m-10'>Registro de palpaciones</h1>
+                        <DataTable data={datosPalpaciones} columnas={palpacionesColums} name={"Datos Palpaciones"}/>
                     </div>
                 </div>
             </div>

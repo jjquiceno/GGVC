@@ -48,8 +48,8 @@ export const FormLogin = () => {
     <div className="flex flex-col items-center justify-center">
       <h1 className='text-black font-bold'>INICIAR SESIÓN</h1>
       <br /><br />
-      <form onSubmit={handleLogin} className='border w-[60vw] lg:w-[40vw] text-center'>
-        <div className="input-icon w-[100%] border">
+      <form onSubmit={handleLogin} className=' w-[60vw] lg:w-[40vw] text-center'>
+        <div className="input-icon w-[100%] ">
           <input type="text" className='m-auto w-[100%]' id="usuario" placeholder="Usuario" required value={usuario}
             onChange={(e) => setUsuario(e.target.value)} />
           <FontAwesomeIcon icon={faUser} className="icon" />

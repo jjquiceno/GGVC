@@ -45,11 +45,9 @@ function GanadoListPage() {
 
                 const animalesConIcono = data.map((animal) => ({
                     ...animal,
-                    // nombre: animal.nombre,
                     genero: animal.sexo === 'Hembra' ? 'H' : 'M',
                     iconoS: getIcono(animal.estado),
                     fecha: formatearFecha(animal.fecha_nacimiento),
-                    // raza: animal.raza
                 }));
 
 
@@ -66,7 +64,7 @@ function GanadoListPage() {
     useEffect(() => {
         const fetchPotrero = async () => {
             try {
-                const animalesCompleto = await Promise.all(
+                const animalesConPotrero = await Promise.all(
                     animales.map(async (animal) => {
                         const response = await fetch(`http://localhost:3000/api/ubicacion/potrero/${animal.id_ganado}`);
                         const data = await response.json();
@@ -78,7 +76,7 @@ function GanadoListPage() {
                     })
                 );
 
-                setAnimales(animalesCompleto);
+                setAnimales(animalesConPotrero);
             } catch (error) {
                 console.error('Error al obtener los animales:', error);
             }
@@ -89,6 +87,38 @@ function GanadoListPage() {
         }
 
     }, [animales]);
+
+    useEffect(() => {
+        const fetchDescendencias = async () => {
+            try {
+                const animalesCompleto = await Promise.all(
+                    animales.map(async (animal) => {
+                        const response = await fetch(`http://localhost:3000/api/descendencias/${animal.id_ganado}`);
+                        const data = await response.json();
+
+                        return {
+                            ...animal,
+                            id_madre: data.id_madre || 'No registrado',
+                            id_padre: data.id_padre || 'No registrado',
+                            nombre_madre: data.nombre_madre,
+                            nombre_padre: data.nombre_padre,
+                        };
+                    })
+                );
+
+                setAnimales(animalesCompleto);
+            } catch (error) {
+                console.error('Error al obtener los animales:', error);
+            }
+        };
+
+        if (animales.length > 0) {
+            fetchDescendencias();
+        }
+
+    }, [animales]);
+
+    
 
     useEffect(() => {
         const resultado = animales.filter((animal) =>
@@ -131,6 +161,7 @@ function GanadoListPage() {
 
     return (
         <>
+        // Terminar parte para registrar madre padre y potrero (poner en el dialog de registro el campo de descripcion)
             <div className="ganado-list-page ">
                 <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer'/>
                 <div className="ganado-list-content">
@@ -172,9 +203,9 @@ function GanadoListPage() {
                                 edad={calcularEdad(selectedAnimal.fecha)}
                                 sexo={selectedAnimal.genero}
                                 raza={selectedAnimal.raza}
-                                madre={""} // Crear lógica para obtener la madre
-                                padre={""} // Crear lógica para obtener el padre
-                                desc={""} // Crear lógica para obtener la descripción
+                                madre={`${selectedAnimal.nombre_madre} (${selectedAnimal.id_madre})`} // Crear lógica para obtener la madre
+                                padre={`${selectedAnimal.nombre_padre} (${selectedAnimal.id_padre})`} // Crear lógica para obtener el padre
+                                desc={selectedAnimal.descripcion} // Crear lógica para obtener la descripción
                                 rebano={selectedAnimal.potrero} // Crear lógica para obtener el potrero
 
                             />

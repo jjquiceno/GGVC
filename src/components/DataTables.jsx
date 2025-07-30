@@ -4,26 +4,17 @@ import { MaterialReactTable } from 'material-react-table';
 import { Box, Button } from '@mui/material';
 import { exportToExcel } from '../utils/exportToExcel';
 
-const AnimalTable = ({ data }) => {
-  const columns = [
-    { accessorKey: 'id_ganado', header: 'ID' },
-    { accessorKey: 'nombre', header: 'Nombre' },
-    { accessorKey: 'raza', header: 'Raza' },
-    { accessorKey: 'sexo', header: 'Sexo' },
-    { accessorKey: 'fecha', header: 'Fecha de nacimiento' },
-    { accessorKey: 'potrero', header: 'Potrero' },
-    { accessorKey: 'estado', header: 'Estado' },
-  ];
+export const DataTable = ({ data, columnas, name }) => {
 
 
   const handleExportRows = (rows) => {
     const rowData = rows.map((row) => row.original);
-    exportToExcel(rowData, 'animales');
+    exportToExcel(rowData, name);
   };
 
   return (
     <MaterialReactTable
-      columns={columns}
+      columns={columnas}
       data={data}
       enableRowSelection
       enableColumnOrdering
@@ -50,5 +41,3 @@ const AnimalTable = ({ data }) => {
     />
   );
 };
-
-export default AnimalTable;

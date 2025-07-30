@@ -24,7 +24,7 @@ function GanadoPage() {
                 <div className="flex flex-col w-[90vw] justify-center">
                     <h2 className='text-black font-bold text-2xl m-5'>Funciones</h2>
                     <div className="w-[90vw] grid grid-rows-3 grid-cols-3 gap-5 md:gap-0 md:grid-rows-1 md:grid-cols-10 items-center justify-items-center text-black text-[1.5rem]">
-                        <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="Vacunas" ruta={"/ciclosPage"}/>
+                        <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="Sanidad" ruta={"/ciclosPage"}/>
                         <Items icono={<FontAwesomeIcon icon={faPlus} />} text="Médica" ruta={"/medica"} />
                         <Items icono={<FontAwesomeIcon icon={faExchangeAlt} />} text="Comparación" ruta={"/infoCiclosVacunacion"} />
                         <Items icono={<FontAwesomeIcon icon={faChartBar} />} text="Gráficas" ruta={"/graficos"}/>
