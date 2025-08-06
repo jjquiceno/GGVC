@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+import axios from 'axios';
 
-import { HeaderSearch } from '../components/header.jsx';
 import { ItemsList } from '../components/Items.jsx';
 import { TablaAnimal } from '../components/Tablas.jsx';
 import FormularioAnimalDialog from '../components/formLogin.jsx';
@@ -20,112 +20,150 @@ function GanadoListPage() {
 
     const [selectedAnimal, setSelectedAnimal] = useState(null);
 
-    useEffect(() => {
-        const fetchGanado = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/ganado');
-                const data = await response.json();
+    const fetchAllData = async () => {
+        try {
+            const ganadoResponse = await axios.get('http://localhost:3000/api/ganado');
+            const ganadoData = ganadoResponse.data;
 
-                const getIcono = (estado) => {
-                    switch (estado) {
-                        case 'Amamantamiento':
-                            return faBaby;
-                        case 'Prenez':
-                            return faPersonPregnant;
-                        case 'Enfermo':
-                            return faStethoscope;
-                        case 'Sano':
-                            return faCheckCircle;
+            const getIcono = (estado) => {
+                // ... tu lógica de íconos ...
+                switch (estado) {
+                    case 'Amamantamiento':
+                        return faBaby;
+                    case 'Prenez':
+                        return faPersonPregnant;
+                    case 'Enfermo':
+                        return faStethoscope;
+                    case 'Sano':
+                        return faCheckCircle;
+                    default:
+                        return faCow;
+                }
+            };
+
+            const formatearFecha = (fecha) => {
+                return new Date(fecha).toISOString().split('T')[0];
+            };
+
+            const animalesConDatos = await Promise.all(ganadoData.map(async (animal) => {
+                let potreroNombre = 'No registrado';
+                let madre = null;
+                let padre = null;
+
+                // Obtener potrero
+                try {
+                    const potreroResponse = await axios.get(`http://localhost:3000/api/ubicacion/potrero/${animal.id_ganado}`);
+                    potreroNombre = potreroResponse.data.id_potrero || 'No registrado';
+                } catch (error) {
+                    if (error.response?.status !== 404) {
+                        console.error(`Error al obtener potrero para el animal ${animal.id_ganado}:`, error);
                     }
-                };
+                }
 
-                const formatearFecha = (fecha) => {
-                    return new Date(fecha).toISOString().split('T')[0]; // => "2022-03-15"
-                };
+                // Obtener descendencia
+                try {
+                    const descendenciaResponse = await axios.get(`http://localhost:3000/api/descendencias/ganado/${animal.id_ganado}`);
+                    const descendenciaData = descendenciaResponse.data;
+                    madre = {
+                        nombre: descendenciaData.nombre_madre || 'No registrado',
+                        id: descendenciaData.id_madre || ''
+                    };
+                    padre = {
+                        nombre: descendenciaData.nombre_padre || 'No registrado',
+                        id: descendenciaData.id_padre || ''
+                    };
+                } catch (error) {
+                    if (error.response?.status !== 404) {
+                        console.error(`Error al obtener descendencia para el animal ${animal.id_ganado}:`, error);
+                    }
+                }
 
-                const animalesConIcono = data.map((animal) => ({
+                return {
                     ...animal,
                     genero: animal.sexo === 'Hembra' ? 'H' : 'M',
                     iconoS: getIcono(animal.estado),
                     fecha: formatearFecha(animal.fecha_nacimiento),
-                }));
+                    potrero: potreroNombre,
+                    madre: madre,
+                    padre: padre,
+                    descripcion: animal.descripcion
+                };
+            }));
 
+            setAnimales(animalesConDatos);
 
-                setAnimales(animalesConIcono);
-            } catch (error) {
-                console.error('Error al obtener los animales:', error);
+            // También actualizamos el animal seleccionado si es necesario
+            if (selectedAnimal) {
+                const updatedSelected = animalesConDatos.find(a => a.id_ganado === selectedAnimal.id_ganado);
+                setSelectedAnimal(updatedSelected);
             }
-        };
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    };
+    
+    // Función para manejar la actualización de descendencia y recargar los datos
+    const handleUpdateDescendencia = async (ganadoId, nuevaMadreId, nuevoPadreId) => {
+        try {
+            const descendenciaResponse = await axios.get(`http://localhost:3000/api/descendencias/ganado/${ganadoId}`);
+            const descendenciaId = descendenciaResponse.data.id_descendencia;
 
-        fetchGanado();
+            const body = {
+                id_ganado: ganadoId,
+                id_madre: nuevaMadreId,
+                id_padre: nuevoPadreId
+            };
+            
+            await axios.put(`http://localhost:3000/api/descendencias/${descendenciaId}`, body);
+            console.log('Descendencia actualizada');
+            
+        } catch (err) {
+            if (err.response?.status === 404) {
+                const body = {
+                    id_ganado: ganadoId,
+                    id_madre: nuevaMadreId,
+                    id_padre: nuevoPadreId
+                };
+                await axios.post(`http://localhost:3000/api/descendencias`, body);
+                console.log('Descendencia creada');
+            } else {
+                console.error("Error en la descendencia:", err);
+            }
+        }
+        // Llamar a fetchAllData para recargar los datos y que los cambios se vean en la UI
+        fetchAllData();
+    };
 
+    const handleUpdateUbicacion = async (ganadoId, nuevoPotreroId) => {
+        try {
+            const body = {
+                id_ganado: ganadoId,
+                id_potrero: nuevoPotreroId,
+            };
+            
+            await axios.post(`http://localhost:3000/api/ubicacion`, body);
+            console.log('Ubicación creada con éxito.');
+            
+        } catch (err) {
+            console.error("Error al crear la ubicación:", err);
+        }
+        // Llama a fetchAllData para recargar los datos y que los cambios se vean en la UI
+        console.log('Llamando a fetchAllData para recargar la UI...');
+        fetchAllData();
+    };
+
+    useEffect(() => {
+        fetchAllData();
     }, []);
 
-    useEffect(() => {
-        const fetchPotrero = async () => {
-            try {
-                const animalesConPotrero = await Promise.all(
-                    animales.map(async (animal) => {
-                        const response = await fetch(`http://localhost:3000/api/ubicacion/potrero/${animal.id_ganado}`);
-                        const data = await response.json();
 
-                        return {
-                            ...animal,
-                            potrero: data.id_potrero
-                        };
-                    })
-                );
-
-                setAnimales(animalesConPotrero);
-            } catch (error) {
-                console.error('Error al obtener los animales:', error);
-            }
-        };
-
-        if (animales.length > 0) {
-            fetchPotrero();
-        }
-
-    }, [animales]);
-
-    useEffect(() => {
-        const fetchDescendencias = async () => {
-            try {
-                const animalesCompleto = await Promise.all(
-                    animales.map(async (animal) => {
-                        const response = await fetch(`http://localhost:3000/api/descendencias/${animal.id_ganado}`);
-                        const data = await response.json();
-
-                        return {
-                            ...animal,
-                            id_madre: data.id_madre || 'No registrado',
-                            id_padre: data.id_padre || 'No registrado',
-                            nombre_madre: data.nombre_madre,
-                            nombre_padre: data.nombre_padre,
-                        };
-                    })
-                );
-
-                setAnimales(animalesCompleto);
-            } catch (error) {
-                console.error('Error al obtener los animales:', error);
-            }
-        };
-
-        if (animales.length > 0) {
-            fetchDescendencias();
-        }
-
-    }, [animales]);
-
-    
 
     useEffect(() => {
         const resultado = animales.filter((animal) =>
             animal.nombre?.toLowerCase().includes(busqueda.toLowerCase())
-          );
+        );
         setFiltrados(resultado);
-      }, [busqueda, animales]);
+    }, [busqueda, animales]);
 
 
 
@@ -157,27 +195,27 @@ function GanadoListPage() {
 
     const handleClick = () => {
         window.location.href = "/ganado";
-      };
+    };
 
     return (
         <>
-        // Terminar parte para registrar madre padre y potrero (poner en el dialog de registro el campo de descripcion)
+            {/* Terminar parte para registrar madre padre y potrero (poner en el dialog de registro el campo de descripcion) */}
             <div className="ganado-list-page ">
-                <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer'/>
+                <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer' />
                 <div className="ganado-list-content">
 
                     <div className="continer-list">
                         <div className='w-[90%] h-[10vh] flex flex-col '>
                             <h2 className='text-3xl font-bold mr-[10rem] mb-5'>Lista del ganado</h2>
-                            <InputSearch icono={<FontAwesomeIcon icon={faSearch} />} type="text" placeholder={"Buscar"} 
-                            value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
+                            <InputSearch icono={<FontAwesomeIcon icon={faSearch} />} type="text" placeholder={"Buscar"}
+                                value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
                         </div>
                         <div className="icons w-[90%] flex justify-between">
                             <FormularioAnimalDialog />
                             <FontAwesomeIcon icon={faSlidersH} className="text-black text-2xl cursor-pointer" />
                         </div>
                         <div className="list">
-                        {(busqueda.trim() ? filtrados : animales).map((animal) => (
+                            {(busqueda.trim() ? filtrados : animales).map((animal) => (
                                 <ItemsList
                                     iconoA={<FontAwesomeIcon icon={faCow} />}
                                     nombre={animal.nombre}
@@ -195,20 +233,21 @@ function GanadoListPage() {
                     <div className="list-info">
                         {selectedAnimal && (
                             <TablaAnimal
-                                nombre={selectedAnimal.nombre}
-                                id={selectedAnimal.id_ganado}
-                                numeros={selectedAnimal.fecha}
-                                iconS={<FontAwesomeIcon icon={selectedAnimal.iconoS} />}
-                                fecha={selectedAnimal.fecha}
-                                edad={calcularEdad(selectedAnimal.fecha)}
-                                sexo={selectedAnimal.genero}
-                                raza={selectedAnimal.raza}
-                                madre={`${selectedAnimal.nombre_madre} (${selectedAnimal.id_madre})`} // Crear lógica para obtener la madre
-                                padre={`${selectedAnimal.nombre_padre} (${selectedAnimal.id_padre})`} // Crear lógica para obtener el padre
-                                desc={selectedAnimal.descripcion} // Crear lógica para obtener la descripción
-                                rebano={selectedAnimal.potrero} // Crear lógica para obtener el potrero
-
-                            />
+                            nombre={selectedAnimal.nombre}
+                            id={selectedAnimal.id_ganado}
+                            numeros={selectedAnimal.fecha}
+                            iconS={<FontAwesomeIcon icon={selectedAnimal.iconoS} />}
+                            fecha={selectedAnimal.fecha}
+                            edad={calcularEdad(selectedAnimal.fecha)}
+                            sexo={selectedAnimal.genero}
+                            raza={selectedAnimal.raza}
+                            madre={selectedAnimal.madre}
+                            padre={selectedAnimal.padre}
+                            desc={selectedAnimal.descripcion}
+                            rebano={selectedAnimal.potrero}
+                            onUpdateDes={handleUpdateDescendencia}
+                            onUpdateUbi={handleUpdateUbicacion}
+                        />
                         )}
                     </div>
                 </div>

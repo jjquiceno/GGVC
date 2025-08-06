@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
+import { faFile } from '@fortawesome/free-regular-svg-icons';
 // import { Routes, Route, Link } from 'react-router-dom';
 
 
@@ -85,6 +86,7 @@ export default function FormularioAnimalDialog() {
   const [origen, setOrigen] = useState('');
   const [proposito, setProposito] = useState('');
   const [estado, setEstado] = useState('');
+  const [descripcion, setDescripcion] = useState('');
 
   const navigate = useNavigate()
 
@@ -97,7 +99,7 @@ export default function FormularioAnimalDialog() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nombre, raza, sexo, fecha_nacimiento: FNacimiento, origen, proposito, estado })
+        body: JSON.stringify({ nombre, raza, sexo, fecha_nacimiento: FNacimiento, origen, proposito, estado, descripcion })
       });
 
       const data = await response.json();
@@ -128,7 +130,7 @@ export default function FormularioAnimalDialog() {
         <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
           <Dialog.Title className="text-xl font-bold mb-4">Registrar animal</Dialog.Title>
 
-          <form className="flex flex-col gap-4" onSubmit={handleAddGanado}>
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddGanado}>
 
             <div className="input-icon w-full ">
               <input type="text" className='m-auto ml-0.5 w-full' id="nombre" name="nombre" placeholder="Nombre" required 
@@ -185,6 +187,12 @@ export default function FormularioAnimalDialog() {
                 <option value="Sano">Sano</option>
               </select>
               <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-4">
+              <textarea type="text" className='border rounded p-2 m-auto ml-0.5 w-full' id="descripcion" name="descripcion" placeholder="Descripcion" required 
+              value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
+              <FontAwesomeIcon icon={faFile} className="icon" />
             </div>
 
 

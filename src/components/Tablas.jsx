@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './tablas.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faBorderAll, faCow, faPen, faPlus, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faBorderAll, faCheck, faCow, faPen, faPlus, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
 
 // export const TablaSencilla = () => {
 //     return (
@@ -74,35 +75,127 @@ import { faAngleDown, faBorderAll, faCow, faPen, faPlus, faSkullCrossbones } fro
 
 export const TablaSencilla = ({ columnas, datos }) => {
     return (
-      <div className="tabla-s-container overflow-x-auto">
-        <table className="tabla-s w-full">
-          <thead className="thead-s">
-            <tr>
-              {columnas.map((columna, index) => (
-                <th key={index}>{columna}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="tbody-s">
-            {datos.map((fila, i) => (
-              <tr key={i}>
-                {fila.map((celda, j) => (
-                  <td key={j}>{celda}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <div className="tabla-s-container overflow-x-auto">
+            <table className="tabla-s w-full">
+                <thead className="thead-s">
+                    <tr>
+                        {columnas.map((columna, index) => (
+                            <th key={index}>{columna}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody className="tbody-s">
+                    {datos.map((fila, i) => (
+                        <tr key={i}>
+                            {fila.map((celda, j) => (
+                                <td key={j}>{celda}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
-  };
+};
 
-export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza, madre, padre, desc, rebano}) => {
+// export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza, madre, padre, desc, rebano}) => {
+//     return (
+//         <div className='tabla-animal-container'>
+//             <div className='encabezado-tabla-animal'>
+//                 <div className='e-t-1'>
+//                     <span className='faicon text-white'><FontAwesomeIcon icon={faCow}/></span>
+//                     <span className='text-white'>{nombre}</span>
+//                     <span className='text-white'>{id}</span>
+//                 </div>
+//                 <div className='e-t-2'>
+//                     <span className='text-white'>{numeros}</span>
+//                     <span className='faicon text-white'>{iconS}</span>
+//                 </div>
+//             </div>
+//             <div className='cuerpo-tabla-animal'>
+//                 <div className='lapiz-tabla-animal'>
+//                     <span><FontAwesomeIcon icon={faPen}/></span>
+//                 </div>
+//                 <div className='cuerpo-texts'>
+//                     <div>
+//                         <p className='bold'>Fecha nacimiento: <span className='light'>{fecha}</span></p>
+//                         <p className='bold'>Edad: <span className='light'>{edad}</span></p>
+//                         <p className='bold'>Sexo: <span className='light'>{sexo}</span></p>
+//                         <p className='bold'>Raza: <span className='light'>{raza}</span></p>
+
+//                         <p className='bold'>Madre: <span className='light'>{madre}</span></p>
+//                         <p className='bold'>Padre: <span className='light'>{padre}</span></p>
+//                         <p className='bold'>Descripcion: <span className='light'>{desc}</span></p>
+//                     </div>
+//                     <div>
+//                         <h3 className='bold ml-2'>Evento</h3>
+//                         <div className='evento'>
+//                             <div>
+//                                 <p className='bold'>Potrero: <span className='light'>{rebano}</span></p>
+
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+
+export const TablaAnimal = ({
+    nombre,
+    id,
+    numeros,
+    iconS,
+    fecha,
+    edad,
+    sexo,
+    raza,
+    madre,
+    padre,
+    desc,
+    rebano,
+    onUpdateDes,
+    onUpdateUbi // Recibimos la nueva prop aquí
+}) => {
+    const [editMadre, setEditMadre] = useState(false);
+    const [nuevaMadre, setNuevaMadre] = useState('');
+    const [editPadre, setEditPadre] = useState(false);
+    const [nuevoPadre, setNuevoPadre] = useState('');
+    const [editPotrero, setEditPotrero] = useState(false);
+    const [nuevoPotrero, setNuevoPotrero] = useState('');
+
+
+    // Ya no necesitas 'actualizarDescendencia' aquí, ya que 'handleUpdateDescendencia' la hace
+    const handleGuardarMadre = async () => {
+        if (!nuevaMadre.trim()) return;
+        await onUpdateDes(id, nuevaMadre, padre?.id); // Llama a la función del padre
+        setEditMadre(false);
+    };
+
+    const handleGuardarPadre = async () => {
+        if (!nuevoPadre.trim()) return;
+        await onUpdateDes(id, madre?.id, nuevoPadre); // Llama a la función del padre
+        setEditPadre(false);
+    };
+
+    const handleGuardarPotrero = async () => {
+        if (!nuevoPotrero.trim()) return;
+        await onUpdateUbi(id, nuevoPotrero); // Llama a la función del padre
+        setEditPotrero(false);
+    };
+
+    const madreNombre = madre?.nombre || 'No registrado';
+    const madreId = madre?.id || '';
+    const padreNombre = padre?.nombre || 'No registrado';
+    const padreId = padre?.id || '';
+    const potreroNombre = rebano || 'No registrado';
+
     return (
         <div className='tabla-animal-container'>
             <div className='encabezado-tabla-animal'>
                 <div className='e-t-1'>
-                    <span className='faicon text-white'><FontAwesomeIcon icon={faCow}/></span>
+                    <span className='faicon text-white'><FontAwesomeIcon icon={faCow} /></span>
                     <span className='text-white'>{nombre}</span>
                     <span className='text-white'>{id}</span>
                 </div>
@@ -111,35 +204,127 @@ export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza,
                     <span className='faicon text-white'>{iconS}</span>
                 </div>
             </div>
+
             <div className='cuerpo-tabla-animal'>
                 <div className='lapiz-tabla-animal'>
-                    <span><FontAwesomeIcon icon={faPen}/></span>
+                    <span><FontAwesomeIcon icon={faPen} /></span>
                 </div>
+
                 <div className='cuerpo-texts'>
                     <div>
                         <p className='bold'>Fecha nacimiento: <span className='light'>{fecha}</span></p>
                         <p className='bold'>Edad: <span className='light'>{edad}</span></p>
                         <p className='bold'>Sexo: <span className='light'>{sexo}</span></p>
                         <p className='bold'>Raza: <span className='light'>{raza}</span></p>
-                        <p className='bold'>Madre: <span className='light'>{madre}</span></p>
-                        <p className='bold'>Padre: <span className='light'>{padre}</span></p>
-                        <p className='bold'>Descripcion: <span className='light'>{desc}</span></p>
+
+                        <div className='bold text-lg'>
+                            <span>Madre:
+                                <span className='light ml-2'>
+                                    {editMadre ? (
+                                        <div className="relative inline-block w-[80%] h-[35px] m-1">
+                                            <input
+                                                type="text"
+                                                id="madre"
+                                                placeholder="Madre"
+                                                value={nuevaMadre}
+                                                onChange={(e) => setNuevaMadre(e.target.value)}
+                                                className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
+                                            />
+                                            <FontAwesomeIcon
+                                                onClick={handleGuardarMadre}
+                                                icon={faCheck}
+                                                className="cursor-pointer absolute right-[10px] top-1/2 -translate-y-1/2 text-[18px] text-[#aaa]"
+                                            />
+                                        </div>
+                                    ) : madreNombre === 'No registrado' ? (
+                                        <button
+                                            onClick={() => setEditMadre(true)}
+                                            className="ml-2 text-[#6e9347] underline"
+                                        >
+                                            Añadir
+                                        </button>
+                                    ) : `${madreNombre} (${madreId})`}
+                                </span>
+                            </span>
+                        </div>
+
+                        <div className='bold text-lg'>
+                            <span>Padre:
+                                <span className='light ml-2'>
+                                    {editPadre ? (
+                                        <div className="relative inline-block w-[80%] h-[35px] m-1">
+                                            <input
+                                                type="text"
+                                                id="padre"
+                                                placeholder="Padre"
+                                                value={nuevoPadre}
+                                                onChange={(e) => setNuevoPadre(e.target.value)}
+                                                className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
+                                            />
+                                            <FontAwesomeIcon
+                                                onClick={handleGuardarPadre}
+                                                icon={faCheck}
+                                                className="cursor-pointer absolute right-[10px] top-1/2 -translate-y-1/2 text-[18px] text-[#aaa]"
+                                            />
+                                        </div>
+                                    ) : padreNombre === 'No registrado' ? (
+                                        <button
+                                            onClick={() => setEditPadre(true)}
+                                            className="ml-2 text-[#6e9347] underline"
+                                        >
+                                            Añadir
+                                        </button>
+                                    ) : `${padreNombre} (${padreId})`}
+                                </span>
+                            </span>
+                        </div>
+
+                        <p className='bold'>Descripción: <span className='light'>{desc || 'No registrado'}</span></p>
                     </div>
+
                     <div>
                         <h3 className='bold ml-2'>Evento</h3>
                         <div className='evento'>
-                            <div>
-                                <p className='bold'>Potrero: <span className='light'>{rebano}</span></p>
-                                
+                            <div className='bold text-lg'>
+                                <span>Potrero:
+                                    <span className='light ml-2'>
+                                        {editPotrero ? (
+                                            <div className="relative inline-block w-[80%] h-[35px] m-1">
+                                                <input
+                                                    type="text"
+                                                    id="potrero"
+                                                    placeholder="ID Potrero"
+                                                    value={nuevoPotrero}
+                                                    onChange={(e) => setNuevoPotrero(e.target.value)}
+                                                    className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
+                                                />
+                                                <FontAwesomeIcon
+                                                    onClick={handleGuardarPotrero}
+                                                    icon={faCheck}
+                                                    className="cursor-pointer absolute right-[10px] top-1/2 -translate-y-1/2 text-[18px] text-[#aaa]"
+                                                />
+                                            </div>
+                                        ) : potreroNombre === 'No registrado' ? (
+                                            <button
+                                                onClick={() => setEditPotrero(true)}
+                                                className="ml-2 text-[#6e9347] underline"
+                                            >
+                                                Añadir
+                                            </button>
+                                        ) : `${potreroNombre}`}
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
-export const TablaInfoGanado = ({}) => {
+    );
+};
+
+
+export const TablaInfoGanado = ({ }) => {
     return (
         <div className="tabla-i-g-container">
             <div className="tig-tittle">
@@ -147,7 +332,7 @@ export const TablaInfoGanado = ({}) => {
                     <h2>Información Ganado</h2>
                 </div>
                 <div>
-                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus}/></span>
+                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
             <a href="" className="tig-item"><span>Datos demográficos</span></a>
@@ -158,7 +343,7 @@ export const TablaInfoGanado = ({}) => {
     )
 }
 
-export const TablaDatosVisitaMed = ({}) => {
+export const TablaDatosVisitaMed = ({ }) => {
     return (
         <div className="tabla-i-g-container">
             <div className="tig-tittle">
@@ -166,7 +351,7 @@ export const TablaDatosVisitaMed = ({}) => {
                     <h2>Datos de visita médica</h2>
                 </div>
                 <div>
-                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus}/></span>
+                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
             <a href="" className="tig-item"><span>Fecha y hora</span></a>
@@ -179,7 +364,7 @@ export const TablaDatosVisitaMed = ({}) => {
     )
 }
 
-export const TablaDatosMedicos = ({}) => {
+export const TablaDatosMedicos = ({ }) => {
     return (
         <div className="tabla-d-m-container">
             <div className="tig-tittle">
@@ -187,7 +372,7 @@ export const TablaDatosMedicos = ({}) => {
                     <h2>Datos médicos</h2>
                 </div>
                 <div>
-                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus}/></span>
+                    <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
             <a href="" className="tig-item"><span>Resultados de análisis</span></a>
@@ -201,7 +386,7 @@ export const TablaDatosMedicos = ({}) => {
     )
 }
 
-export const TablaInfoCiclo = ({ciclonum, ticDescripcion, ticDosis, ticDuracion, ticFecha, ticTipoVacuna}) => {
+export const TablaInfoCiclo = ({ ciclonum, ticDescripcion, ticDosis, ticDuracion, ticFecha, ticTipoVacuna }) => {
     return (
         <div className="tabla-i-c-container">
             <div className="tic-tittle">
@@ -223,7 +408,7 @@ export const TablaInfoCiclo = ({ciclonum, ticDescripcion, ticDosis, ticDuracion,
 }
 export const TablaAbortos = ({ taTittle, nombreA }) => {
     const [desplegado, setDesplegado] = useState(false);
-    
+
     const toggleDesplegado = () => {
         setDesplegado(!desplegado);
     };
@@ -233,54 +418,54 @@ export const TablaAbortos = ({ taTittle, nombreA }) => {
             <div className="tabla-a-container">
                 <div className={`ta-tittle ${desplegado ? 'active' : ''}`} onClick={toggleDesplegado}>
                     <p>{taTittle}</p>
-                    <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown}/>
+                    <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown} />
                 </div>
                 <div className={`abortosContainer ${desplegado ? 'active' : ''}`}>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>isa</span>
                         </div>
                         <div>1/02/2020</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>quice</span>
                         </div>
                         <div>5/04/2025</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>el voce</span>
                         </div>
                         <div>6/01/2021</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>lopera</span>
                         </div>
                         <div>05/03/2023</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>santa</span>
                         </div>
                         <div>04/06/2024</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>marlon</span>
                         </div>
                         <div>0909/2018</div>
                     </div>
                     <div className="abortoitem">
                         <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones}/>
+                            <FontAwesomeIcon icon={faSkullCrossbones} />
                             <span>beltran</span>
                         </div>
                         <div>04/07/2025</div>
@@ -292,7 +477,7 @@ export const TablaAbortos = ({ taTittle, nombreA }) => {
 }
 export const TablaSal = ({ salIdAnimal, salper, pesok, salNomAnimal }) => {
     const [desplegado, setDesplegado] = useState(false);
-    
+
     const toggleDesplegado = () => {
         setDesplegado(!desplegado);
     };
@@ -302,12 +487,12 @@ export const TablaSal = ({ salIdAnimal, salper, pesok, salNomAnimal }) => {
             <div className="tabla-sal-container">
                 <div className={`sal-tittle ${desplegado ? 'active' : ''}`} onClick={toggleDesplegado}>
                     <div>
-                        <FontAwesomeIcon icon={faCow}/>
+                        <FontAwesomeIcon icon={faCow} />
                         <p>ID: <span>{salIdAnimal}</span></p>
                     </div>
                     <div>
                         <p>{salNomAnimal}</p>
-                        <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown}/>
+                        <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown} />
                     </div>
                 </div>
                 <div className={`salContainer ${desplegado ? 'active' : ''}`}>
