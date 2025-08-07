@@ -37,9 +37,10 @@ form textarea{
 
 .boton-login{
     height: 35px;
-    background-color: #909777;
     border-radius: 10px;
     font-weight: 500;
+    border: none;
+    cursor: pointer;
 }
 
 .boton-register{

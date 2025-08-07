@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './tablas.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FormularioGeneralEdit } from './formLogin'
 import { faAngleDown, faBorderAll, faCheck, faCow, faPen, faPlus, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 
@@ -206,9 +207,9 @@ export const TablaAnimal = ({
             </div>
 
             <div className='cuerpo-tabla-animal'>
-                <div className='lapiz-tabla-animal'>
-                    <span><FontAwesomeIcon icon={faPen} /></span>
-                </div>
+                    <div className='lapiz-tabla-animal cursor-pointer'>
+                        <FormularioGeneralEdit id={id}/>
+                    </div>
 
                 <div className='cuerpo-texts'>
                     <div>
