@@ -2,6 +2,10 @@ import "./App.css";
 // import { cn } from "./utils/cn";
 import React from "react";
 import { Routes, Route, Link } from 'react-router-dom';
+
+import PrivateRoute from './components/PrivateRoute.jsx';
+
+
 import LoginPage from './pages/login.jsx';
 import WelcomePage from './pages/welcome.jsx';
 import AjustesPage from './pages/ajustes.jsx';
@@ -18,6 +22,7 @@ import Palpaciones from './pages/palpaciones.jsx';
 import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
 import PruebasApp from './pages/pruebas.jsx'; 
+
 
 function App() {
   return (
@@ -39,23 +44,68 @@ function App() {
       <hr />
 
       <Routes>
-        <Route path="/" element={<LoginPage/>}/>
-        <Route path="/welcome" element={<WelcomePage/>}/>
-        <Route path="/ajustes" element={<AjustesPage/>}/>
-        <Route path="/cultivos" element={<CultivosPage/>}/>
-        <Route path="/inventario" element={<InventarioPage/>}/>
-        <Route path="/ganado" element={<GanadoPage/>}/>
+        <Route path="/" element={
+        <PrivateRoute>
+          <LoginPage/>
+        </PrivateRoute>}/>
+        <Route path="/welcome" element={
+          <PrivateRoute>
+            <WelcomePage/>
+          </PrivateRoute>}/>
+        <Route path="/ajustes" element={
+          <PrivateRoute>
+            <AjustesPage/>
+          </PrivateRoute>}/>
+        <Route path="/cultivos" element={
+          <PrivateRoute>
+            <CultivosPage/>
+          </PrivateRoute>}/>
+        <Route path="/inventario" element={
+          <PrivateRoute>
+            <InventarioPage/>
+          </PrivateRoute>}/>
+        <Route path="/ganado" element={
+          <PrivateRoute>
+            <GanadoPage/>
+          </PrivateRoute>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
-        <Route path="/ganadoList" element={<GanadoListPage/>}/>
-        <Route path="/ciclosPage" element={<CiclosPage/>}/>
-        <Route path="/medica" element={<MedicaPage/>}/>
-        <Route path="/infoCiclosVacunacion" element={<InfoCiclosVacunacion/>}/>
-        <Route path="/graficos" element={<Graficos/>}/>
-        <Route path="/palpaciones" element={<Palpaciones/>}/>
-        <Route path="/historiales" element={<HistorialesPage/>}/>
-        <Route path="/imagenes" element={<Imagenes/>}/>
-        <Route path="/pruebas" element={<PruebasApp/>}/>
+        <Route path="/ganadoList" element={
+          <PrivateRoute>
+            <GanadoListPage/>
+          </PrivateRoute>}/>
+        <Route path="/ciclosPage" element={
+          <PrivateRoute>
+            <CiclosPage/>
+          </PrivateRoute>}/>
+        <Route path="/medica" element={
+          <PrivateRoute>
+            <MedicaPage/>
+          </PrivateRoute>}/>
+        <Route path="/infoCiclosVacunacion" element={
+          <PrivateRoute>
+            <InfoCiclosVacunacion/>
+          </PrivateRoute>}/>
+        <Route path="/graficos" element={
+          <PrivateRoute>
+            <Graficos/>
+          </PrivateRoute>}/>
+        <Route path="/palpaciones" element={
+          <PrivateRoute>
+            <Palpaciones/>
+          </PrivateRoute>}/>
+        <Route path="/historiales" element={
+          <PrivateRoute>
+            <HistorialesPage/>
+          </PrivateRoute>}/>
+        <Route path="/imagenes" element={
+          <PrivateRoute>
+            <Imagenes/>
+          </PrivateRoute>}/>
+        <Route path="/pruebas" element={
+          <PrivateRoute>
+            <PruebasApp/>
+          </PrivateRoute>}/>
       </Routes>
     </div>
   );

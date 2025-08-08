@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/header.jsx'
 import { ButtonAreas } from '../components/buttonAreas.jsx'
 import { Weather } from '../components/weather.jsx'
@@ -10,14 +9,9 @@ import { jwtDecode } from 'jwt-decode';
 function WelcomePage() {
 
   const [count, setCount] = useState(0)
-  const navigate = useNavigate();
+
   const token = sessionStorage.getItem('token');
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/'); // redirige si no hay token
-    }
-  }, [navigate]);
 
   const decoded = token ? jwtDecode(token) : null;
 

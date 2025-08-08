@@ -12,15 +12,8 @@ import { Menu } from '../components/Menuh.jsx';
 
 
 function AjustesPage() {
-    const [count, setCount] = useState(0)
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-          navigate('/'); // redirige si no hay token
-        }
-      }, [navigate]);
+    
 
     return (
         <>

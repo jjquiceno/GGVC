@@ -21,7 +21,7 @@
     display: inline-block;
 }
 
-form .input-icon input, select{
+form .input-icon input, select, textarea{
     height: 35px;
     /* width: 35vw; */ 
     background-color: #fffdef;
@@ -31,11 +31,16 @@ form .input-icon input, select{
     color: grey;
 }
 
+form textarea{
+    height: 60px;
+}
+
 .boton-login{
     height: 35px;
-    background-color: #909777;
     border-radius: 10px;
     font-weight: 500;
+    border: none;
+    cursor: pointer;
 }
 
 .boton-register{
