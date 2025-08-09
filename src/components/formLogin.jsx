@@ -378,15 +378,22 @@ export const FormularioDescendenciaEdit = ({ id }) => {
     e.preventDefault();
 
     try {
-
       const body = {};
 
-      if (idMadre !== undefined) {
-        body.potrero = idMadre;
+      // Si idMadre tiene un valor (no es undefined, null ni una cadena vacía)
+      if (idMadre) {
+        body.id_madre = idMadre;
       }
 
-      if (idPadre !== undefined) {
+      // Si idPadre tiene un valor (no es undefined, null ni una cadena vacía)
+      if (idPadre) {
         body.id_padre = idPadre;
+      }
+
+      // Si el objeto 'body' está vacío, no hacemos nada
+      if (Object.keys(body).length === 0) {
+        console.warn('No hay datos para actualizar.');
+        return; // Salimos de la función
       }
 
       const response = await fetch(`http://localhost:3000/api/descendencias/ganado/${id}`, {

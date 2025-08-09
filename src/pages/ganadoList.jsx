@@ -103,36 +103,68 @@ function GanadoListPage() {
     };
     
     // Función para manejar la actualización de descendencia y recargar los datos
-    const handleUpdateDescendencia = async (ganadoId, nuevaMadreId, nuevoPadreId) => {
-        try {
-            const descendenciaResponse = await axios.get(`http://localhost:3000/api/descendencias/ganado/${ganadoId}`);
-            const descendenciaId = descendenciaResponse.data.id_descendencia;
+    // const handleUpdateDescendencia = async (ganadoId, nuevaMadreId, nuevoPadreId) => {
+    //     try {
+    //         const descendenciaResponse = await axios.get(`http://localhost:3000/api/descendencias/ganado/${ganadoId}`);
+    //         const descendenciaId = descendenciaResponse.data.id_descendencia;
 
-            const body = {
-                id_ganado: ganadoId,
-                id_madre: nuevaMadreId,
-                id_padre: nuevoPadreId
-            };
+    //         const body = {
+    //             id_ganado: ganadoId,
+    //             id_madre: nuevaMadreId,
+    //             id_padre: nuevoPadreId
+    //         };
             
-            await axios.put(`http://localhost:3000/api/descendencias/${descendenciaId}`, body);
+    //         await axios.put(`http://localhost:3000/api/descendencias/${descendenciaId}`, body);
+    //         console.log('Descendencia actualizada');
+            
+    //     } catch (err) {
+    //         if (err.response?.status === 404) {
+    //             const body = {
+    //                 id_ganado: ganadoId,
+    //                 id_madre: nuevaMadreId,
+    //                 id_padre: nuevoPadreId
+    //             };
+    //             await axios.post(`http://localhost:3000/api/descendencias`, body);
+    //             console.log('Descendencia creada');
+    //         } else {
+    //             console.error("Error en la descendencia:", err);
+    //         }
+    //     }
+    //     // Llamar a fetchAllData para recargar los datos y que los cambios se vean en la UI
+    //     fetchAllData();
+    // };
+
+    const handleUpdateDescendencia = async (data) => {
+        try {
+            const { id_ganado } = data;
+            
+            // Verifica si hay más de un campo en el objeto 'data'
+            if (Object.keys(data).length <= 1) {
+                console.warn('No hay datos válidos para actualizar.');
+                return;
+            }
+    
+            // Usa el endpoint PATCH para actualizar solo lo que se envió
+            await axios.patch(`http://localhost:3000/api/descendencias/ganado/${id_ganado}`, data);
             console.log('Descendencia actualizada');
-            
         } catch (err) {
             if (err.response?.status === 404) {
+                // Si no existe, crea una nueva descendencia
                 const body = {
-                    id_ganado: ganadoId,
-                    id_madre: nuevaMadreId,
-                    id_padre: nuevoPadreId
+                    id_ganado: data.id_ganado,
+                    id_madre: data.id_madre || null,
+                    id_padre: data.id_padre || null
                 };
-                await axios.post(`http://localhost:3000/api/descendencias`, body);
+                await axios.post('http://localhost:3000/api/descendencias', body);
                 console.log('Descendencia creada');
             } else {
                 console.error("Error en la descendencia:", err);
             }
         }
-        // Llamar a fetchAllData para recargar los datos y que los cambios se vean en la UI
+        // Llama a fetchAllData para recargar los datos
         fetchAllData();
     };
+      
 
     const handleUpdateUbicacion = async (ganadoId, nuevoPotreroId) => {
         try {
@@ -199,7 +231,6 @@ function GanadoListPage() {
 
     return (
         <>
-            {/* Terminar parte para registrar madre padre y potrero (poner en el dialog de registro el campo de descripcion) */}
             <div className="ganado-list-page ">
                 <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer' />
                 <div className="ganado-list-content">

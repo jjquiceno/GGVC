@@ -40,7 +40,6 @@
     border-radius: 50%;
     background-color: #5c6d56;
     position: relative;
-    z-index: 10000;
     cursor: pointer;
 }
 .list{

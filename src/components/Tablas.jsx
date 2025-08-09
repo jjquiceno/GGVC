@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormularioGeneralEdit } from './formLogin'
 import { faAngleDown, faBorderAll, faCheck, faCow, faPen, faPlus, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import { InfoMedica } from './Dialogs.jsx';
+import { DataTable } from './DataTables.jsx';
 
 // export const TablaSencilla = () => {
 //     return (
@@ -99,50 +101,6 @@ export const TablaSencilla = ({ columnas, datos }) => {
     );
 };
 
-// export const TablaAnimal = ({nombre, id, numeros, iconS,fecha, edad, sexo, raza, madre, padre, desc, rebano}) => {
-//     return (
-//         <div className='tabla-animal-container'>
-//             <div className='encabezado-tabla-animal'>
-//                 <div className='e-t-1'>
-//                     <span className='faicon text-white'><FontAwesomeIcon icon={faCow}/></span>
-//                     <span className='text-white'>{nombre}</span>
-//                     <span className='text-white'>{id}</span>
-//                 </div>
-//                 <div className='e-t-2'>
-//                     <span className='text-white'>{numeros}</span>
-//                     <span className='faicon text-white'>{iconS}</span>
-//                 </div>
-//             </div>
-//             <div className='cuerpo-tabla-animal'>
-//                 <div className='lapiz-tabla-animal'>
-//                     <span><FontAwesomeIcon icon={faPen}/></span>
-//                 </div>
-//                 <div className='cuerpo-texts'>
-//                     <div>
-//                         <p className='bold'>Fecha nacimiento: <span className='light'>{fecha}</span></p>
-//                         <p className='bold'>Edad: <span className='light'>{edad}</span></p>
-//                         <p className='bold'>Sexo: <span className='light'>{sexo}</span></p>
-//                         <p className='bold'>Raza: <span className='light'>{raza}</span></p>
-
-//                         <p className='bold'>Madre: <span className='light'>{madre}</span></p>
-//                         <p className='bold'>Padre: <span className='light'>{padre}</span></p>
-//                         <p className='bold'>Descripcion: <span className='light'>{desc}</span></p>
-//                     </div>
-//                     <div>
-//                         <h3 className='bold ml-2'>Evento</h3>
-//                         <div className='evento'>
-//                             <div>
-//                                 <p className='bold'>Potrero: <span className='light'>{rebano}</span></p>
-
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
 export const TablaAnimal = ({
     nombre,
     id,
@@ -168,15 +126,31 @@ export const TablaAnimal = ({
 
 
     // Ya no necesitas 'actualizarDescendencia' aquí, ya que 'handleUpdateDescendencia' la hace
+    // const handleGuardarMadre = async () => {
+    //     if (!nuevaMadre.trim()) return;
+    //     await onUpdateDes(id, nuevaMadre, padre?.id); // Llama a la función del padre
+    //     setEditMadre(false);
+    // };
+
+    // const handleGuardarPadre = async () => {
+    //     if (!nuevoPadre.trim()) return;
+    //     await onUpdateDes(id, madre?.id, nuevoPadre); // Llama a la función del padre
+    //     setEditPadre(false);
+    // };
+
     const handleGuardarMadre = async () => {
+        console.log('--- Llamando a handleGuardarMadre ---');
         if (!nuevaMadre.trim()) return;
-        await onUpdateDes(id, nuevaMadre, padre?.id); // Llama a la función del padre
+        const data = { id_ganado: id, id_madre: nuevaMadre };
+        await onUpdateDes(data);
         setEditMadre(false);
     };
 
     const handleGuardarPadre = async () => {
+        console.log('--- Llamando a handleGuardarPadre ---');
         if (!nuevoPadre.trim()) return;
-        await onUpdateDes(id, madre?.id, nuevoPadre); // Llama a la función del padre
+        const data = { id_ganado: id, id_padre: nuevoPadre };
+        await onUpdateDes(data);
         setEditPadre(false);
     };
 
@@ -207,9 +181,9 @@ export const TablaAnimal = ({
             </div>
 
             <div className='cuerpo-tabla-animal'>
-                    <div className='lapiz-tabla-animal cursor-pointer'>
-                        <FormularioGeneralEdit id={id}/>
-                    </div>
+                <div className='lapiz-tabla-animal cursor-pointer'>
+                    <FormularioGeneralEdit id={id} />
+                </div>
 
                 <div className='cuerpo-texts'>
                     <div>
@@ -226,7 +200,7 @@ export const TablaAnimal = ({
                                             <input
                                                 type="text"
                                                 id="madre"
-                                                placeholder="Madre"
+                                                placeholder="ID Madre"
                                                 value={nuevaMadre}
                                                 onChange={(e) => setNuevaMadre(e.target.value)}
                                                 className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
@@ -257,7 +231,7 @@ export const TablaAnimal = ({
                                             <input
                                                 type="text"
                                                 id="padre"
-                                                placeholder="Padre"
+                                                placeholder="ID Padre"
                                                 value={nuevoPadre}
                                                 onChange={(e) => setNuevoPadre(e.target.value)}
                                                 className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
@@ -284,8 +258,7 @@ export const TablaAnimal = ({
                     </div>
 
                     <div>
-                        <h3 className='bold ml-2'>Evento</h3>
-                        <div className='evento'>
+                        <div className='evento flex flex-col'>
                             <div className='bold text-lg'>
                                 <span>Potrero:
                                     <span className='light ml-2'>
@@ -315,6 +288,9 @@ export const TablaAnimal = ({
                                         ) : `${potreroNombre}`}
                                     </span>
                                 </span>
+                            </div>
+                            <div className='bold text-lg'>
+                                <InfoMedica nombre={nombre} id={id} />
                             </div>
                         </div>
                     </div>
@@ -365,24 +341,18 @@ export const TablaDatosVisitaMed = ({ }) => {
     )
 }
 
-export const TablaDatosMedicos = ({ }) => {
+export const TablaDatosMedicos = ({ title, data, colums, name,  }) => {
     return (
         <div className="tabla-d-m-container">
             <div className="tig-tittle">
                 <div>
-                    <h2>Datos médicos</h2>
+                    <h2>{title}</h2>
                 </div>
                 <div>
                     <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
-            <a href="" className="tig-item"><span>Resultados de análisis</span></a>
-            <a href="" className="tig-item"><span>Imágenes médicas</span></a>
-            <a href="" className="tig-item"><span>Biopsias</span></a>
-            <a href="" className="tig-item"><span>Registros</span></a>
-            <a href="" className="tig-item"><span>Vacunas</span></a>
-            <a href="" className="tig-item"><span>Desparacitaciones</span></a>
-            <a href="" className="tig-item"><span>Alimentación</span></a>
+            
         </div>
     )
 }
