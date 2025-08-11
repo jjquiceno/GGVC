@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import './formLogin.css'
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -469,7 +469,7 @@ export const FormularioUbicacionEdit = ({ id }) => {
       const resUbicacion = await fetch(`http://localhost:3000/api/ubicacion/potrero/${id}`);
       const dataUbicacion = await resUbicacion.json();
 
-      let ubicacion = dataUbicacion.id_ubicacion; 
+      let ubicacion = dataUbicacion.id_ubicacion;
 
       const response = await fetch(`http://localhost:3000/api/ubicacion/${ubicacion}`, {
         method: 'PUT',
@@ -501,7 +501,7 @@ export const FormularioUbicacionEdit = ({ id }) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black/40 fixed inset-0" />
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
         <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
           <Dialog.Title className="text-xl font-bold mb-4">Descendencia</Dialog.Title>
 
@@ -525,3 +525,297 @@ export const FormularioUbicacionEdit = ({ id }) => {
     </Dialog.Root>
   );
 }
+
+
+export const FormularioVisitas = ({ id, nombre }) => {
+  const [fechaVisita, setFechaVisita] = useState('');
+  const [motivo, setMotivo] = useState('');
+  const [sintomas, setSintomas] = useState('');
+  const [diagnostico, setDiagnostico] = useState('');
+  const [tratamiento, setTratamiento] = useState('');
+  const [proxVisita, setProxVisita] = useState('');
+
+  const handleAddVisita = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/visitas/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_ganado: id,
+          fecha_visita: fechaVisita,
+          motivo,
+          sintomas,
+          diagnostico,
+          tratamiento,
+          prox_visita: proxVisita
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Visita agregada exitosamente:', data);
+        alert('Visita agregada exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar la visita');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar visita médica
+          </Dialog.Title>
+          <Dialog.Description className="text-sm text-gray-500 mb-4">
+            Completa la información para registrar una nueva visita médica para el animal {nombre}.
+          </Dialog.Description>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddVisita}>
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha_visita"
+                name="fecha_visita"
+                required
+                value={fechaVisita}
+                onChange={(e) => setFechaVisita(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full" required
+                value={motivo} onChange={(e) => setMotivo(e.target.value)}>
+                <option value="">Motivo</option>
+                <option value="REVISION_GENERAL">Revisión general</option>
+                <option value="VACUNACION">Vacunación</option>
+                <option value="TRATAMIENTO_ENFERMEDAD">Tratamiento de enfermedad</option>
+                <option value="HERIDA">Herida</option>
+                <option value="PARTO">Parto</option>
+                <option value="REVISION_REPRODUCTIVA">Revisión reproductiva</option>
+              </select>
+
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <textarea type="text" className='border rounded p-2  ml-0.5 w-full' id="sintomas" name="sintomas" placeholder="Síntomas" required
+                value={sintomas}
+                onChange={(e) => setSintomas(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mt-6">
+              <textarea type="text" className='border rounded p-2 ml-0.5 w-full' id="diagnostico" name="diagnostico" placeholder="Diagnóstico" required
+                value={diagnostico}
+                onChange={(e) => setDiagnostico(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mt-6 mb-6">
+              <textarea type="text" className='border rounded p-2 ml-0.5 w-full' id="tratamiento" name="tratamiento" placeholder="Tratamiento" required
+                value={tratamiento}
+                onChange={(e) => setTratamiento(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-4">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="prox_visita"
+                name="prox_visita"
+                placeholder="Próxima visita"
+                value={proxVisita}
+                onChange={(e) => setProxVisita(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+
+export const FormularioSanidad = ({ id, nombre, personal }) => {
+
+  const [fechaAplicacion, setFechaAplicacion] = useState('');
+  const [tipoActividad, setTipoActividad] = useState('');
+  const [idGanado, setIdGanado] = useState(id);
+  const [dosis, setDosis] = useState('');
+  const [supervisor, setSupervisor] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+  
+  const handleAddSanidad = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/plan_sanitario/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fecha_aplicacion: fechaAplicacion,
+          tipo_actividad: tipoActividad,
+          id_ganado: idGanado,
+          dosis,
+          supervisor,
+          observaciones
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Sanidad agregada exitosamente:', data);
+        alert('Sanidad agregada exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar la visita');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar datos de sanidad
+          </Dialog.Title>
+          <Dialog.Description className="text-sm text-gray-500 mb-4">
+            Completa la información para registrar una nueva aplicación sanitaria para el animal {nombre}.
+          </Dialog.Description>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddSanidad}>
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha_aplicacion"
+                name="fecha_aplicacion"
+                required
+                value={fechaAplicacion}
+                onChange={(e) => setFechaAplicacion(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full" required
+                value={tipoActividad} onChange={(e) => setTipoActividad(e.target.value)}>
+                <option value="">Tipo de actividad</option>
+                <option value="Vacunación">Vacunación</option>
+                <option value="Vitaminización">Vitaminización</option>
+                <option value="Desparacitacitación">Desparacitacitación</option>
+              </select>
+
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            {personal === false && (
+              <div className="input-icon w-full">
+                <input
+                  type="number"
+                  className="m-auto ml-0.5 w-full"
+                  id="id_ganado"
+                  name="id_ganado"
+                  placeholder="ID del ganado"
+                  required
+                  value={idGanado}
+                  onChange={(e) => setIdGanado(e.target.value)}
+                />
+                <FontAwesomeIcon icon={faCow} className="icon" />
+              </div>
+            )}
+
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="dosis"
+                name="dosis"
+                placeholder="Dosis"
+                required
+                value={dosis}
+                onChange={(e) => setDosis(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="supervisor"
+                name="supervisor"
+                placeholder="Supervisor"
+                required
+                value={supervisor}
+                onChange={(e) => setSupervisor(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-6">
+              <textarea type="text" className='border rounded p-2 ml-0.5 w-full' id="observaciones" name="observaciones" placeholder="Observaciones" required
+                value={observaciones}
+                onChange={(e) => setObservaciones(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};

@@ -15,8 +15,7 @@ import GanadoPage from './pages/ganado.jsx';
 import RegisterPage from './pages/register.jsx';
 import GanadoListPage from './pages/ganadoList.jsx';
 import CiclosPage from './pages/ciclosPage.jsx';
-import MedicaPage from './pages/medica.jsx';
-import InfoCiclosVacunacion from './pages/infoCiclosVacunacion.jsx';
+// import InfoCiclosVacunacion from './pages/infoCiclosVacunacion.jsx';
 import Graficos from './pages/graficos.jsx';
 import Palpaciones from './pages/palpaciones.jsx';
 import HistorialesPage from './pages/historiales.jsx';
@@ -78,14 +77,10 @@ function App() {
           <PrivateRoute>
             <CiclosPage/>
           </PrivateRoute>}/>
-        <Route path="/medica" element={
-          <PrivateRoute>
-            <MedicaPage/>
-          </PrivateRoute>}/>
-        <Route path="/infoCiclosVacunacion" element={
+        {/* <Route path="/infoCiclosVacunacion" element={
           <PrivateRoute>
             <InfoCiclosVacunacion/>
-          </PrivateRoute>}/>
+          </PrivateRoute>}/> */}
         <Route path="/graficos" element={
           <PrivateRoute>
             <Graficos/>

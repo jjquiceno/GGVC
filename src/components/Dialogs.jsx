@@ -7,6 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from "react-router-dom"
 import { TablaDatosMedicos, TablaDatosVisitaMed, TablaInfoGanado } from './Tablas';
 import { DataTable } from '../components/DataTables.jsx';
+import { FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
 // import { Routes, Route, Link } from 'react-router-dom';
 
 export const InfoMedica = ({ nombre, id }) => {
@@ -31,8 +32,28 @@ export const InfoMedica = ({ nombre, id }) => {
     }
   };
 
+  const fetchDatosSanitarios = async (idActual) => {
+    setDatosSanitarios([]);
+    try {
+      const response = await fetch(`http://localhost:3000/api/plan_sanitario/${idActual}`);
+      const data = await response.json();
+
+      console.log("Respuesta sin procesar:", data);
+
+      const datosSanitarios = data.map((sanidad) => ({
+        ...sanidad,
+        fecha_aplicacion: new Date(sanidad.fecha_aplicacion).toISOString().split("T")[0],
+      }));
+
+      console.log("Datos sanitarios:", datosSanitarios);
+      setDatosSanitarios(datosSanitarios);
+    } catch (error) {
+      console.error('Error al obtener los datos sanitarios:', error);
+    }
+  }
+
   const VisitaColums = [
-    { accessorKey: 'id_ganado', header: 'ID' },
+    { accessorKey: 'id_visita', header: '#Visita' },
     { accessorKey: 'fecha_visita', header: 'Fecha y hora' },
     { accessorKey: 'motivo', header: 'Motivo de la visita' },
     { accessorKey: 'sintomas', header: 'Síntomas' },
@@ -41,11 +62,21 @@ export const InfoMedica = ({ nombre, id }) => {
     { accessorKey: 'prox_visita', header: 'Proxima visita' },
   ];
 
+  const sanidadColumns = [
+    { accessorKey: 'fecha_aplicacion', header: 'Fecha de aplicación' },
+    { accessorKey: 'tipo_actividad', header: 'Tipo de actividad' },
+    { accessorKey: 'dosis', header: 'Dosis' },
+    { accessorKey: 'supervisor', header: 'Supervisor' },
+    { accessorKey: 'observaciones', header: 'Observaciones' },
+  ];
+
+
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          onClick={() => fetchVisitas(id)}
+          onClick={() => { fetchVisitas(id), fetchDatosSanitarios(id) }}
           className="text-[#6e9347] underline cursor-pointer"
         >
           Ver Información Médica
@@ -54,7 +85,7 @@ export const InfoMedica = ({ nombre, id }) => {
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/40 fixed inset-0" />
-        <Dialog.Content className="bg-[#fffdef] p-6 w-full h-full fixed inset-0 flex flex-col z-[9999] overflow-auto">
+        <Dialog.Content className="bg-[#fffdef] p-6 w-full h-full fixed inset-0 flex flex-col z-[50] overflow-auto">
           <div className='relative'>
             <Dialog.Title className="text-xl font-bold mb-4">Información Médica de {nombre} ({id})</Dialog.Title>
 
@@ -65,7 +96,7 @@ export const InfoMedica = ({ nombre, id }) => {
                     <h2 className='font-bold'>Visitas Medicas</h2>
                   </div>
                   <div>
-                    <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]"><FontAwesomeIcon icon={faPlus} /></span>
+                    <FormularioVisitas id={id} />
                   </div>
                 </div>
                 <DataTable
@@ -82,51 +113,29 @@ export const InfoMedica = ({ nombre, id }) => {
                     });
                   }} />
               </div>
+            </div>
 
+            <div className='flex-1 p-6 gap-10'>
               <div className="w-full h-fit content-center mb-10">
                 <div className="h-[15%] rounded-lg flex items-center justify-between mb-4 text-lg">
                   <div>
-                    <h2 className='font-bold'>Visitas Medicas</h2>
+                    <h2 className='font-bold'>Datos sanitarios</h2>
                   </div>
                   <div>
-                    <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]"><FontAwesomeIcon icon={faPlus} /></span>
+                    <FormularioSanidad id={id} nombre={nombre} personal={true}/>
                   </div>
                 </div>
                 <DataTable
                   className="transform-gpu will-change-transform backface-hidden"
-                  data={datosVisitas}
-                  columnas={VisitaColums}
-                  name={`Visitas Médicas de ${nombre}, ${id}`}
+                  data={datosSanitarios}
+                  columnas={sanidadColumns}
+                  name="Datos Sanitarios"
                   onDeleteRows={(rows) => {
                     rows.forEach(async (row) => {
-                      await fetch(`http://localhost:3000/api/visitas/${row.id_visita}`, {
+                      await fetch(`http://localhost:3000/api/plan_sanitario/${row.id_sanidad}`, {
                         method: 'DELETE',
                       });
-                      setDatosSanitarios((prev) => prev.filter((item) => item.id_visita !== row.id_visita));
-                    });
-                  }} />
-              </div>
-
-              <div className="w-full h-fit content-center mb-10">
-                <div className="h-[15%] rounded-lg flex items-center justify-between mb-4 text-lg">
-                  <div>
-                    <h2 className='font-bold'>Visitas Medicas</h2>
-                  </div>
-                  <div>
-                    <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]"><FontAwesomeIcon icon={faPlus} /></span>
-                  </div>
-                </div>
-                <DataTable
-                  className="transform-gpu will-change-transform backface-hidden"
-                  data={datosVisitas}
-                  columnas={VisitaColums}
-                  name={`Visitas Médicas de ${nombre}, ${id}`}
-                  onDeleteRows={(rows) => {
-                    rows.forEach(async (row) => {
-                      await fetch(`http://localhost:3000/api/visitas/${row.id_visita}`, {
-                        method: 'DELETE',
-                      });
-                      setDatosSanitarios((prev) => prev.filter((item) => item.id_visita !== row.id_visita));
+                      setDatosSanitarios((prev) => prev.filter((item) => item.id_sanidad !== row.id_sanidad));
                     });
                   }} />
               </div>
