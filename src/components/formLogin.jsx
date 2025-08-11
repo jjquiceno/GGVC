@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
 import { faFile } from '@fortawesome/free-regular-svg-icons';
@@ -819,3 +819,134 @@ export const FormularioSanidad = ({ id, nombre, personal }) => {
     </Dialog.Root>
   );
 };
+
+export const FormularioPasswordEdit = ({ user }) => {
+
+  const [nuevaContraseña, setNuevaContraseña] = useState('');
+  const [show, setShow] = useState(false);
+
+  const handleEditContraseña = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      
+
+      const resUser = await fetch(`http://localhost:3000/api/usuario/${user}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ contrasena: nuevaContraseña })
+      });
+
+      const dataUser = await resUser.json();
+
+      if (resUser.ok) {
+        console.log('Contraseña editada exitosamente:', dataUser);
+        alert('Edición exitosa');
+        window.location.reload();
+      } else {
+        alert(dataUser.message || 'Error al editar la contraseña');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <button className="bg-[#e9edc9] border-none shadow-[10px_10px_10px_2px_rgba(0,0,0,0.164)] text-black px-4 py-2 rounded hover:shadow-[0px_0px_10px_2px_rgba(0,0,0,0.164)] transition-all duration-300 ease-in-out">Cambiar contraseña</button>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <Dialog.Title className="text-xl font-bold mb-4">Cambiar contraseña</Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleEditContraseña}>
+
+            <div className="input-icon w-full ">
+              <input  type={show === false ? "password" : "text"} className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nueva contraseña"
+                value={nuevaContraseña} onChange={(e) => setNuevaContraseña(e.target.value)} />
+              <FontAwesomeIcon  onClick={() => setShow(!show)} icon={show === false ? faEyeSlash : faEye} className="icon cursor-pointer" />
+            </div>
+
+
+            <button className='boton-login w-[100%] cursor-pointer bg-[#909777]' type="submit">Editar</button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+export const FormularioEmailEdit = ({ user }) => {
+
+  const [nuevoEmail, setNuevoEmail] = useState('');
+
+  const handleEditEmail = async (e) => {
+    e.preventDefault();
+
+    try {
+      const resEmpleado = await fetch(`http://localhost:3000/api/empleado/${user}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: nuevoEmail })
+      });
+
+      const dataEmpleado = await resEmpleado.json();
+
+      if (resEmpleado.ok) {
+        console.log('Email editada exitosamente:', dataEmpleado);
+        alert('Edición exitosa');
+        window.location.reload();
+      } else {
+        alert(dataEmpleado.message || 'Error al editar la Email');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <button className="bg-[#e9edc9] border-none shadow-[10px_10px_10px_2px_rgba(0,0,0,0.164)] text-black px-4 py-2 rounded hover:shadow-[0px_0px_10px_2px_rgba(0,0,0,0.164)] transition-all duration-300 ease-in-out">Cambiar correo</button>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <Dialog.Title className="text-xl font-bold mb-4">Cambiar Email</Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleEditEmail}>
+
+            <div className="input-icon w-full ">
+              <input  type="text" className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nuevo Email"
+                value={nuevoEmail} onChange={(e) => setNuevoEmail(e.target.value)} />
+              <FontAwesomeIcon  icon={faEnvelope} className="icon cursor-pointer" />
+            </div>
+
+
+            <button className='boton-login w-[100%] cursor-pointer bg-[#909777]' type="submit">Editar</button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
