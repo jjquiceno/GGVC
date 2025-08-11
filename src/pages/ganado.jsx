@@ -25,14 +25,14 @@ function GanadoPage() {
                     <h2 className='text-black font-bold text-2xl m-5'>Funciones</h2>
                     <div className="w-[90vw] grid grid-rows-3 grid-cols-3 gap-5 md:gap-0 md:grid-rows-1 md:grid-cols-10 items-center justify-items-center text-black text-[1.5rem]">
                         <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="Sanidad" ruta={"/ciclosPage"}/>
-                        <Items icono={<FontAwesomeIcon icon={faPlus} />} text="Médica" ruta={"/medica"} />
-                        <Items icono={<FontAwesomeIcon icon={faExchangeAlt} />} text="Comparación" ruta={"/infoCiclosVacunacion"} />
                         <Items icono={<FontAwesomeIcon icon={faChartBar} />} text="Gráficas" ruta={"/graficos"}/>
                         <Items icono={<FontAwesomeIcon icon={faHandPaper} />} text="Palpaciones" ruta={"/palpaciones"} />
                         <Items icono={<FontAwesomeIcon icon={faHistory} />} text="Historiales" ruta={"/historiales"} />
                         <Items icono={<FontAwesomeIcon icon={faBell} />} text="Recordatorios" />
                         <Items icono={<FontAwesomeIcon icon={faVenusMars} />} text="Reproducción" />
                         <Items icono={<FontAwesomeIcon icon={faTree} />} text="Descendencia" />
+                        <Items icono={<FontAwesomeIcon icon={faScaleBalanced} />} text="Pesaje" />
+                        <Items icono={<FontAwesomeIcon icon={faLayerGroup} />} text="Clasificación" /> 
 
                         <FontAwesomeIcon
                             icon={desplegado ? faAngleDown : faAngleRight}
@@ -44,8 +44,6 @@ function GanadoPage() {
                     <div className={`w-full overflow-hidden transition-[max-height] duration-300 ease-in-out ${desplegado ? 'max-h-[25vh]' : 'max-h-0'}`}> 
                         <div className="w-[90vw] h-full grid grid-rows-2 grid-cols-3 gap-5 md:gap-0 md:grid-rows-1 md:grid-cols-10 items-center justify-items-center text-black text-[1.5rem]"> 
                             <Items icono={<FontAwesomeIcon icon={faChartLine} />} text="Rendimiento" /> 
-                            <Items icono={<FontAwesomeIcon icon={faScaleBalanced} />} text="Pesaje" /> 
-                            <Items icono={<FontAwesomeIcon icon={faLayerGroup} />} text="Clasificación" /> 
                             <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"}/> 
                             <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" /> 
                             <Items icono={<FontAwesomeIcon icon={faPills} />} text="Suplementos" ruta={"/porcentajeSal"}/> 
@@ -54,9 +52,6 @@ function GanadoPage() {
 
                     <div className="w-full flex flex-wrap justify-center md:justify-between gap-5 align-center minmax-100px items-center justify-items-center mb-8 mt-4">
                         <ItemsTypes icono={<FontAwesomeIcon icon={faCow} />} text="Ganado" ruta="/ganadoList"/>
-                        <ItemsTypes icono={<FontAwesomeIcon icon={faCow} />} text="Vacas" ruta="/ganadoList"/>
-                        <ItemsTypes icono={<FontAwesomeIcon icon={faCow} />} text="Toros" ruta="/ganadoList"/>
-                        <ItemsTypes icono={<FontAwesomeIcon icon={faCow} />} text="Terneros" ruta="/ganadoList"/>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { Anterior } from '../components/Menuh.jsx';
 import { DataTable } from '../components/DataTables.jsx';
+import { Form } from 'react-router';
+import { FormularioSanidad } from '../components/formLogin.jsx';
 
 
 
@@ -99,15 +101,30 @@ function CiclosPage() {
     <>
       <Header nav={<Anterior ruta={"/ganado"} />} text="Ciclos de vacunacion" img={"/img/vacaMirandoCamara.jpg"} />
       <div className='add-buttom'>
-        <FontAwesomeIcon className='iconomas' icon={faPlus} />
+        <FormularioSanidad id={null} nombre={null} personal={false} />
       </div>
       <div className="contenido-ciclos mt-[30vh]">
         <div className="p-10">
+          <h1 className='text-black font-bold text-xl m-5'>Datos Sanitarios</h1>
+          <DataTable
+            data={datosSanitarios}
+            columnas={sanidadColumns}
+            name="Datos Sanitarios"
+            onDeleteRows={(rows) => {
+              rows.forEach(async (row) => {
+                await fetch(`http://localhost:3000/api/plan_sanitario/${row.id_sanidad}`, {
+                  method: 'DELETE',
+                });
+                setDatosSanitarios((prev) => prev.filter((item) => item.id_sanidad !== row.id_sanidad));
+              });
+            }} />
+        </div>
+        <div className="p-10">
           <h1 className='text-black font-bold text-xl m-5'>Datos del ganado</h1>
-          <DataTable 
-          data={datosAnimales} 
-          columnas={ganadoColums} 
-          name={"Datos Ganado"}
+          <DataTable
+            data={datosAnimales}
+            columnas={ganadoColums}
+            name={"Datos Ganado"}
           // onDeleteRows={(rows) => {
           //   rows.forEach(async (row) => {
           //     await fetch(`http://localhost:3000/api/ganado/${row.id_ganado}`, {
@@ -120,21 +137,6 @@ function CiclosPage() {
           //   });
           // }} Debe ser implementada la función de eliminar en cascada
           />
-        </div>
-        <div className="p-10">
-          <h1 className='text-black font-bold text-xl m-5'>Datos Sanitarios</h1>
-          <DataTable
-            data={datosSanitarios}
-            columnas={sanidadColumns}
-            name="Datos Sanitarios" 
-            onDeleteRows={(rows) => {
-              rows.forEach(async (row) => {
-                await fetch(`http://localhost:3000/api/plan_sanitario/${row.id_sanidad}`, {
-                  method: 'DELETE',
-                });
-                setDatosSanitarios((prev) => prev.filter((item) => item.id_sanidad !== row.id_sanidad));
-              });
-            }} />
         </div>
       </div>
 

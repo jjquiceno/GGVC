@@ -138,30 +138,6 @@
     padding: 10px 10px;
 }
 
-.tabla-d-m-container{
-    border: solid #2b3701;
-    width: 100vw;
-    height: 50vh;
-    background-color: #e9edc9;
-    margin-top: 40px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
-    padding: 10px 10px;
-}
-.tig-tittle{
-    height: 15%;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.tig-tittle{
-    color: black;
-    font-weight: 700;
-}
 .tig-item{
     height: 4vh;
     background-color: #fffcec;

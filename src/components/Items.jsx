@@ -30,8 +30,8 @@ export const ItemsTypes = ({ icono, text, ruta}) => {
       };
 
     return (
-        <div className="md:w-[15vw] md:h-[24vw] bg-[#2b3701] flex flex-col items-center p-[5px] rounded-[10px] shadow-[0_0_10px_0_rgba(0,0,0,0.75)] transition-all duration-300 ease-in-out cursor-pointer over:scale-[1.02] hover:shadow-[0_0_2px_0_rgba(0,0,0,0.75)]" onClick={handleClick}>
-            <div className='w-[99%] h-[85%] bg-[#e9edc9] rounded-[10px] flex items-center justify-center text-black text-[4rem]'>
+        <div className="md:w-[50%] md:h-[24vw] bg-[#2b3701] flex flex-col items-center p-[5px] rounded-[10px] shadow-[0_0_10px_0_rgba(0,0,0,0.75)] transition-all duration-300 ease-in-out cursor-pointer over:scale-[1.02] hover:shadow-[0_0_2px_0_rgba(0,0,0,0.75)]" onClick={handleClick}>
+            <div className='w-full h-[95%] bg-[#e9edc9] rounded-[10px] flex items-center justify-center text-black text-[4rem]'>
                 <span>{icono}</span>
             </div>
             <div className='item-texts'>
