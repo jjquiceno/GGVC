@@ -501,8 +501,8 @@ export const FormularioUbicacionEdit = ({ id }) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
-        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-50" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
           <Dialog.Title className="text-xl font-bold mb-4">Descendencia</Dialog.Title>
 
           <form className="flex flex-col gap-4 h-full" onSubmit={handleEditUbicacion}>
