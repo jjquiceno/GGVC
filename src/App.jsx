@@ -21,6 +21,7 @@ import Palpaciones from './pages/palpaciones.jsx';
 import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
 import PruebasApp from './pages/pruebas.jsx'; 
+import GesAdmon from './pages/gesAdmon.jsx';
 
 
 function App() {
@@ -100,6 +101,10 @@ function App() {
         <Route path="/pruebas" element={
           <PrivateRoute>
             <PruebasApp/>
+          </PrivateRoute>}/>
+        <Route path="/gesAdmon" element={
+          <PrivateRoute>
+            <GesAdmon/>
           </PrivateRoute>}/>
       </Routes>
     </div>
