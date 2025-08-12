@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import './menuh.css';
-import { faBars, faXmark, faHouse, faCow, faSeedling, faXmarksLines, faDollarSign, faBookOpen, faUserPen, faGear, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faHouse, faCow, faSeedling, faXmarksLines, faDollarSign, faBookOpen, faUserPen, faGear, faAngleLeft, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import {  } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Routes, Route, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export const Menu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+
+  const logout = () => {
+    // Eliminar el token de sessionStorage
+    sessionStorage.removeItem("token");
   };
 
   return (
@@ -36,6 +42,7 @@ export const Menu = () => {
                     <ul>
                         <li><Link to="/ajustes"><FontAwesomeIcon icon={faUserPen}/> Ajustes</Link></li>
                         <li><Link to=""><FontAwesomeIcon icon={faGear}/> Contácto</Link></li>
+                        <li><Link to="/login" onClick={logout} ><FontAwesomeIcon icon={faArrowRightFromBracket} /> Cerrar sesión</Link></li>
                     </ul>
                 </nav>
             </div> 
