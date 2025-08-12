@@ -26,9 +26,7 @@ export const Menu = () => {
                 <nav className='opciones1'>
                     <ul>
                         <li><Link to="/welcome"><FontAwesomeIcon icon={faHouse}/> Inicio</Link></li>
-                        <li><Link to="/cultivos"><FontAwesomeIcon icon={faSeedling}/> Cultivos</Link></li>
                         <li><Link to="/ganado"><FontAwesomeIcon icon={faCow}/> Ganado</Link></li>
-                        <li><Link to=""><FontAwesomeIcon icon={faXmarksLines}/> Potreros</Link></li>
                         <li><Link to="/inventario"><FontAwesomeIcon icon={faDollarSign}/> Inventario</Link></li>
                         <li><Link to="/pruebas"><FontAwesomeIcon icon={faBookOpen}/> Manuales</Link></li>
                     </ul>

@@ -6,7 +6,7 @@ import { faCloudSun } from '@fortawesome/free-solid-svg-icons';
 export const Weather = () => {
   return (
     <>
-        <div className="w-[90%] h-[90%] flex flex-col justify-center items-center ">
+        <div className="w-[90%] h-[50vh] flex flex-col justify-center items-center ">
             <div className="flex">
             <FontAwesomeIcon icon={faMapMarker} className="text-2xl text-[rgb(236,198,93)]" />
             <h3 className='text-2xl text-black font-bold'>Medellin</h3>
