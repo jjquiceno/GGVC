@@ -1,10 +1,7 @@
 import React, { use } from 'react'
 import './items.css'
-<<<<<<< HEAD
-import { faDownload, faUser } from '@fortawesome/free-solid-svg-icons'
-=======
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowAltCircleRight, faArrowsRotate, faDownload, faExchangeAlt, faPen, faPencil } from '@fortawesome/free-solid-svg-icons'
->>>>>>> 1d625fcd8b55ef4c28eb246604e001c0d1a191dd
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormularioEditReqBpg } from './formLogin'
 
@@ -48,11 +45,7 @@ export const ItemsTypes = ({ icono, text, ruta }) => {
 
 export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha }) => {
     return (
-<<<<<<< HEAD
-        <div className='item3 w-full h-[5vh] bg-[#e9edc9] border-2 border-[#2b3701] flex items-center justify-between rounded-md shadow-md transition-all duration-300 ease-in-out cursor-pointer text-black text-base mb-2 hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)]' onClick={onClick}>
-=======
         <div className='item3 cursor-pointer' onClick={onClick}>
->>>>>>> 1d625fcd8b55ef4c28eb246604e001c0d1a191dd
             <div className='icono'>
                 <span>{iconoA}</span>
             </div>
