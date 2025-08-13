@@ -23,6 +23,9 @@ import Imagenes from './pages/viewImagenes.jsx';
 import PruebasApp from './pages/pruebas.jsx'; 
 import GesAdmon from './pages/gesAdmon.jsx';
 import CambioDeDatos from './pages/cambioDeDatos.jsx';
+import ReqBPG from "./pages/reqBPG.jsx";
+
+
 
 function App() {
   return (
@@ -102,6 +105,7 @@ function App() {
           <PrivateRoute>
             <PruebasApp/>
           </PrivateRoute>}/>
+
         <Route path="/gesAdmon" element={
           <PrivateRoute>
             <GesAdmon/>
@@ -110,6 +114,12 @@ function App() {
           <PrivateRoute>
             <CambioDeDatos/>
           </PrivateRoute>}/>
+        <Route path="/reqBPG" element={
+          
+            <ReqBPG/>
+        }/>
+        <Route path="*" element={<h1>404 - Not Found</h1>} />
+
       </Routes>
     </div>
   );

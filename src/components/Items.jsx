@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { use } from 'react'
 import './items.css'
+<<<<<<< HEAD
 import { faDownload, faUser } from '@fortawesome/free-solid-svg-icons'
+=======
+import { faArrowAltCircleRight, faArrowsRotate, faDownload, faExchangeAlt, faPen, faPencil } from '@fortawesome/free-solid-svg-icons'
+>>>>>>> 1d625fcd8b55ef4c28eb246604e001c0d1a191dd
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FormularioEditReqBpg } from './formLogin'
 
-export const Items = ({ icono, text, ruta}) => {
+export const Items = ({ icono, text, ruta }) => {
 
     const handleClick = () => {
         window.location.href = ruta;
-      };
+    };
 
     return (
         <div className='md:w-[6vw] md:h-[10vw] flex flex-col items-center group' >
@@ -23,11 +28,11 @@ export const Items = ({ icono, text, ruta}) => {
     )
 }
 
-export const ItemsTypes = ({ icono, text, ruta}) => {
+export const ItemsTypes = ({ icono, text, ruta }) => {
 
     const handleClick = () => {
         window.location.href = ruta;
-      };
+    };
 
     return (
         <div className="w-[70vw] h-[80vw] md:w-[70%] md:h-[60vh] bg-[#2b3701] flex flex-col items-center p-[5px] rounded-[10px] shadow-[0_0_10px_0_rgba(0,0,0,0.75)] transition-all duration-300 ease-in-out cursor-pointer over:scale-[1.02] hover:shadow-[0_0_2px_0_rgba(0,0,0,0.75)]" onClick={handleClick}>
@@ -41,9 +46,13 @@ export const ItemsTypes = ({ icono, text, ruta}) => {
     )
 }
 
-export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha}) => {
+export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha }) => {
     return (
+<<<<<<< HEAD
         <div className='item3 w-full h-[5vh] bg-[#e9edc9] border-2 border-[#2b3701] flex items-center justify-between rounded-md shadow-md transition-all duration-300 ease-in-out cursor-pointer text-black text-base mb-2 hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)]' onClick={onClick}>
+=======
+        <div className='item3 cursor-pointer' onClick={onClick}>
+>>>>>>> 1d625fcd8b55ef4c28eb246604e001c0d1a191dd
             <div className='icono'>
                 <span>{iconoA}</span>
             </div>
@@ -57,7 +66,7 @@ export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha})
                     <span>{fecha}</span>
                 </div>
                 <div className="status-icon">
-                    <span className="icono">{ iconoS }</span>
+                    <span className="icono">{iconoS}</span>
                 </div>
             </div>
         </div>
@@ -72,6 +81,69 @@ export const ItemsListE = ({ onClick, id_empleado, nombre, }) => {
             <div className='item-texts'>
                 <strong>{id_empleado}</strong>
                 <span>{nombre}</span>
+            </div>
+        </div>
+    )
+}
+
+export const ItemsReq = ({ req, idReq, fecha, idEmp, desc, estado }) => {
+
+    const [cumplido, setCumplido] = React.useState(estado);
+
+    React.useEffect(() => {
+        setCumplido(estado === "Cumplido");
+    }, [estado]);
+
+
+    const handleToggle = async (e) => {
+        e.preventDefault();
+
+        const nuevoEstado = !cumplido;
+        setCumplido(nuevoEstado);
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/requerimientos/${idReq}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id_empleado: idEmp,
+                    fecha,
+                    req_cumplido: req,
+                    descripcion: desc,
+                    estado: nuevoEstado ? "Cumplido" : "Pendiente"
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('El estado cambió exitosamente:', data);
+                window.location.reload();
+            } else {
+                alert(data.message || 'Error al cambiar estado de requerimiento');
+            }
+        } catch (err) {
+            console.error('Error de red:', err);
+            alert('Error de conexión con el servidor.');
+        }
+
+    };
+
+    
+
+    return (
+        <div className={`w-full min-h-[5vh] border-2 border-[#2b3701] rounded-[5px] flex justify-between items-center shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)] hover:shadow-[0px_0px_2px_0px_rgba(0,0,0,0.75)] transition ease-in-out duration-300 ${cumplido ? "bg-[#8ab861]" : "bg-[#a2a88d]"
+            }`}>
+            <div className='w-[90%] h-full flex items-center justify-between px-10'>
+                <strong className='max-w-[15%] w-[15%]'>{req}</strong>
+                <span className='max-w-[6%] w-[6%]'>{idReq}</span>
+                <span className='max-w-[10%] w-[10%]'>{fecha}</span>
+                <span className='max-w-[9%] w-[9%]'>Empleado: {idEmp}</span>
+                <span className='max-w-[50%] w-[45%]'>{desc}</span>
+            </div>
+            <div className="w-[12%] h-full flex items-center justify-between px-10">
+                <FormularioEditReqBpg idReq={idReq} estado={cumplido ? "Cumplido" : "Pendiente"}/>
+                <span onClick={handleToggle} className="cursor-pointer">{<FontAwesomeIcon icon={faExchangeAlt} />}</span>
             </div>
         </div>
     )
@@ -99,11 +171,11 @@ export const ProblemasPo = ({ plagascant, enfermedadescant, climacant }) => {
     )
 }
 
-export const ImagesItem = ({ srcImg, nombre, edad}) => {
-    return(
+export const ImagesItem = ({ srcImg, nombre, edad }) => {
+    return (
         <div className="imageContainer">
             <div className='imagecInt'>
-                <img className='imagenG' src={srcImg} alt={nombre} loading='lazy'/>
+                <img className='imagenG' src={srcImg} alt={nombre} loading='lazy' />
             </div>
             <div className='imagecText'>
                 <p><span>{nombre}</span></p>
@@ -117,7 +189,7 @@ export const InventarioItem = ({ srcImg, nombre, cantidad, descarga }) => {
     return (
         <div className="w-[90] h-[40vw] md:w-[28vw] md:h-[15vw] border-2 border-[#2b3701] rounded-[10px] bg-[#e9edc9] flex justify-between items-center px-[5px]">
             <div className='w-[60%] h-[95%] rounded-[10px]'>
-                <img className='w-full h-full object-cover rounded-[10px] shadow-[1px_1px_10px_1px_rgba(0,0,0,0.342)]' src={srcImg} alt={nombre} loading='lazy'/>
+                <img className='w-full h-full object-cover rounded-[10px] shadow-[1px_1px_10px_1px_rgba(0,0,0,0.342)]' src={srcImg} alt={nombre} loading='lazy' />
             </div>
             <div className='w-[39%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px]'>
                 <p className='text-black text-[1.5rem] font-semibold mb-[10px]'><span>{nombre}</span></p>

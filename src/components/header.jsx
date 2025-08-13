@@ -104,7 +104,7 @@ export const HeaderInvert = ({ text, img }) => {
 export const HeaderSoloText = ({nav, text, img}) => {
   return (
     <>
-      <div className='contenedor contenedorST text-black'>
+      <div className='contenedor contenedorST text-black bg-gradient-to-b from-[#565a49] to-[#e9edc9]'>
         <div className=''>
           {nav}
         </div>

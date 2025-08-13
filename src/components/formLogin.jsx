@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react'
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
 import { faFile } from '@fortawesome/free-regular-svg-icons';
+import { faDochub } from '@fortawesome/free-brands-svg-icons';
 // import { Routes, Route, Link } from 'react-router-dom';
 
 
@@ -675,7 +676,7 @@ export const FormularioSanidad = ({ id, nombre, personal }) => {
   const [dosis, setDosis] = useState('');
   const [supervisor, setSupervisor] = useState('');
   const [observaciones, setObservaciones] = useState('');
-  
+
   const handleAddSanidad = async (e) => {
     e.preventDefault();
 
@@ -830,7 +831,7 @@ export const FormularioPasswordEdit = ({ user }) => {
 
     try {
 
-      
+
 
       const resUser = await fetch(`http://localhost:3000/api/usuario/${user}`, {
         method: 'PUT',
@@ -869,9 +870,9 @@ export const FormularioPasswordEdit = ({ user }) => {
           <form className="flex flex-col gap-4 h-full" onSubmit={handleEditContraseña}>
 
             <div className="input-icon w-full ">
-              <input  type={show === false ? "password" : "text"} className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nueva contraseña"
+              <input type={show === false ? "password" : "text"} className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nueva contraseña"
                 value={nuevaContraseña} onChange={(e) => setNuevaContraseña(e.target.value)} />
-              <FontAwesomeIcon  onClick={() => setShow(!show)} icon={show === false ? faEyeSlash : faEye} className="icon cursor-pointer" />
+              <FontAwesomeIcon onClick={() => setShow(!show)} icon={show === false ? faEyeSlash : faEye} className="icon cursor-pointer" />
             </div>
 
 
@@ -932,9 +933,9 @@ export const FormularioEmailEdit = ({ user }) => {
           <form className="flex flex-col gap-4 h-full" onSubmit={handleEditEmail}>
 
             <div className="input-icon w-full ">
-              <input  type="text" className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nuevo Email"
+              <input type="text" className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nuevo Email"
                 value={nuevoEmail} onChange={(e) => setNuevoEmail(e.target.value)} />
-              <FontAwesomeIcon  icon={faEnvelope} className="icon cursor-pointer" />
+              <FontAwesomeIcon icon={faEnvelope} className="icon cursor-pointer" />
             </div>
 
 
@@ -950,3 +951,260 @@ export const FormularioEmailEdit = ({ user }) => {
   );
 }
 
+export const FormularioAddReqBpg = () => {
+  const [idEmpleado, setIdEmpleado] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [reqCumplido, setReqCumplido] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [estado, setEstado] = useState('');
+
+  const handleAddReq = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/requerimientos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_empleado: idEmpleado,
+          fecha,
+          req_cumplido: reqCumplido,
+          descripcion,
+          estado
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Requerimiento agregado exitosamente:', data);
+        alert('Requerimiento agregado exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar la requerimiento');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar nuevo requerimiento
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddReq}>
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="id_empleado"
+                name="id_empleado"
+                placeholder='ID del empleado'
+                required
+                value={idEmpleado}
+                onChange={(e) => setIdEmpleado(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                placeholder="Fecha de cumplimiento"
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ml-0.5">
+              <select className="border rounded p-2 w-full" required
+                value={reqCumplido} onChange={(e) => setReqCumplido(e.target.value)}>
+                <option value="">Requerimiento cumplido</option>
+                <option value="Sanidad animal">Sanidad animal</option>
+                <option value="Identificación individual">Identificación individual</option>
+                <option value="Bioseguridad">Bioseguridad</option>
+                <option value="Higiene ordeño">Higiene ordeño</option>
+                <option value="Medicamentos veterinarios">Medicamentos veterinarios</option>
+                <option value="Alimentación animal">Alimentación animal</option>
+                <option value="Bienestar animal">Bienestar animal</option>
+                <option value="Capacitación personal">Capacitación personal</option>
+                <option value="Infraestructura">Infraestructura</option>
+                <option value="Trazabilidad y registros">Trazabilidad y registros</option>
+                <option value="Saneamiento">Saneamiento</option>
+              </select>
+
+              <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-6">
+              <textarea type="text" className='border rounded p-2  ml-0.5 w-full' id="descripcion" name="descripcion" placeholder="Descripción" required
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faDochub} className="icon" />
+            </div>
+
+            <div className="input-icon w-full m-auto ml-0.5">
+              <select className="border rounded p-2 w-full" required
+                value={estado} onChange={(e) => setEstado(e.target.value)}>
+                <option value="">Estado</option>
+                <option value="Cumplido">Cumplido</option>
+                <option value="Pendiente">Pendiente</option>
+              </select>
+
+              <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+            </div>
+
+
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const FormularioEditReqBpg = ({ idReq, estado }) => {
+
+  const [idEmpleado, setIdEmpleado] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [reqCumplido, setReqCumplido] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const handleEditReq = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/requerimientos/${idReq}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_empleado: idEmpleado,
+          fecha,
+          req_cumplido: reqCumplido,
+          descripcion,
+          estado
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Requerimiento editado exitosamente:', data);
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al editar requerimiento');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  }
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="">{<FontAwesomeIcon icon={faPen} />}</span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar nuevo requerimiento
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleEditReq}>
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="id_empleado"
+                name="id_empleado"
+                placeholder='ID del empleado'
+                required
+                value={idEmpleado}
+                onChange={(e) => setIdEmpleado(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                placeholder="Fecha de cumplimiento"
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ml-0.5">
+              <select className="border rounded p-2 w-full" required
+                value={reqCumplido} onChange={(e) => setReqCumplido(e.target.value)}>
+                <option value="">Requerimiento cumplido</option>
+                <option value="Sanidad animal">Sanidad animal</option>
+                <option value="Identificación individual">Identificación individual</option>
+                <option value="Bioseguridad">Bioseguridad</option>
+                <option value="Higiene ordeño">Higiene ordeño</option>
+                <option value="Medicamentos veterinarios">Medicamentos veterinarios</option>
+                <option value="Alimentación animal">Alimentación animal</option>
+                <option value="Bienestar animal">Bienestar animal</option>
+                <option value="Capacitación personal">Capacitación personal</option>
+                <option value="Infraestructura">Infraestructura</option>
+                <option value="Trazabilidad y registros">Trazabilidad y registros</option>
+                <option value="Saneamiento">Saneamiento</option>
+              </select>
+
+              <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-6">
+              <textarea type="text" className='border rounded p-2  ml-0.5 w-full' id="descripcion" name="descripcion" placeholder="Descripción" required
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faDochub} className="icon" />
+            </div>
+
+
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Editar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
