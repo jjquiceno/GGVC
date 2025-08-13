@@ -1,7 +1,7 @@
-import React, { use } from 'react'
+import React, { use, useState, useRef } from 'react'
 import './items.css'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faArrowAltCircleRight, faArrowsRotate, faDownload, faExchangeAlt, faPen, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleRight, faArrowsRotate, faDownload, faExchangeAlt, faPen, faPencil, faUpload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormularioEditReqBpg } from './formLogin'
 
@@ -178,17 +178,173 @@ export const ImagesItem = ({ srcImg, nombre, edad }) => {
     )
 }
 
-export const InventarioItem = ({ srcImg, nombre, cantidad, descarga }) => {
+export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantidadChange, onManualChange }) => {
+    const [editando, setEditando] = useState(false);
+    const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
+    const fileInputRef = useRef(null);
+
+    const handleCantidadClick = () => {
+        setEditando(true);
+    };
+
+    const handleCantidadChange = (e) => {
+        const valor = parseInt(e.target.value);
+        if (!isNaN(valor) && valor >= 0) {
+            setNuevaCantidad(valor);
+        }
+    };
+
+    const handleGuardar = () => {
+        if (onCantidadChange && nuevaCantidad !== cantidad) {
+            onCantidadChange(id, nuevaCantidad);
+        }
+        setEditando(false);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleGuardar();
+        } else if (e.key === 'Escape') {
+            setNuevaCantidad(cantidad);
+            setEditando(false);
+        }
+    };
+
+    const handleManualClick = () => {
+        if (manual) {
+            // Si ya hay un manual, lo descargamos
+            if (manual.datos) {
+                // Si es un manual guardado (datos en base64)
+                const link = document.createElement('a');
+                link.href = manual.datos;
+                link.download = manual.nombre || 'manual';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (typeof manual === 'string') {
+                // Si es una URL directa (compatibilidad con versiones anteriores)
+                window.open(manual, '_blank');
+            }
+        } else {
+            // Si no hay manual, abrimos el selector de archivos
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5MB máximo
+                alert('El archivo es demasiado grande. El tamaño máximo permitido es 5MB.');
+                return;
+            }
+            
+            // Creamos una URL temporal para el archivo
+            const fileUrl = URL.createObjectURL(file);
+            
+            // Llamamos a la función del padre para actualizar el manual
+            if (onManualChange) {
+                onManualChange(id, file, fileUrl);
+            }
+            
+            // Limpiamos el input para permitir cargar el mismo archivo de nuevo si es necesario
+            e.target.value = null;
+        }
+    };
+
     return (
-        <div className="w-[90] h-[40vw] md:w-[28vw] md:h-[15vw] border-2 border-[#2b3701] rounded-[10px] bg-[#e9edc9] flex justify-between items-center px-[5px]">
-            <div className='w-[60%] h-[95%] rounded-[10px]'>
+        <div className="w-[90] h-[40vw] md:w-[28vw] md:h-[15vw] border-2 border-[#2b3701] rounded-[10px] bg-[#e9edc9] flex justify-between items-center px-[5px] hover:shadow-md transition-shadow">
+            <div className='w-[60%] h-[95%] rounded-[10px] overflow-hidden'>
                 <img className='w-full h-full object-cover rounded-[10px] shadow-[1px_1px_10px_1px_rgba(0,0,0,0.342)]' src={srcImg} alt={nombre} loading='lazy' />
             </div>
-            <div className='w-[39%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px]'>
-                <p className='text-black text-[1.5rem] font-semibold mb-[10px]'><span>{nombre}</span></p>
-                <p className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-[80%] h-[20%] text-black flex items-center px-[5px] cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]'>Cantidad: <span>{cantidad}</span></p>
-                <a className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-[80%] h-[20%] text-black flex items-center px-[5px] gap-3 cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]' href={descarga} >Manual <FontAwesomeIcon className='text-[1.5rem]' icon={faDownload} /></a>
+            <div className='w-[39%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px] p-2'>
+                <p className='text-black text-[1.1rem] font-semibold text-center mb-1'>{nombre}</p>
+                
+                <div className='w-full h-[25%] relative flex items-center justify-center'>
+                    {editando ? (
+                        <div className='flex items-center gap-2'>
+                            <input type="number" value={nuevaCantidad} onChange={handleCantidadChange} onKeyDown={handleKeyDown} className='w-full h-8 px-2 rounded border border-[#2b3701] focus:outline-none focus:ring-1 focus:ring-[#2b3701]' autoFocus min="0"/>
+                            <button onClick={handleGuardar} className='px-2 h-8 bg-[#2b3701] text-white rounded hover:bg-[#3a4a03] transition-colors'>OK</button>
+                        </div>
+                    ) : (
+                        <div onClick={handleCantidadClick} className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-full h-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:shadow-[0_0_5px_rgba(0,0,0,0.3)] group'>
+                            <span className='font-medium'>Cantidad: </span>
+                            <span className='ml-1 font-bold group-hover:text-[#2b3701]'>{cantidad}</span>
+                            <FontAwesomeIcon icon={faPencil} className='ml-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity' />
+                        </div>
+                    )}
+                </div>
+                
+                <div className='w-full h-[25%]'>
+                    <button onClick={handleManualClick} className={`w-full h-full border rounded-[10px] flex items-center justify-center gap-2 cursor-pointer transition-all duration-300 group border-[#2b3701] bg-[#a2a88d] hover:shadow-[0_0_5px_rgba(0,0,0,0.3)]`}>
+                        <span>{manual ? 'Ver manual' : 'Subir manual'}</span>
+                        <FontAwesomeIcon icon={manual ? faFileAlt : faUpload} className='text-base group-hover:scale-110 transition-transform' />
+                    </button>
+                    <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".pdf,.doc,.docx,.txt" className="hidden" />
+                </div>
             </div>
         </div>
     )
 }
+
+export const AgregarHerramienta = ({ onAgregar }) => {
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [nuevaHerramienta, setNuevaHerramienta] = useState({
+        nombre: '',
+        cantidad: 1,
+        src: '/img/fondoCultivos.jpg' // Imagen por defecto
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNuevaHerramienta(prev => ({
+            ...prev,
+            [name]: name === 'cantidad' ? parseInt(value) || 0 : value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (nuevaHerramienta.nombre.trim() && nuevaHerramienta.cantidad > 0) {
+            onAgregar(nuevaHerramienta);
+            // Resetear el formulario
+            setNuevaHerramienta({
+                nombre: '',
+                cantidad: 1,
+                src: '/img/fondoCultivos.jpg'
+            });
+            setMostrarFormulario(false);
+        }
+    };
+
+    return (
+        <div className="mb-4">
+            <div 
+                className="flex items-center justify-center border-2 border-[#2b3701] rounded-[25px] w-[18vw] h-[8vh] text-black cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]"
+                onClick={() => setMostrarFormulario(!mostrarFormulario)}
+            >
+                <p className='text-[1.2rem] font-semibold cursor-pointer'>
+                    {mostrarFormulario ? 'Cancelar' : 'Agregar herramienta'}
+                </p>
+            </div>
+            
+            {mostrarFormulario && (
+                <div className='mt-4 p-4 border border-[#2b3701] rounded-lg bg-[#f8f9fa]'>
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Nombre de la herramienta</label>
+                            <input type="text" name="nombre" value={nuevaHerramienta.nombre} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring focus:ring-[#2b3701] focus:ring-opacity-50" required />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Cantidad</label>
+                            <input type="number" name="cantidad" min="1" value={nuevaHerramienta.cantidad} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring focus:ring-[#2b3701] focus:ring-opacity-50" required />
+                        </div>
+                        <div className="flex justify-end">
+                            <button type="submit" className="px-4 py-2 bg-[#2b3701] text-white rounded-md hover:bg-[#3a4a03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2b3701]">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+        </div>
+    );
+};
