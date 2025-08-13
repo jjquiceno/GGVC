@@ -22,7 +22,7 @@ import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
 import PruebasApp from './pages/pruebas.jsx'; 
 import GesAdmon from './pages/gesAdmon.jsx';
-
+import CambioDeDatos from './pages/cambioDeDatos.jsx';
 
 function App() {
   return (
@@ -105,6 +105,10 @@ function App() {
         <Route path="/gesAdmon" element={
           <PrivateRoute>
             <GesAdmon/>
+          </PrivateRoute>}/>
+        <Route path="/cambioDeDatos" element={
+          <PrivateRoute>
+            <CambioDeDatos/>
           </PrivateRoute>}/>
       </Routes>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import './items.css'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Items = ({ icono, text, ruta}) => {
@@ -43,7 +43,7 @@ export const ItemsTypes = ({ icono, text, ruta}) => {
 
 export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha}) => {
     return (
-        <div className='item3' onClick={onClick}>
+        <div className='item3 w-full h-[5vh] bg-[#e9edc9] border-2 border-[#2b3701] flex items-center justify-between rounded-md shadow-md transition-all duration-300 ease-in-out cursor-pointer text-black text-base mb-2 hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)]' onClick={onClick}>
             <div className='icono'>
                 <span>{iconoA}</span>
             </div>
@@ -59,6 +59,19 @@ export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha})
                 <div className="status-icon">
                     <span className="icono">{ iconoS }</span>
                 </div>
+            </div>
+        </div>
+    )
+}
+export const ItemsListE = ({ onClick, id_empleado, nombre, }) => {
+    return (
+        <div className='item3 w-full h-[5vh] bg-[#e9edc9] border-2 border-[#2b3701] flex items-center rounded-md shadow-md transition-all duration-300 ease-in-out cursor-pointer text-black text-base mb-2 hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)]' onClick={onClick}>
+            <div className='icono'>
+                <span><FontAwesomeIcon icon={faUser} /></span>
+            </div>
+            <div className='item-texts'>
+                <strong>{id_empleado}</strong>
+                <span>{nombre}</span>
             </div>
         </div>
     )
