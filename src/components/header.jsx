@@ -10,7 +10,7 @@ import { InputSearch } from './inputs.jsx'
 export const Header = ({nav, text, img}) => {
   return (
     <>
-      <div className='w-full bg-gradient-to-b from-[#565a49] to-[#e9edc9] absolute top-0 left-0 z-10 h-[20vh] md:justify-between xl:justify-between xl:h-[30vh] rounded-bl-[40px] rounded-br-[40px] ext-black flex justify-start gap-8 items-center'>
+      <div className='w-full bg-gradient-to-b from-[#565a49] to-[#e9edc9] h-[20vh] md:justify-between xl:justify-between xl:h-[30vh] rounded-bl-[40px] rounded-br-[40px] ext-black flex justify-start gap-8 items-center'>
         <div className='text-1xl'>
           {nav}
         </div>

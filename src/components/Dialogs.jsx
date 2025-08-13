@@ -35,7 +35,7 @@ export const InfoMedica = ({ nombre, id }) => {
   const fetchDatosSanitarios = async (idActual) => {
     setDatosSanitarios([]);
     try {
-      const response = await fetch(`http://localhost:3000/api/plan_sanitario/${idActual}`);
+      const response = await fetch(`http://localhost:3000/api/plan_sanitario/ganado/${idActual}`);
       const data = await response.json();
 
       console.log("Respuesta sin procesar:", data);

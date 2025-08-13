@@ -572,7 +572,7 @@ export const FormularioVisitas = ({ id, nombre }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+        <span className="z-[9999] text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
           <FontAwesomeIcon icon={faPlus} />
         </span>
       </Dialog.Trigger>
@@ -1197,6 +1197,201 @@ export const FormularioEditReqBpg = ({ idReq, estado }) => {
 
             <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
               Editar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const FormularioPalpaciones = ({ }) => {
+
+  const [fecha, setFecha] = useState('');
+  const [idGanado, setIdGanado] = useState('');
+  const [hallazgo, setHallazgo] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+  const [condCorporal, setCondCorporal] = useState('');
+  const [palpador, setPalpador] = useState('');
+  const [utero, setUtero] = useState('');
+  const [ovarioIzq, setOvarioIzq] = useState('');
+  const [ovarioDer, setOvarioDer] = useState('');
+
+
+  const handleAddPalpacion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/palpaciones/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fecha,
+          id_ganado: idGanado,
+          hallazgo,
+          observaciones,
+          condicion_corporal: condCorporal,
+          palpador,
+          utero,
+          ovario_izq: ovarioIzq,
+          ovario_der: ovarioDer
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Palpacion agregada exitosamente:', data);
+        alert('Palpacion agregada exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar palpacion');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="z-[50] px-15 mt-10 text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar palpacion
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddPalpacion}>
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                required
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="id_ganado"
+                name="id_ganado"
+                placeholder="ID del ganado"
+                required
+                value={idGanado}
+                onChange={(e) => setIdGanado(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCow} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-6">
+              <textarea type="text" className='border rounded p-2 ml-0.5 w-full' id="hallazgo" name="hallazgo" placeholder="Hallazgo" required
+                value={hallazgo}
+                onChange={(e) => setHallazgo(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full mb-6">
+              <textarea type="text" className='border rounded p-2 ml-0.5 w-full' id="observaciones" name="observaciones" placeholder="Observaciones" required
+                value={observaciones}
+                onChange={(e) => setObservaciones(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full" required
+                value={condCorporal} onChange={(e) => setCondCorporal(e.target.value)}>
+                <option value="">Condición corporal</option>
+                <option value="Mala">Mala</option>
+                <option value="Regular">Regular</option>
+                <option value="Buena">Buena</option>
+                <option value="Muy_buena">Muy Buena</option>
+                <option value="Excelente">Excelente</option>
+              </select>
+
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="palpador"
+                name="palpador"
+                placeholder="Palpador"
+                required
+                value={palpador}
+                onChange={(e) => setPalpador(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="utero"
+                name="utero"
+                placeholder="Utero"
+                required
+                value={utero}
+                onChange={(e) => setUtero(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="ovario_izq"
+                name="ovario_izq"
+                placeholder="Ovario izquierdo"
+                required
+                value={ovarioIzq}
+                onChange={(e) => setOvarioIzq(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="ovario_der"
+                name="ovario_der"
+                placeholder="Ovario derecho"
+                required
+                value={ovarioDer}
+                onChange={(e) => setOvarioDer(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faNotesMedical} className="icon" />
+            </div>
+
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
             </button>
           </form>
 
