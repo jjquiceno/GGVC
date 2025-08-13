@@ -45,7 +45,7 @@ export const ItemsTypes = ({ icono, text, ruta }) => {
 
 export const ItemsList = ({ onClick, iconoA, nombre, id, genero, iconoS, fecha }) => {
     return (
-        <div className='item3 cursor-pointer' onClick={onClick}>
+        <div className='item3 cursor-pointer w-full min-h-[5vh] flex-shrink-0 bg-[#e9edc9] border-2 border-[#2b3701] flex items-center justify-between rounded-md shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)] transition-all duration-300 ease-in-out text-black text-base mb-2 hover:shadow-[0px_0px_2px_0px_rgba(0,0,0,0.75)]' onClick={onClick}>
             <div className='icono'>
                 <span>{iconoA}</span>
             </div>
