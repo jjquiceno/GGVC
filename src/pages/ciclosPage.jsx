@@ -63,7 +63,6 @@ function CiclosPage() {
           })
         );
 
-        console.log("Datos sanitarios:", datosSanitarios);
 
         setDatosSanitarios(datosSanitarios);
       } catch (error) {
@@ -100,10 +99,10 @@ function CiclosPage() {
   return (
     <>
       <Header nav={<Anterior ruta={"/ganado"} />} text="Ciclos de vacunacion" img={"/img/vacaMirandoCamara.jpg"} />
-      <div className='add-buttom'>
-        <FormularioSanidad id={null} nombre={null} personal={false} />
+      <div className='flex justify-center items-center mx-10 p-5 mt-[32vh] w-[3rem] h-[3rem] rounded-full  bg-[#9fa87d]'>
+        <FormularioSanidad personal={false} />
       </div>
-      <div className="contenido-ciclos mt-[30vh]">
+      <div className="contenido-ciclos">
         <div className="p-10">
           <h1 className='text-black font-bold text-xl m-5'>Datos Sanitarios</h1>
           <DataTable

@@ -22,6 +22,8 @@ import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
 import PruebasApp from './pages/pruebas.jsx'; 
 import GesAdmon from './pages/gesAdmon.jsx';
+import ReqBPG from "./pages/reqBPG.jsx";
+
 
 
 function App() {
@@ -102,10 +104,18 @@ function App() {
           <PrivateRoute>
             <PruebasApp/>
           </PrivateRoute>}/>
+
         <Route path="/gesAdmon" element={
           <PrivateRoute>
             <GesAdmon/>
           </PrivateRoute>}/>
+
+        <Route path="/reqBPG" element={
+          
+            <ReqBPG/>
+        }/>
+        <Route path="*" element={<h1>404 - Not Found</h1>} />
+
       </Routes>
     </div>
   );

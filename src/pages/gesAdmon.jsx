@@ -22,7 +22,7 @@ function GesAdmon() {
           <div className="mt-[80vh] md:mt-[0] flex flex-col h-fit gap-20 md:flex-row md:justify-around w-[100%] md:h-[90%] md:ml-[20%] md:items-center ">
             <ButtonAreas img="/img/nomina.jpg" text={"Registro de Usuarios"} ruta="/register" />
             <ButtonAreas img="/img/nomina.jpg" text={"Cambio de datos"} ruta="/ajustes" />
-            <ButtonAreas img="/img/nomina.jpg" text={"Requisitos BPg"} ruta="/requisitos" />
+            <ButtonAreas img="/img/nomina.jpg" text={"Requisitos BPg"} ruta="/reqBPG" />
           </div>
         </div>
       </div>
