@@ -107,7 +107,6 @@ function GanadoListPage() {
                             nombre={selectedEmpleado.nombre}
                             email={selectedEmpleado.email}
                             telefono={selectedEmpleado.telefono}
-                            // onUpdateUbi={handleUpdateUbicacion}
                         />
                         )}
                     </div>

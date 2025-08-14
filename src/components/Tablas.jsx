@@ -125,18 +125,7 @@ export const TablaAnimal = ({
     const [nuevoPotrero, setNuevoPotrero] = useState('');
 
 
-    // Ya no necesitas 'actualizarDescendencia' aquí, ya que 'handleUpdateDescendencia' la hace
-    // const handleGuardarMadre = async () => {
-    //     if (!nuevaMadre.trim()) return;
-    //     await onUpdateDes(id, nuevaMadre, padre?.id); // Llama a la función del padre
-    //     setEditMadre(false);
-    // };
-
-    // const handleGuardarPadre = async () => {
-    //     if (!nuevoPadre.trim()) return;
-    //     await onUpdateDes(id, madre?.id, nuevoPadre); // Llama a la función del padre
-    //     setEditPadre(false);
-    // };
+    
 
     const handleGuardarMadre = async () => {
         console.log('--- Llamando a handleGuardarMadre ---');

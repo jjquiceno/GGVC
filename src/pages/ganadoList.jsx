@@ -353,6 +353,8 @@ function GanadoListPage() {
         }
     };
 
+    
+
     useEffect(() => {
         fetchAllData();
     }, []);

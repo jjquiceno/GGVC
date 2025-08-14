@@ -71,8 +71,6 @@ export const FormLogin = () => {
 
         <br /><br />
 
-        <p>Olvidé mi <Link to="/">Contraseña</Link></p>
-        <p>Aún no tengo una cuenta <Link to="/register">Registrarse</Link></p>
       </form>
     </div>
   )

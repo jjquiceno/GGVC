@@ -43,14 +43,12 @@ export const Menu = () => {
                 {decoded.rol === "admin" && (
                   <li><Link to="/gesAdmon"><FontAwesomeIcon icon={faDollarSign} /> Administrativa</Link></li>
                 )}
-                <li><Link to="/pruebas"><FontAwesomeIcon icon={faBookOpen} /> Pruebas</Link></li>
               </ul>
             </nav>
             <nav className='opciones2'>
               <div className="separador-menu"></div>
               <ul>
                 <li><Link to="/ajustes"><FontAwesomeIcon icon={faUserPen} /> Ajustes</Link></li>
-                <li><Link to=""><FontAwesomeIcon icon={faGear} /> Contácto</Link></li>
                 <li><Link to="/login" onClick={logout} ><FontAwesomeIcon icon={faArrowRightFromBracket} /> Cerrar sesión</Link></li>
               </ul>
             </nav>
