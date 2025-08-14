@@ -29,17 +29,15 @@ function GanadoPage() {
                         <h2 className='text-black font-bold text-2xl m-5'>Funciones</h2>
                         <div className="w-[90vw] md:w-[60vw] grid grid-rows-3 grid-cols-3 gap-5 md:gap-0 md:grid-rows-1 md:grid-cols-7 items-center justify-items-center text-black text-[1.5rem]">
                             <Items icono={<FontAwesomeIcon icon={faSyringe} />} text="Sanidad" ruta={"/ciclosPage"} />
-                            <Items icono={<FontAwesomeIcon icon={faChartBar} />} text="Gráficas" ruta={"/graficos"} />
                             <Items icono={<FontAwesomeIcon icon={faHandPaper} />} text="Palpaciones" ruta={"/palpaciones"} />
+                            <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" ruta={"/produccion"}/>
                             <Items icono={<FontAwesomeIcon icon={faHistory} />} text="Historiales" ruta={"/historiales"} />
                             <Items icono={<FontAwesomeIcon icon={faBell} />} text="Recordatorios" />
                             <Items icono={<FontAwesomeIcon icon={faVenusMars} />} text="Reproducción" />
                             <Items icono={<FontAwesomeIcon icon={faTree} />} text="Descendencia" />
-                            <Items icono={<FontAwesomeIcon icon={faScaleBalanced} />} text="Pesaje" />
                             <Items icono={<FontAwesomeIcon icon={faLayerGroup} />} text="Clasificación" />
                             <Items icono={<FontAwesomeIcon icon={faChartLine} />} text="Rendimiento" />
                             <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"} />
-                            <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" />
                             <Items icono={<FontAwesomeIcon icon={faPills} />} text="Suplementos" ruta={"/porcentajeSal"} />
                             <Items icono={<FontAwesomeIcon icon={faSeedling} />} text="Nutrición" ruta={"/nutricion"} />
 

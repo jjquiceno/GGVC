@@ -7,13 +7,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from "react-router-dom"
 import { TablaDatosMedicos, TablaDatosVisitaMed, TablaInfoGanado } from './Tablas';
 import { DataTable } from '../components/DataTables.jsx';
-import { FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
+import { FormularioAddPesaje, FormularioAddReqBpg, FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
+import GraficoLineas from './graficoLineas.jsx';
 // import { Routes, Route, Link } from 'react-router-dom';
 
 export const InfoMedica = ({ nombre, id }) => {
 
   const [datosSanitarios, setDatosSanitarios] = useState([]);
   const [datosVisitas, setDatosVisitas] = useState([]);
+  const [datosPesajes, setDatosPesajes] = useState([]);
 
   const fetchVisitas = async (idActual) => {
     setDatosVisitas([]);
@@ -38,17 +40,35 @@ export const InfoMedica = ({ nombre, id }) => {
       const response = await fetch(`http://localhost:3000/api/plan_sanitario/ganado/${idActual}`);
       const data = await response.json();
 
-      console.log("Respuesta sin procesar:", data);
 
       const datosSanitarios = data.map((sanidad) => ({
         ...sanidad,
         fecha_aplicacion: new Date(sanidad.fecha_aplicacion).toISOString().split("T")[0],
       }));
 
-      console.log("Datos sanitarios:", datosSanitarios);
       setDatosSanitarios(datosSanitarios);
     } catch (error) {
       console.error('Error al obtener los datos sanitarios:', error);
+    }
+  }
+
+  const fetchPeso = async (idActual) => {
+    setDatosPesajes([]);
+    try {
+      const response = await fetch(`http://localhost:3000/api/peso/${idActual}`);
+      const data = await response.json();
+
+
+      const datosPesajes = data.map((peso) => ({
+        ...peso,
+        fecha: new Date(peso.fecha).toLocaleString('es-ES', { month: 'long' }),
+        mes: new Date(peso.fecha).toLocaleString('es-ES', { month: 'long' }),
+        peso: parseFloat(parseFloat(peso.peso).toFixed(2)),
+      }));
+
+      setDatosPesajes(datosPesajes);
+    } catch (error) {
+      console.error('Error al obtener los pesajes:', error);
     }
   }
 
@@ -70,13 +90,18 @@ export const InfoMedica = ({ nombre, id }) => {
     { accessorKey: 'observaciones', header: 'Observaciones' },
   ];
 
+  const pesajesColumns = [
+    { accessorKey: 'fecha', header: 'Mes de pesaje' },
+    { accessorKey: 'peso', header: 'Peso' },
+  ];
+
 
 
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          onClick={() => { fetchVisitas(id), fetchDatosSanitarios(id) }}
+          onClick={() => { fetchVisitas(id), fetchDatosSanitarios(id), fetchPeso(id) }}
           className="text-[#6e9347] underline cursor-pointer"
         >
           Ver Información Médica
@@ -122,14 +147,14 @@ export const InfoMedica = ({ nombre, id }) => {
                     <h2 className='font-bold'>Datos sanitarios</h2>
                   </div>
                   <div>
-                    <FormularioSanidad id={id} nombre={nombre} personal={true}/>
+                    <FormularioSanidad id={id} nombre={nombre} personal={true} />
                   </div>
                 </div>
                 <DataTable
                   className="transform-gpu will-change-transform backface-hidden"
                   data={datosSanitarios}
                   columnas={sanidadColumns}
-                  name="Datos Sanitarios"
+                  name={`Datos Sanitarios de ${nombre}, ${id}`}
                   onDeleteRows={(rows) => {
                     rows.forEach(async (row) => {
                       await fetch(`http://localhost:3000/api/plan_sanitario/${row.id_sanidad}`, {
@@ -139,6 +164,37 @@ export const InfoMedica = ({ nombre, id }) => {
                     });
                   }} />
               </div>
+            </div>
+
+            <div className='flex-1 p-6 gap-10'>
+              <div className="w-full h-fit content-center mb-10">
+                <div className="h-[15%] rounded-lg flex items-center justify-between mb-4 text-lg">
+                  <div>
+                    <h2 className='font-bold'>Pesajes</h2>
+                  </div>
+                  <div>
+                    <FormularioAddPesaje id={id} nombre={nombre} />
+                  </div>
+                </div>
+                <DataTable
+                  className="transform-gpu will-change-transform backface-hidden"
+                  data={datosPesajes} // Reemplaza con los datos de pesajes
+                  columnas={pesajesColumns}
+                  name={`Pesajes de ${nombre}, ${id}`}
+                  onDeleteRows={(rows) => {
+                    rows.forEach(async (row) => {
+                      await fetch(`http://localhost:3000/api/peso/${row.id_pesaje}`, {
+                        method: 'DELETE',
+                      });
+                      setDatosPesajes((prev) => prev.filter((item) => item.id_pesaje !== row.id_pesaje));
+                    });
+                  }} />
+
+              </div>
+              <div className='w-full h-[50vh]'>
+                <GraficoLineas data={datosPesajes} />
+              </div>
+
             </div>
 
           </div>

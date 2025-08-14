@@ -2,10 +2,10 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 
 export default function GraficoLineas({ data }) {
   return (
-    <div className="w-[30vw] h-70 p-4 text-xs">
+    <div className="w-full h-[90%] p-4 text-xs">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
-          <XAxis dataKey="edad" />
+          <XAxis dataKey="mes" />
           <YAxis />
           <Tooltip />
           <Line

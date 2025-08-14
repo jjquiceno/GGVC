@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
-import { Anterior } from '../components/Menuh.jsx';
+import { Anterior, Menu } from '../components/Menuh.jsx';
 import { InventarioItem } from '../components/Items.jsx';   
 import { AgregarHerramienta } from '../components/Items.jsx';
 

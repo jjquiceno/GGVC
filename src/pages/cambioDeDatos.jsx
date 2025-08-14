@@ -44,24 +44,6 @@ function GanadoListPage() {
         }
     };  
 
-    // const handleUpdateUbicacion = async (ganadoId, nuevoPotreroId) => {
-    //     try {
-    //         const body = {
-    //             id_ganado: ganadoId,
-    //             id_potrero: nuevoPotreroId,
-    //         };
-            
-    //         await axios.post(`http://localhost:3000/api/ubicacion`, body);
-    //         console.log('Ubicación creada con éxito.');
-            
-    //     } catch (err) {
-    //         console.error("Error al crear la ubicación:", err);
-    //     }
-    //     // Llama a fetchAllData para recargar los datos y que los cambios se vean en la UI
-    //     console.log('Llamando a fetchAllData para recargar la UI...');
-    //     fetchAllData();
-    // };
-
     useEffect(() => {
         fetchAllData();
     }, []);
@@ -89,7 +71,7 @@ function GanadoListPage() {
     };
 
     const handleClick = () => {
-        window.location.href = "/ganado";
+        window.location.href = "/gesAdmon";
     };
 
     return (
@@ -97,17 +79,13 @@ function GanadoListPage() {
             <div className="ganado-list-page ">
                 <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer' />
                 <div className="ganado-list-content">
-
                     <div className="continer-list">
                         <div className='w-[90%] h-[10vh] flex flex-col '>
                             <h2 className='text-3xl font-bold mr-[10rem] mb-5'>Lista del ganado</h2>
                             <InputSearch icono={<FontAwesomeIcon icon={faSearch} />} type="text" placeholder={"Buscar"}
                                 value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
                         </div>
-                        <div className="icons w-[90%] flex justify-between">
-                            <FormularioAnimalDialog />
-                            <FontAwesomeIcon icon={faSlidersH} className="text-black text-2xl cursor-pointer" />
-                        </div>
+                        
                         <div className="list">
                             {(busqueda.trim() ? filtrados : empleados).map((empleado) => (
                                 <ItemsListE
@@ -129,8 +107,6 @@ function GanadoListPage() {
                             nombre={selectedEmpleado.nombre}
                             email={selectedEmpleado.email}
                             telefono={selectedEmpleado.telefono}
-                            
-                            onUpdateDes={handleUpdateEmpleado}
                             // onUpdateUbi={handleUpdateUbicacion}
                         />
                         )}

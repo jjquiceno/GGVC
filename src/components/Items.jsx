@@ -320,7 +320,7 @@ export const AgregarHerramienta = ({ onAgregar }) => {
     return (
         <div className="mb-4">
             <div 
-                className="flex items-center justify-center border-2 border-[#2b3701] rounded-[25px] w-[18vw] h-[8vh] text-black cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]"
+                className="flex m-10 items-center justify-center border-2 border-[#2b3701] font-bold rounded-[10px] w-[18vw] h-[35px] text-black cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]"
                 onClick={() => setMostrarFormulario(!mostrarFormulario)}
             >
                 <p className='text-[1.2rem] font-semibold cursor-pointer'>
@@ -329,7 +329,7 @@ export const AgregarHerramienta = ({ onAgregar }) => {
             </div>
             
             {mostrarFormulario && (
-                <div className='mt-4 p-4 border border-[#2b3701] rounded-lg bg-[#f8f9fa]'>
+                <div className='mt-4 p-4 border border-[#2b3701] rounded-lg bg-[#f8f9fa] w-[92.3%] ml-10'>
                     <form onSubmit={handleSubmit} className="space-y-3">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Nombre de la herramienta</label>
