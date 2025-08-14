@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './formLogin.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faLock, faIdCard } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser, faLock, faIdCard, faPhone } from '@fortawesome/free-solid-svg-icons';
+
 
 export const FormRegister = () => {
     // Estado para cada campo del formulario
@@ -56,7 +57,8 @@ export const FormRegister = () => {
     return (
         // para el commit 
         <div className="form text-center">
-            <h1 className='text-black font-bold'>REGISTRARSE</h1>
+            
+            <h1 className='text-black font-bold'>REGISTRAR NUEVO USUARIO</h1>
 
             <br /><br />
 
@@ -110,7 +112,7 @@ export const FormRegister = () => {
                 <div className="input-icon w-[100%]">
                     <input className='m-auto w-[100%]' type="text" id="telefono" placeholder="Telefono" required value={telefono}
                         onChange={(e) => setTelefono(e.target.value)} />
-                    <FontAwesomeIcon icon={faUser} className="icon" />
+                    <FontAwesomeIcon icon={faPhone} className="icon" />
                 </div>
 
                 <br /><br />
@@ -123,12 +125,9 @@ export const FormRegister = () => {
 
                 <br /><br />
 
-                <button className='boton-register w-[100%]' type="submit">Registrarse</button>
+                <button className='boton-register w-[100%]' type="submit">Registrar</button>
             </form>
 
-            <br /><br />
-
-            <p>Ya tengo una cuenta <a href="/">Iniciar sesión </a></p>
         </div>
     )
 }

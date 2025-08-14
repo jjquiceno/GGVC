@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './tablas.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormularioGeneralEdit } from './formLogin'
-import { faAngleDown, faBorderAll, faCheck, faCow, faPen, faPlus, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
+import { FormularioEditEmpleado, FormularioGeneralEdit } from './formLogin'
+import { faAngleDown, faBorderAll, faCheck, faCow, faPen, faPlus, faSkullCrossbones, faUser } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import { InfoMedica } from './Dialogs.jsx';
 import { DataTable } from './DataTables.jsx';
@@ -299,6 +299,7 @@ export const TablaAnimal = ({
         </div>
     );
 };
+
 export const TablaEmpleado = ({
     id_empleado,
     usuario,
@@ -306,25 +307,14 @@ export const TablaEmpleado = ({
     nombre,
     email,
     telefono,
-    onUpdateDes,
-    // onUpdateUbi // Recibimos la nueva prop aquí
 }) => {
-    const [editEmpleado, setEditEmpleado] = useState(false);
-    const [nuevoEmpleado, setNuevoEmpleado] = useState('');
-
-    const handleGuardarEmpleado = async () => {
-        console.log('--- Llamando a handleGuardarMadre ---');
-        if (!nuevoEmpleado.trim()) return;
-        const data = { id_empleado: id_empleado, usuario: usuario };
-        await onUpdateDes(data);
-        setEditEmpleado(false);
-    };
+    
 
     return (
         <div className='tabla-animal-container'>
             <div className='encabezado-tabla-animal'>
                 <div className='e-t-1'>
-                    <span className='faicon text-white'><FontAwesomeIcon icon={faCow} /></span>
+                    <span className='faicon text-white'><FontAwesomeIcon icon={faUser} /></span>
                     <span className='text-white'>{id_empleado}</span>
                     <span className='text-white'>{usuario}</span>
                 </div>
@@ -336,7 +326,7 @@ export const TablaEmpleado = ({
 
             <div className='cuerpo-tabla-animal'>
                 <div className='lapiz-tabla-animal cursor-pointer'>
-                    <FormularioGeneralEdit id={id_empleado} />
+                    <FormularioEditEmpleado id_empleado={id_empleado} />
                 </div>
 
                 <div className='cuerpo-texts'>
@@ -346,78 +336,7 @@ export const TablaEmpleado = ({
                         <p className='bold'>DNI: <span className='light'>{dni}</span></p>
                         <p className='bold'>Email: <span className='light'>{email}</span></p>
                         <p className='bold'>Telefono: <span className='light'>{telefono}</span></p>
-
-                        <div className='bold text-lg'>
-                            <span>Usuario:
-                                <span className='light ml-2'>
-                                    {editEmpleado ? (
-                                        <div className="relative inline-block w-[80%] h-[35px] m-1">
-                                            <input
-                                                type="text"
-                                                id="empleado"
-                                                placeholder="ID Empleado"
-                                                value={nuevoEmpleado}
-                                                onChange={(e) => setNuevoEmpleado(e.target.value)}
-                                                className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
-                                            />
-                                            <FontAwesomeIcon
-                                                onClick={handleGuardarEmpleado}
-                                                icon={faCheck}
-                                                className="cursor-pointer absolute right-[10px] top-1/2 -translate-y-1/2 text-[18px] text-[#aaa]"
-                                            />
-                                        </div>
-                                    ) : usuario === 'No registrado' ? (
-                                        <button
-                                            onClick={() => setEditMadre(true)}
-                                            className="ml-2 text-[#6e9347] underline"
-                                        >
-                                            Añadir
-                                        </button>
-                                    ) : `${usuario}`}
-                                </span>
-                            </span>
-                        </div>
-
-                        {/* <p className='bold'>Descripción: <span className='light'>{desc || 'No registrado'}</span></p> */}
                     </div>
-
-                    {/* <div>
-                        <div className='evento flex flex-col'>
-                            <div className='bold text-lg'>
-                                <span>Potrero:
-                                    <span className='light ml-2'>
-                                        {editPotrero ? (
-                                            <div className="relative inline-block w-[80%] h-[35px] m-1">
-                                                <input
-                                                    type="text"
-                                                    id="potrero"
-                                                    placeholder="ID Potrero"
-                                                    value={nuevoPotrero}
-                                                    onChange={(e) => setNuevoPotrero(e.target.value)}
-                                                    className="w-full h-full text-gray-500 border-[3px] border-[#0c2001] rounded-[10px] pr-[30px] pl-3"
-                                                />
-                                                <FontAwesomeIcon
-                                                    onClick={handleGuardarPotrero}
-                                                    icon={faCheck}
-                                                    className="cursor-pointer absolute right-[10px] top-1/2 -translate-y-1/2 text-[18px] text-[#aaa]"
-                                                />
-                                            </div>
-                                        ) : potreroNombre === 'No registrado' ? (
-                                            <button
-                                                onClick={() => setEditPotrero(true)}
-                                                className="ml-2 text-[#6e9347] underline"
-                                            >
-                                                Añadir
-                                            </button>
-                                        ) : `${potreroNombre}`}
-                                    </span>
-                                </span>
-                            </div>
-                            <div className='bold text-lg'>
-                                <InfoMedica nombre={nombre} id={id} />
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>

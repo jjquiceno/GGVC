@@ -35,7 +35,6 @@ function GanadoPage() {
                             <Items icono={<FontAwesomeIcon icon={faBell} />} text="Recordatorios" />
                             <Items icono={<FontAwesomeIcon icon={faVenusMars} />} text="Reproducción" />
                             <Items icono={<FontAwesomeIcon icon={faTree} />} text="Descendencia" />
-                            <Items icono={<FontAwesomeIcon icon={faScaleBalanced} />} text="Pesaje" />
                             <Items icono={<FontAwesomeIcon icon={faLayerGroup} />} text="Clasificación" />
                             <Items icono={<FontAwesomeIcon icon={faChartLine} />} text="Rendimiento" />
                             <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"} />

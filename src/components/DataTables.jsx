@@ -32,6 +32,7 @@ export const DataTable = ({ data, columnas, name, onDeleteRows }) => {
           width: '100%',
           padding: '1rem',
           boxSizing: 'border-box',
+          zIndex: 1000,
         },
       }}
       localization={{

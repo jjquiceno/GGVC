@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope, faCheckCircle, faScaleBalanced, faIdCard, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
 import { faFile } from '@fortawesome/free-regular-svg-icons';
@@ -1403,3 +1403,253 @@ export const FormularioPalpaciones = ({ }) => {
     </Dialog.Root>
   );
 };
+
+export const FormularioAddPesaje = ({ id, nombre }) => {
+
+  const [peso, setPeso] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [idGanado, setIdGanado] = useState(id);
+
+  const fechaCompleta = fecha.length === 7 ? `${fecha}-01` : fecha;
+
+  const handleAddPalpacion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/peso/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          peso,
+          fecha: fechaCompleta,
+          id_ganado: idGanado
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Peso agregado exitosamente:', data);
+        alert('Peso agregado exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar peso');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar palpacion para {nombre} (ID: {idGanado})
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddPalpacion}>
+
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                className="m-auto ml-0.5 w-full"
+                id="peso"
+                name="peso"
+                placeholder="Peso (kg)"
+                required
+                value={peso}
+                onChange={(e) => setPeso(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faScaleBalanced} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full">
+              <input
+                type="month"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                required
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+
+
+export const FormularioEditEmpleado = ({ id_empleado }) => {
+
+  const [usuario, setUsuario] = useState('');
+  const [dni, setDni] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [show, setShow] = useState(false);
+  const [rol, setRol] = useState('');
+
+  const handleEditEmpleado = async (e) => {
+    e.preventDefault();
+
+    try {
+      const body = {};
+
+      // Si los campos tienen un valor (no es undefined, null ni una cadena vacía)
+      if (usuario) {
+        body.usuario = usuario;
+      }
+
+      if (dni) {
+        body.dni = dni;
+      }
+
+      if (nombre) {
+        body.nombre = nombre;
+      }
+
+      if (email) {
+        body.email = email;
+      }
+
+      if (telefono) {
+        body.telefono = telefono;
+      }
+
+      if (contraseña) {
+        body.contraseña = contraseña;
+      }
+
+      if (rol) {
+        body.rol = rol;
+      }
+
+      // Si el objeto 'body' está vacío, no hacemos nada
+      if (Object.keys(body).length === 0) {
+        console.warn('No hay datos para actualizar.');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:3000/api/empleado/admin/${id_empleado}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Empleado y/o usuario editado exitosamente:', data);
+        alert('Edición exitosa');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al editar datos');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span><FontAwesomeIcon icon={faPen} /></span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <Dialog.Title className="text-xl font-bold mb-4">Editar datos</Dialog.Title>
+          <Dialog.Description className="text-sm text-gray-500 mb-4">
+            Aquí puedes editar los datos del empleado y/o usuario. Si no deseas cambiar un campo, simplemente déjalo vacío.
+          </Dialog.Description>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleEditEmpleado}>
+
+            <div className="input-icon w-full ">
+              <input type="text" className='m-auto ml-0.5 w-full' id="usuario" name="usuario" placeholder="Usuario"
+                value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ">
+              <input type="text" className='m-auto ml-0.5 w-full' id="dni" name="dni" placeholder="Número de documento"
+                value={dni} onChange={(e) => setDni(e.target.value)} />
+              <FontAwesomeIcon icon={faIdCard} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ">
+              <input type="text" className='m-auto ml-0.5 w-full' id="nombre" name="nombre" placeholder="Nombre"
+                value={nombre} onChange={(e) => setNombre(e.target.value)} />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ">
+              <input type="email" className='m-auto ml-0.5 w-full' id="email" name="email" placeholder="Correo electrónico"
+                value={email} onChange={(e) => setEmail(e.target.value)} />
+              <FontAwesomeIcon icon={faEnvelope} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ">
+              <input type="text" className='m-auto ml-0.5 w-full' id="telefono" name="telefono" placeholder="Número telefonico"
+                value={telefono} onChange={(e) => setTelefono(e.target.value)} />
+              <FontAwesomeIcon icon={faPhone} className="icon" />
+            </div>
+
+            <div className="input-icon w-full ">
+              <input type={show === false ? "password" : "text"} className='m-auto ml-0.5 w-full' id="password" name="password" placeholder="Nueva contraseña"
+                value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
+              <FontAwesomeIcon onClick={() => setShow(!show)} icon={show === false ? faEyeSlash : faEye} className="icon cursor-pointer" />
+            </div>
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full"
+                value={rol} onChange={(e) => setRol(e.target.value)}>
+                <option value="">Rol</option>
+                <option value="empleado">Empleado</option>
+                <option value="admin">Administrador</option>
+              </select>
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <button className='boton-login w-[100%] cursor-pointer bg-[#909777]' type="submit">Editar</button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
