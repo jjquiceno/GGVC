@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope, faCheckCircle, faScaleBalanced, faIdCard, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faPlus, faCow, faMarsAndVenus, faCalendarDay, faHouse, faPenToSquare, faNotesMedical, faPen, faXmarksLines, faEyeDropper, faEye, faEyeSlash, faEnvelope, faCheckCircle, faScaleBalanced, faIdCard, faPhone, faDroplet, faClock } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
 import { faFile } from '@fortawesome/free-regular-svg-icons';
@@ -1653,3 +1653,264 @@ export const FormularioEditEmpleado = ({ id_empleado }) => {
     </Dialog.Root>
   );
 }
+
+export const FormularioAddProduccion = () => {
+
+  const [idEmpleado, setIdEmpleado] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [litros, setLitros] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const handleAddProduccion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/producciones`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_empleado: idEmpleado,
+          fecha,
+          litros,
+          descripcion
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Producción agregada exitosamente:', data);
+        alert('Producción agregada exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar la priducción');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar producción de leche
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddProduccion}>
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="id_empleado"
+                name="id_empleado"
+                placeholder='ID del empleado'
+                required
+                value={idEmpleado}
+                onChange={(e) => setIdEmpleado(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                placeholder='Fecha'
+                required
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="litros"
+                name="litros"
+                placeholder='Litros'
+                required
+                value={litros}
+                onChange={(e) => setLitros(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faDroplet} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="descripcion"
+                name="descripcion"
+                placeholder="Descripción"
+                required
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faDochub} className="icon" />
+            </div>
+    
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const FormularioAddManoDeObra = () => {
+
+  const [fecha, setFecha] = useState('');
+  const [idEmpleado, setIdEmpleado] = useState('');
+  const [tipo, setTipo] = useState('');
+  const [actividad, setActividad] = useState('');
+  const [duracion, setDuracion] = useState('');
+
+  const handleAddProduccion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/mano_de_obra/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fecha,
+          id_empleado: idEmpleado,
+          tipo,
+          actividad,
+          duracion: duracion + ' h'
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Mano de obra agregada exitosamente:', data);
+        alert('Mano de obra agregada exitosamente');
+        window.location.reload();
+      } else {
+        alert(data.message || 'Error al registrar la mano de obra');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar mano de obra
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddProduccion}>
+
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha"
+                name="fecha"
+                placeholder='Fecha'
+                required
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="id_empleado"
+                name="id_empleado"
+                placeholder='ID del empleado'
+                required
+                value={idEmpleado}
+                onChange={(e) => setIdEmpleado(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full"
+                value={tipo} onChange={(e) => setTipo(e.target.value)}>
+                <option value="">Tipo</option>
+                <option value="Contratada">Contratada</option>
+                <option value="Prestación de servicios">Prestación de servicios</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="actividad"
+                name="actividad"
+                placeholder="Actividad"
+                required
+                value={actividad}
+                onChange={(e) => setActividad(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <input
+                type="number"
+                className="m-auto ml-0.5 w-full"
+                id="duracion"
+                name="duracion"
+                placeholder='Duracion (en horas)'
+                required
+                value={duracion}
+                onChange={(e) => setDuracion(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faClock} className="icon" />
+            </div>
+    
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};

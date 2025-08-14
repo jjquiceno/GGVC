@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
-import { Anterior } from '../components/Menuh.jsx';
+import { Anterior, Menu } from '../components/Menuh.jsx';
 import { InventarioItem } from '../components/Items.jsx';   
 import { AgregarHerramienta } from '../components/Items.jsx';
 
@@ -90,8 +90,8 @@ function InventarioPage() {
     return (
         <>
             <div className="w-screen h-screen">
-                <Header nav={<Anterior/>} text="Inventario" img={"/img/dosVacas.png"} />
-                <div className='border-3 h-[70vh] border-[#2b3701]'>
+                <Header nav={<Menu/>} text="Inventario" img={"/img/dosVacas.png"} />
+                <div className='h-[70vh]'>
                     <div>
                         <AgregarHerramienta onAgregar={agregarHerramienta} />
                     </div>

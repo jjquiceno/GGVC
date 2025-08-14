@@ -20,10 +20,11 @@ import Graficos from './pages/graficos.jsx';
 import Palpaciones from './pages/palpaciones.jsx';
 import HistorialesPage from './pages/historiales.jsx';
 import Imagenes from './pages/viewImagenes.jsx';
-import PruebasApp from './pages/pruebas.jsx'; 
+import PruebasApp from './pages/pruebas.jsx';
 import GesAdmon from './pages/gesAdmon.jsx';
 import CambioDeDatos from './pages/cambioDeDatos.jsx';
 import ReqBPG from "./pages/reqBPG.jsx";
+import ProduccionPage from "./pages/produccion.jsx";
 
 
 
@@ -48,76 +49,80 @@ function App() {
 
       <Routes>
         <Route path="/" element={
-        <PrivateRoute>
-          <LoginPage/>
-        </PrivateRoute>}/>
+          <PrivateRoute>
+            <LoginPage />
+          </PrivateRoute>} />
         <Route path="/welcome" element={
           <PrivateRoute>
-            <WelcomePage/>
-          </PrivateRoute>}/>
+            <WelcomePage />
+          </PrivateRoute>} />
         <Route path="/ajustes" element={
           <PrivateRoute>
-            <AjustesPage/>
-          </PrivateRoute>}/>
+            <AjustesPage />
+          </PrivateRoute>} />
         <Route path="/cultivos" element={
           <PrivateRoute>
-            <CultivosPage/>
-          </PrivateRoute>}/>
+            <CultivosPage />
+          </PrivateRoute>} />
         <Route path="/inventario" element={
           <PrivateRoute>
-            <InventarioPage/>
-          </PrivateRoute>}/>
+            <InventarioPage />
+          </PrivateRoute>} />
         <Route path="/ganado" element={
           <PrivateRoute>
-            <GanadoPage/>
-          </PrivateRoute>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
+            <GanadoPage />
+          </PrivateRoute>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/ganadoList" element={
           <PrivateRoute>
-            <GanadoListPage/>
-          </PrivateRoute>}/>
+            <GanadoListPage />
+          </PrivateRoute>} />
         <Route path="/ciclosPage" element={
           <PrivateRoute>
-            <CiclosPage/>
-          </PrivateRoute>}/>
+            <CiclosPage />
+          </PrivateRoute>} />
         {/* <Route path="/infoCiclosVacunacion" element={
           <PrivateRoute>
             <InfoCiclosVacunacion/>
           </PrivateRoute>}/> */}
         <Route path="/graficos" element={
           <PrivateRoute>
-            <Graficos/>
-          </PrivateRoute>}/>
+            <Graficos />
+          </PrivateRoute>} />
         <Route path="/palpaciones" element={
           <PrivateRoute>
-            <Palpaciones/>
-          </PrivateRoute>}/>
+            <Palpaciones />
+          </PrivateRoute>} />
         <Route path="/historiales" element={
           <PrivateRoute>
-            <HistorialesPage/>
-          </PrivateRoute>}/>
+            <HistorialesPage />
+          </PrivateRoute>} />
         <Route path="/imagenes" element={
           <PrivateRoute>
-            <Imagenes/>
-          </PrivateRoute>}/>
+            <Imagenes />
+          </PrivateRoute>} />
         <Route path="/pruebas" element={
           <PrivateRoute>
-            <PruebasApp/>
-          </PrivateRoute>}/>
+            <PruebasApp />
+          </PrivateRoute>} />
 
         <Route path="/gesAdmon" element={
           <PrivateRoute>
-            <GesAdmon/>
-          </PrivateRoute>}/>
+            <GesAdmon />
+          </PrivateRoute>} />
         <Route path="/cambioDeDatos" element={
           <PrivateRoute>
-            <CambioDeDatos/>
-          </PrivateRoute>}/>
+            <CambioDeDatos />
+          </PrivateRoute>} />
         <Route path="/reqBPG" element={
-          
-            <ReqBPG/>
-        }/>
+          <PrivateRoute>
+            <ReqBPG />
+          </PrivateRoute>} />
+        <Route path="/produccion" element={
+          <PrivateRoute>
+            <ProduccionPage />
+          </PrivateRoute>} />
         <Route path="*" element={<h1>404 - Not Found</h1>} />
 
       </Routes>
