@@ -14,16 +14,11 @@ const cargarInventario = () => {
     try {
         // Si no hay nada guardado, retornamos los datos por defecto
         return [
-            {id: 1, src: '/img/fondoCultivos.jpg', nombre: 'palas', cantidad: 10, manual: null},
-            {id: 2, src: '/img/fondoCultivos.jpg', nombre: 'picos', cantidad: 5, manual: null},
-            {id: 3, src: '/img/fondoCultivos.jpg', nombre: 'azadas', cantidad: 8, manual: null},
-            {id: 4, src: '/img/fondoCultivos.jpg', nombre: 'carretillas', cantidad: 3, manual: null},
-            {id: 5, src: '/img/fondoCultivos.jpg', nombre: 'carros', cantidad: 3, manual: null},
-            {id: 6, src: '/img/fondoCultivos.jpg', nombre: 'stacones', cantidad: 3, manual: null},
-            {id: 7, src: '/img/fondoCultivos.jpg', nombre: 'tornillos', cantidad: 3, manual: null},
-            {id: 8, src: '/img/fondoCultivos.jpg', nombre: 'tijeras', cantidad: 3, manual: null},
-            {id: 9, src: '/img/fondoCultivos.jpg', nombre: 'cables', cantidad: 3, manual: null},
-            {id: 10, src: '/img/fondoCultivos.jpg', nombre: 'cercas', cantidad: 3, manual: null},
+            {id: 1, src: '/img/fondoCultivos.jpg', nombre: 'Melaza de caña', cantidad: 10, manual: null},
+            {id: 2, src: '/img/fondoCultivos.jpg', nombre: 'Maíz molido', cantidad: 5, manual: null},
+            {id: 3, src: '/img/fondoCultivos.jpg', nombre: 'Avena', cantidad: 8, manual: null},
+            {id: 4, src: '/img/fondoCultivos.jpg', nombre: 'Cebada', cantidad: 3, manual: null},
+            {id: 5, src: '/img/fondoCultivos.jpg', nombre: 'Salvado de trigo', cantidad: 3, manual: null},
         ];
     } catch (error) {
         console.error('Error al cargar el inventario:', error);
@@ -31,7 +26,7 @@ const cargarInventario = () => {
     }
 };
 
-function InventarioPage() {
+function InventarioSuplementos() {
     const [inventario, setInventario] = useState(cargarInventario());
 
     // Efecto para guardar en localStorage cada vez que el inventario cambie
@@ -103,7 +98,7 @@ function InventarioPage() {
                                 srcImg={itemI.src} 
                                 nombre={itemI.nombre} 
                                 cantidad={itemI.cantidad}
-                                textCant="cantidad"
+                                textCant="# Dosis:"
                                 manual={itemI.manual}
                                 onCantidadChange={actualizarCantidad}
                                 onManualChange={actualizarManual}
@@ -116,4 +111,4 @@ function InventarioPage() {
     )
 }
 
-export default InventarioPage
+export default InventarioSuplementos

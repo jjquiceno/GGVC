@@ -24,8 +24,10 @@ import PruebasApp from './pages/pruebas.jsx';
 import GesAdmon from './pages/gesAdmon.jsx';
 import CambioDeDatos from './pages/cambioDeDatos.jsx';
 import ReqBPG from "./pages/reqBPG.jsx";
-
-
+import NutricionPage from "./pages/nutricion.jsx";
+import RegistroNuA from "./pages/registroNuA.jsx";
+import GesNutricion from "./pages/gesNutricion.jsx";
+import InventarioSuplementos from "./pages/inventarioSuplementos.jsx";
 
 function App() {
   return (
@@ -114,10 +116,26 @@ function App() {
           <PrivateRoute>
             <CambioDeDatos/>
           </PrivateRoute>}/>
+        <Route path="/nutricion" element={
+          <PrivateRoute>
+            <NutricionPage/>
+          </PrivateRoute>}/>
         <Route path="/reqBPG" element={
           
             <ReqBPG/>
         }/>
+        <Route path="/registroNuA" element={
+          <PrivateRoute>
+            <RegistroNuA/>
+          </PrivateRoute>}/>
+        <Route path="/gesNutricion" element={
+          <PrivateRoute>
+            <GesNutricion/>
+          </PrivateRoute>}/>
+        <Route path="/inventarioSuplementos" element={
+          <PrivateRoute>
+            <InventarioSuplementos/>
+          </PrivateRoute>}/>
         <Route path="*" element={<h1>404 - Not Found</h1>} />
 
       </Routes>

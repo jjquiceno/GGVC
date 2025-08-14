@@ -5,7 +5,7 @@ import { ItemsTypes } from '../components/Items.jsx'
 import { Items } from '../components/Items.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faChartBar, faCow, faExchangeAlt, faHandPaper, faHistory, faLeftLong, faPlus, faSyringe, faUpRightAndDownLeftFromCenter, faTree, faVenusMars, faAngleRight, faAngleDown, faChartLine, faScaleBalanced, faLayerGroup, faImage, faBox, faPills } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChartBar, faCow, faExchangeAlt, faHandPaper, faHistory, faLeftLong, faPlus, faSyringe, faUpRightAndDownLeftFromCenter, faTree, faVenusMars, faAngleRight, faAngleDown, faChartLine, faScaleBalanced, faLayerGroup, faImage, faBox, faPills, faSeedling } from '@fortawesome/free-solid-svg-icons';
 
 function GanadoPage() {
 
@@ -41,6 +41,7 @@ function GanadoPage() {
                             <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"} />
                             <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" />
                             <Items icono={<FontAwesomeIcon icon={faPills} />} text="Suplementos" ruta={"/porcentajeSal"} />
+                            <Items icono={<FontAwesomeIcon icon={faSeedling} />} text="Nutrición" ruta={"/nutricion"} />
 
                             {/* <FontAwesomeIcon
                                 icon={desplegado ? faAngleDown : faAngleRight}

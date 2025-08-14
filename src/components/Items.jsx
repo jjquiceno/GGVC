@@ -178,7 +178,7 @@ export const ImagesItem = ({ srcImg, nombre, edad }) => {
     )
 }
 
-export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantidadChange, onManualChange }) => {
+export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantidadChange, onManualChange, textCant }) => {
     const [editando, setEditando] = useState(false);
     const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
     const fileInputRef = useRef(null);
@@ -268,7 +268,7 @@ export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantida
                         </div>
                     ) : (
                         <div onClick={handleCantidadClick} className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-full h-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:shadow-[0_0_5px_rgba(0,0,0,0.3)] group'>
-                            <span className='font-medium'>Cantidad: </span>
+                            <span className='font-medium'>{textCant}</span>
                             <span className='ml-1 font-bold group-hover:text-[#2b3701]'>{cantidad}</span>
                             <FontAwesomeIcon icon={faPencil} className='ml-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity' />
                         </div>
