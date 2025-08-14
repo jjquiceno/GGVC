@@ -122,7 +122,7 @@ export const ItemsReq = ({ req, idReq, fecha, idEmp, desc, estado }) => {
 
     };
 
-    
+
 
     return (
         <div className={`w-full min-h-[5vh] border-2 border-[#2b3701] rounded-[5px] flex justify-between items-center shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)] hover:shadow-[0px_0px_2px_0px_rgba(0,0,0,0.75)] transition ease-in-out duration-300 ${cumplido ? "bg-[#8ab861]" : "bg-[#a2a88d]"
@@ -135,7 +135,7 @@ export const ItemsReq = ({ req, idReq, fecha, idEmp, desc, estado }) => {
                 <span className='max-w-[50%] w-[45%]'>{desc}</span>
             </div>
             <div className="w-[12%] h-full flex items-center justify-between px-10">
-                <FormularioEditReqBpg idReq={idReq} estado={cumplido ? "Cumplido" : "Pendiente"}/>
+                <FormularioEditReqBpg idReq={idReq} estado={cumplido ? "Cumplido" : "Pendiente"} />
                 <span onClick={handleToggle} className="cursor-pointer">{<FontAwesomeIcon icon={faExchangeAlt} />}</span>
             </div>
         </div>
@@ -238,15 +238,15 @@ export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantida
                 alert('El archivo es demasiado grande. El tamaño máximo permitido es 5MB.');
                 return;
             }
-            
+
             // Creamos una URL temporal para el archivo
             const fileUrl = URL.createObjectURL(file);
-            
+
             // Llamamos a la función del padre para actualizar el manual
             if (onManualChange) {
                 onManualChange(id, file, fileUrl);
             }
-            
+
             // Limpiamos el input para permitir cargar el mismo archivo de nuevo si es necesario
             e.target.value = null;
         }
@@ -259,11 +259,11 @@ export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantida
             </div>
             <div className='w-[39%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px] p-2'>
                 <p className='text-black text-[1.1rem] font-semibold text-center mb-1'>{nombre}</p>
-                
+
                 <div className='w-full h-[25%] relative flex items-center justify-center'>
                     {editando ? (
                         <div className='flex items-center gap-2'>
-                            <input type="number" value={nuevaCantidad} onChange={handleCantidadChange} onKeyDown={handleKeyDown} className='w-full h-8 px-2 rounded border border-[#2b3701] focus:outline-none focus:ring-1 focus:ring-[#2b3701]' autoFocus min="0"/>
+                            <input type="number" value={nuevaCantidad} onChange={handleCantidadChange} onKeyDown={handleKeyDown} className='w-full h-8 px-2 rounded border border-[#2b3701] focus:outline-none focus:ring-1 focus:ring-[#2b3701]' autoFocus min="0" />
                             <button onClick={handleGuardar} className='px-2 h-8 bg-[#2b3701] text-white rounded hover:bg-[#3a4a03] transition-colors'>OK</button>
                         </div>
                     ) : (
@@ -274,7 +274,7 @@ export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantida
                         </div>
                     )}
                 </div>
-                
+
                 <div className='w-full h-[25%]'>
                     <button onClick={handleManualClick} className={`w-full h-full border rounded-[10px] flex items-center justify-center gap-2 cursor-pointer transition-all duration-300 group border-[#2b3701] bg-[#a2a88d] hover:shadow-[0_0_5px_rgba(0,0,0,0.3)]`}>
                         <span>{manual ? 'Ver manual' : 'Subir manual'}</span>
@@ -287,12 +287,78 @@ export const InventarioItem = ({ id, srcImg, nombre, cantidad, manual, onCantida
     )
 }
 
-export const AgregarHerramienta = ({ onAgregar }) => {
+export const InventarioSuplementosItem = ({ id, nombre, cantidad, tipo, onCantidadChange, uso, textCant }) => {
+    const [editando, setEditando] = useState(false);
+    const [nuevaCantidad, setNuevaCantidad] = useState(cantidad);
+
+    const handleCantidadClick = () => {
+        setEditando(true);
+    };
+
+    const handleCantidadChange = (e) => {
+        const valor = parseInt(e.target.value);
+        if (!isNaN(valor) && valor >= 0) {
+            setNuevaCantidad(valor);
+        }
+    };
+
+    const handleGuardar = () => {
+        if (onCantidadChange && nuevaCantidad !== cantidad) {
+            onCantidadChange(id, nuevaCantidad);
+        }
+        setEditando(false);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleGuardar();
+        } else if (e.key === 'Escape') {
+            setNuevaCantidad(cantidad);
+            setEditando(false);
+        }
+    };
+
+    return (
+        <div className="w-[90vw] h-[40vh] md:w-[25vw] md:h-[15vw] border-2 border-[#2b3701] rounded-[10px] bg-[#e9edc9] flex justify-between items-center px-[5px] hover:shadow-md transition-shadow">
+
+            <div className='w-[60%] h-[95%] rounded-[10px] flex flex-col justify-center items-center gap-[10px] p-2'>
+                <p className='text-black text-[1.1rem] font-semibold text-center mb-1'>{nombre}</p>
+
+                <div className='w-full h-[25%] relative flex items-center justify-center'>
+                    {editando ? (
+                        <div className='flex items-center gap-2'>
+                            <input type="number" value={nuevaCantidad} onChange={handleCantidadChange} onKeyDown={handleKeyDown} className='w-full h-8 px-2 rounded border border-[#2b3701] focus:outline-none focus:ring-1 focus:ring-[#2b3701]' autoFocus min="0" />
+                            <button onClick={handleGuardar} className='px-2 h-8 bg-[#2b3701] text-white rounded hover:bg-[#3a4a03] transition-colors'>OK</button>
+                        </div>
+                    ) : (
+                        <div onClick={handleCantidadClick} className='border border-[#2b3701] rounded-[10px] bg-[#a2a88d] w-full h-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:shadow-[0_0_5px_rgba(0,0,0,0.3)] group'>
+                            <span className='font-medium'>{textCant}</span>
+                            <span className='ml-1 font-bold group-hover:text-[#2b3701]'>{cantidad}</span>
+                            <FontAwesomeIcon icon={faPencil} className='ml-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity' />
+                        </div>
+                    )}
+                </div>
+
+
+            </div>
+
+            <div className='w-[50%]'>
+                <p className='text-black text-[1.1rem] font-semibold text-center mb-1'>{tipo}</p>
+                <p className='text-black text-[1rem] text-center mb-1'>{uso}</p>
+            </div>
+
+
+        </div>
+    )
+}
+
+export const AgregarHerramienta = ({ text, onAgregar, nombre }) => {
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [nuevaHerramienta, setNuevaHerramienta] = useState({
         nombre: '',
         cantidad: 1,
-        src: '/img/fondoCultivos.jpg' // Imagen por defecto
+        tipo: '',
+        uso: ''
     });
 
     const handleChange = (e) => {
@@ -311,7 +377,8 @@ export const AgregarHerramienta = ({ onAgregar }) => {
             setNuevaHerramienta({
                 nombre: '',
                 cantidad: 1,
-                src: '/img/fondoCultivos.jpg'
+                tipo: '',
+                uso: ''
             });
             setMostrarFormulario(false);
         }
@@ -319,26 +386,46 @@ export const AgregarHerramienta = ({ onAgregar }) => {
 
     return (
         <div className="mb-4">
-            <div 
+            <div
                 className="flex m-10 items-center justify-center border-2 border-[#2b3701] font-bold rounded-[10px] w-[18vw] h-[35px] text-black cursor-pointer transition ease-in-out duration-300 hover:shadow-[1px_1px_10px_1px_rgba(0,0,0,0.75)]"
                 onClick={() => setMostrarFormulario(!mostrarFormulario)}
             >
                 <p className='text-[1.2rem] font-semibold cursor-pointer'>
-                    {mostrarFormulario ? 'Cancelar' : 'Agregar herramienta'}
+                    {mostrarFormulario ? 'Cancelar' : text}
                 </p>
             </div>
-            
+
             {mostrarFormulario && (
                 <div className='mt-4 p-4 border border-[#2b3701] rounded-lg bg-[#f8f9fa] w-[92.3%] ml-10'>
                     <form onSubmit={handleSubmit} className="space-y-3">
+
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Nombre de la herramienta</label>
-                            <input type="text" name="nombre" value={nuevaHerramienta.nombre} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring focus:ring-[#2b3701] focus:ring-opacity-50" required />
+                            <label className="block text-sm font-medium text-gray-700">{nombre}</label>
+                            <input type="text" name="nombre" value={nuevaHerramienta.nombre} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring-0 focus:outline-none" required />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Cantidad</label>
-                            <input type="number" name="cantidad" min="1" value={nuevaHerramienta.cantidad} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring focus:ring-[#2b3701] focus:ring-opacity-50" required />
+                            <input type="number" name="cantidad" min="1" value={nuevaHerramienta.cantidad} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring-0 focus:outline-none" required />
                         </div>
+
+                        {text === 'Agregar Suplemento' && (
+                            <>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Tipo</label>
+                                    <input type="text" name="tipo" value={nuevaHerramienta.tipo} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring-0 focus:outline-none" required />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Uso recomendado</label>
+                                    <input type="text" name="uso" value={nuevaHerramienta.uso} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#2b3701] focus:ring-0 focus:outline-none" required />
+                                </div>
+                            </>
+
+                        )
+                        }
+
+
+
                         <div className="flex justify-end">
                             <button type="submit" className="px-4 py-2 bg-[#2b3701] text-white rounded-md hover:bg-[#3a4a03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2b3701]">Agregar</button>
                         </div>

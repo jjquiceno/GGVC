@@ -21,7 +21,7 @@ export const InputInfo = ({icono, placeholder, info}) => {
 
 export const InputSearch = ({ icono, placeholder, type, value, onChange }) => {
   return (
-    <div className="border-1 border-black rounded-md p-1 bg-[#fffdef] flex text-sm w-full h-[10vh]">
+    <div className="border-1 border-black rounded-md p-1 bg-[#fffdef] flex text-sm w-full h-[4vh]">
       <span className="input-icono text-black font-extrabold flex mr-2 content-center items-center">
         {icono}
       </span>

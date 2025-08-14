@@ -7,76 +7,73 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Anterior } from '../components/Menuh.jsx';
 import { DataTable } from '../components/DataTables.jsx';
 import { Form } from 'react-router';
-import { FormularioSanidad } from '../components/formLogin.jsx';
+import { FormularioNutricion, FormularioSanidad } from '../components/formLogin.jsx';
 
 
 
 function GesNutricion() {
-  const [datosSanitarios, setDatosSanitarios] = useState([]);
+  const [datosNutricion, setDatosNutricion] = useState([]);
 
-//   const formatearFecha = (fecha) => {
-//     return new Date(fecha).toISOString().split('T')[0]; // => "2022-03-15"
-//   };
-    const formatearFecha = (fecha) => {
-        if (fecha) {
-        return fecha; 
-        }
-        return 'Fecha no disponible';
-    };
+    // const formatearFecha = (fecha) => {
+    //     if (fecha) {
+    //     return fecha; 
+    //     }
+    //     return 'Fecha no disponible';
+    // };
 
   useEffect(() => {
-    const fetchDatosSanitarios = async () => {
+    const fetchNutricion = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/nutricion');
         const data = await response.json();
 
-        const datosSanitarios = await Promise.all(
-          data.map(async (sanidad) => {
+        const datosNutricion = await Promise.all(
+          data.map(async (nutricion) => {
             return {
-              ...sanidad,
-              fecha_aplicacion: formatearFecha(sanidad.fecha_aplicacion),
+              ...nutricion,
+              fecha: new Date(nutricion.fecha).toISOString().split('T')[0]
             };
           })
         );
-        setDatosSanitarios(datosSanitarios);
+        setDatosNutricion(datosNutricion);
       } catch (error) {
-        console.error('Error al obtener los datos sanitarios:', error);
+        console.error('Error al obtener los datos de nutricion:', error);
       }
     };
 
-    fetchDatosSanitarios();
+    fetchNutricion();
   }, []);
 
-  const sanidadColumns = [
-    { accessorKey: 'fecha', header: 'Fecha', enableHiding: true },
+  const nutricionColumns = [
     { accessorKey: 'id_ganado', header: '# Animal' },
+    { accessorKey: 'fecha', header: 'Fecha'},
     { accessorKey: 'tipo_alimento', header: 'Tipo de alimento' },
     { accessorKey: 'nombre_alimento', header: 'Nombre de alimento' },
     { accessorKey: 'cantidad', header: 'Cantidad' },
     { accessorKey: 'observaciones', header: 'Observaciones' },
-    { accessorKey: 'empleado', header: 'Empleado' },
+    { accessorKey: 'supervisor', header: 'Supervisor' },
   ];
 
 
   return (
     <>
-      <Header nav={<Anterior ruta={"/ganado"} />} text="Ciclos de vacunacion" img={"/img/vacaMirandoCamara.jpg"} />
+      <Header nav={<Anterior ruta={"/ganado"} />} text="Nutrición" img={"/img/vacaMirandoCamara.jpg"} />
       <div className='flex justify-end items-center mx-10 p-5 mt-10'>
-        <FormularioSanidad personal={false} />
+        <FormularioNutricion/>
       </div>
       <div className="contenido-ciclos -mt-25">
         <div className="p-10">
-          <h1 className='text-black font-bold text-xl m-5'>Datos Sanitarios</h1>
+          <h1 className='text-black font-bold text-xl m-5'>Información Nutricional</h1>
           <DataTable
-            data={datosSanitarios}
-            columnas={sanidadColumns}
-            name="Datos Sanitarios"
+            data={datosNutricion}
+            columnas={nutricionColumns}
+            name="Información Nutricional"
             onDeleteRows={(rows) => {
               rows.forEach(async (row) => {
-                await fetch(`http://localhost:3000/api/nutricion/${row.fecha}`, {
+                await fetch(`http://localhost:3000/api/nutricion/${row.id_nutricion}`, {
                   method: 'DELETE',
                 });
-                setDatosSanitarios((prev) => prev.filter((item) => item.id_ganado !== row.id_ganado));
+                setDatosNutricion((prev) => prev.filter((item) => item.id_nutricion !== row.id_nutricion));
               });
             }} />
         </div>
