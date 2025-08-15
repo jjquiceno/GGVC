@@ -8,6 +8,7 @@ import { Anterior } from '../components/Menuh.jsx';
 import { DataTable } from '../components/DataTables.jsx';
 import { Form } from 'react-router';
 import { FormularioSanidad } from '../components/formLogin.jsx';
+import { motion } from 'framer-motion';
 
 
 
@@ -98,7 +99,14 @@ function CiclosPage() {
 
   return (
     <>
-      <Header nav={<Anterior ruta={"/ganado"} />} text="Ciclos de vacunacion" img={"/img/vacaMirandoCamara.jpg"} />
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className='w-full'
+      >
+        <Header nav={<Anterior ruta={"/ganado"} />} text="Sanidad" img={"/img/vacaMirandoCamara.jpg"} />
+      </motion.div >
       <div className='flex justify-end items-center mx-10 p-5 mt-10'>
         <FormularioSanidad personal={false} />
       </div>

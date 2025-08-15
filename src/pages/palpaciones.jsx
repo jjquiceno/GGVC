@@ -8,7 +8,7 @@ import { faEnvelope, faUser, faPlus, faSyringe } from '@fortawesome/free-solid-s
 import { Anterior } from '../components/Menuh.jsx';
 import { DataTable } from '../components/DataTables.jsx';
 import { FormularioPalpaciones } from '../components/formLogin.jsx';
-
+import { motion } from 'framer-motion';
 
 
 function PalpacionesPage() {
@@ -39,7 +39,14 @@ function PalpacionesPage() {
     return (
         <>
             <div className="ajustes-page">
-                <Header nav={<Anterior ruta={"/ganado"} />} text="Palpaciones" img={"/img/optionGanado.jpg"} />
+                <motion.div
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className='w-full'
+                >
+                    <Header nav={<Anterior ruta={"/ganado"} />} text="Palpaciones" img={"/img/optionGanado.jpg"} />
+                </motion.div>
                 <FormularioPalpaciones />
 
 

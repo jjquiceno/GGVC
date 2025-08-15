@@ -28,12 +28,27 @@ import RegistroNuA from "./pages/registroNuA.jsx";
 import GesNutricion from "./pages/gesNutricion.jsx";
 import InventarioSuplementos from "./pages/inventarioSuplementos.jsx";
 import ProduccionPage from "./pages/produccion.jsx";
-
+import { Toaster } from 'sonner'
 
 
 function App() {
   return (
     <div>
+
+      <Toaster
+        position="top-center"
+        richColors
+        closeButton
+        toastOptions={{
+          classNames: {
+            toast: 'bg-[#fffdef] border border-[#2b3701] rounded-lg text-[#0c2001] text-sm',
+            title: 'font-semibold',
+            description: 'text-xs',
+            actionButton: 'bg-[#909777] text-white px-3 py-1 rounded-md',
+            closeButton: 'text-[#0c2001]'
+          }
+        }}
+      />
       {/* <nav>
         <Link to="/">Inicio</Link> |{' '}
         <Link to="/cards">Cards</Link> |{' '}
@@ -116,20 +131,20 @@ function App() {
           </PrivateRoute>} />
         <Route path="/cambioDeDatos" element={
           <PrivateRoute>
-            <CambioDeDatos/>
-          </PrivateRoute>}/>
+            <CambioDeDatos />
+          </PrivateRoute>} />
         <Route path="/registroNuA" element={
           <PrivateRoute>
-            <RegistroNuA/>
-          </PrivateRoute>}/>
+            <RegistroNuA />
+          </PrivateRoute>} />
         <Route path="/gesNutricion" element={
           <PrivateRoute>
-            <GesNutricion/>
-          </PrivateRoute>}/>
+            <GesNutricion />
+          </PrivateRoute>} />
         <Route path="/inventarioSuplementos" element={
           <PrivateRoute>
-            <InventarioSuplementos/>
-          </PrivateRoute>}/>
+            <InventarioSuplementos />
+          </PrivateRoute>} />
         <Route path="/reqBPG" element={
           <PrivateRoute>
             <ReqBPG />

@@ -7,6 +7,7 @@ import { DatePickerRadix } from "../components/DatePickerRadix.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FormularioAddReqBpg } from "../components/formLogin.jsx";
+import { motion } from 'framer-motion';
 
 function ReqBPG() {
     const [registros, setRegistros] = useState([]);
@@ -47,11 +48,19 @@ function ReqBPG() {
 
     return (
         <>
-            <HeaderSoloText nav={<Anterior ruta={"/gesAdmon"} />} text="Requisitos BPG" />
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className='w-full'
+            >
+
+                <HeaderSoloText nav={<Anterior ruta={"/gesAdmon"} />} text="Requisitos BPG" />
+            </motion.div>
 
             <div className="w-full px-10 flex flex-col items-center justify-center h-[80vh] bg-[#fffdef]">
                 <div className="w-full flex justify-end">
-                    <FormularioAddReqBpg/>
+                    <FormularioAddReqBpg />
                 </div>
                 {/* Controles de filtro */}
                 <div className="flex gap-4 my-4">
@@ -67,7 +76,7 @@ function ReqBPG() {
                     />
                     <button
                         onClick={filtrarPorFecha}
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-[#909777] text-black cursor-pointer px-4 py-2 rounded"
                     >
                         Filtrar
                     </button>

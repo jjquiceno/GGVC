@@ -7,7 +7,7 @@ import { Anterior } from '../components/Menuh.jsx';
 import { InventarioSuplementosItem } from '../components/Items.jsx';
 import { AgregarHerramienta } from '../components/Items.jsx';
 
-
+import { motion } from 'framer-motion';
 // Función para cargar el inventario desde localStorage
 const cargarInventario = () => {
     try {
@@ -53,32 +53,41 @@ function InventarioSuplementos() {
         );
     };
 
-        return (
-            
-                <div className="w-screen h-screen">
-                    <Header nav={<Anterior ruta={"/ganado"}/>} text="Inventario" img={"/img/dosVacas.png"} />
-                    <div className='h-[70vh] border-[#2b3701]'>
-                        <div className='p-5'>
-                            <AgregarHerramienta text={"Agregar Suplemento"} nombre={"Nombre del Suplemento"} onAgregar={agregarSuplemento} />
-                        </div>
-                        <div className="w-full h-[60vh] md:h-[70vh] overflow-y-scroll flex flex-wrap justify-around p-5 gap-5 scrollbar-thin scrollbar-thumb-[#2b3701] scrollbar-thumb-rounded-lg">
-                            {inventario.map((itemI) => (
-                                <InventarioSuplementosItem 
-                                    key={itemI.id}
-                                    id={itemI.id}
-                                    nombre={itemI.nombre} 
-                                    cantidad={itemI.cantidad}
-                                    textCant="Cantidad:"
-                                    tipo={itemI.tipo}
-                                    uso={itemI.uso}
-                                    onCantidadChange={actualizarCantidad}
-                                />
-                            ))}
-                        </div>
-                    </div>
+    return (
+
+        <div className="w-screen h-screen">
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className='w-full'
+            >
+
+
+                <Header nav={<Anterior ruta={"/ganado"} />} text="Inventario Suplementos" img={"/img/dosVacas.png"} />
+            </motion.div>
+            <div className='h-[70vh] border-[#2b3701]'>
+                <div className='p-5'>
+                    <AgregarHerramienta text={"Agregar Suplemento"} nombre={"Nombre del Suplemento"} onAgregar={agregarSuplemento} />
                 </div>
-        )
-    };
+                <div className="w-full h-[60vh] md:h-[70vh] overflow-y-scroll flex flex-wrap justify-around p-5 gap-5 scrollbar-thin scrollbar-thumb-[#2b3701] scrollbar-thumb-rounded-lg">
+                    {inventario.map((itemI) => (
+                        <InventarioSuplementosItem
+                            key={itemI.id}
+                            id={itemI.id}
+                            nombre={itemI.nombre}
+                            cantidad={itemI.cantidad}
+                            textCant="Cantidad:"
+                            tipo={itemI.tipo}
+                            uso={itemI.uso}
+                            onCantidadChange={actualizarCantidad}
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+};
 
 
 export default InventarioSuplementos

@@ -9,6 +9,7 @@ import FormularioAnimalDialog from '../components/formLogin.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faBaby, faCheckCircle, faCow, faPersonPregnant, faSearch, faSlidersH, faStethoscope } from '@fortawesome/free-solid-svg-icons';
 import { InputSearch } from '../components/inputs.jsx';
+import { motion } from 'framer-motion';
 
 import './ganadoList.css';
 
@@ -200,7 +201,13 @@ function GanadoListPage() {
                 <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer' />
                 <div className="ganado-list-content">
 
-                    <div className="continer-list">
+
+                    <motion.div
+                        className="continer-list"
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         <div className='w-[90%] flex flex-col gap-3'>
                             <h2 className='text-3xl font-bold'>Lista del ganado</h2>
                             <InputSearch icono={<FontAwesomeIcon icon={faSearch} />} type="text" placeholder={"Buscar"}
@@ -257,9 +264,15 @@ function GanadoListPage() {
                                 />
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="list-info">
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.3, ease: "easeOut", delay: 0.6 }}
+                        className='list-info'
+                    >
                         {selectedAnimal && (
                             <TablaAnimal
                                 nombre={selectedAnimal.nombre}
@@ -275,10 +288,10 @@ function GanadoListPage() {
                                 desc={selectedAnimal.descripcion}
                                 rebano={selectedAnimal.potrero}
                                 onUpdateDes={handleUpdateDescendencia}
-                            //                             onUpdateUbi={handleUpdateUbicacion}
+                                onUpdateUbi={handleUpdateUbicacion}
                             />
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </>

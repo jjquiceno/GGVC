@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './ganadoList.css';
 import { faAngleLeft, faBaby, faCheckCircle, faCow, faPersonPregnant, faPlus, faSearch, faSlidersH, faStethoscope } from '@fortawesome/free-solid-svg-icons';
 import { InputSearch } from '../components/inputs.jsx';
+import { motion } from 'framer-motion';
 
 function GanadoListPage() {
 
@@ -42,7 +43,7 @@ function GanadoListPage() {
         } catch (error) {
             console.error('Error al obtener los datos:', error);
         }
-    };  
+    };
 
     useEffect(() => {
         fetchAllData();
@@ -79,13 +80,18 @@ function GanadoListPage() {
             <div className="ganado-list-page ">
                 <FontAwesomeIcon icon={faAngleLeft} onClick={handleClick} className='text-4xl cursor-pointer' />
                 <div className="ganado-list-content">
-                    <div className="continer-list">
+                    <motion.div
+                        className="continer-list"
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         <div className='w-[90%] h-[10vh] flex flex-col '>
                             <h2 className='text-3xl font-bold mr-[10rem] mb-5'>Lista del ganado</h2>
                             <InputSearch icono={<FontAwesomeIcon icon={faSearch} />} type="text" placeholder={"Buscar"}
                                 value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
                         </div>
-                        
+
                         <div className="list">
                             {(busqueda.trim() ? filtrados : empleados).map((empleado) => (
                                 <ItemsListE
@@ -96,22 +102,27 @@ function GanadoListPage() {
                                 />
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="list-info">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.3, ease: "easeOut", delay: 0.6 }}
+                        className='list-info'
+                    >
                         {selectedEmpleado && (
                             <TablaEmpleado
-                            id_empleado={selectedEmpleado.id_empleado}
-                            usuario={selectedEmpleado.usuario}
-                            dni={selectedEmpleado.dni}
-                            nombre={selectedEmpleado.nombre}
-                            email={selectedEmpleado.email}
-                            telefono={selectedEmpleado.telefono}
-                        />
+                                id_empleado={selectedEmpleado.id_empleado}
+                                usuario={selectedEmpleado.usuario}
+                                dni={selectedEmpleado.dni}
+                                nombre={selectedEmpleado.nombre}
+                                email={selectedEmpleado.email}
+                                telefono={selectedEmpleado.telefono}
+                            />
                         )}
-                    </div>
+                    </motion.div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

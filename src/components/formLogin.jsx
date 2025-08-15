@@ -9,7 +9,10 @@ import { useNavigate, Link } from "react-router-dom"
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { faDochub } from '@fortawesome/free-brands-svg-icons';
 // import { Routes, Route, Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
+import { toast } from 'sonner'
 
 export const FormLogin = () => {
   const [usuario, setUsuario] = useState('');
@@ -34,14 +37,45 @@ export const FormLogin = () => {
         console.log('Login exitoso:', data);
         sessionStorage.setItem('token', data.token); //Token en sessionStorage
         console.log('Token guardado:', sessionStorage.getItem('token'));
-        alert('Bienvenido ' + data.user.usuario);
-        navigate('/welcome');
+        Swal.fire({
+          title: '¡Bienvenido!',
+          text: `Hola ${data.user.usuario} 👋`,
+          icon: 'success',
+          background: '#fffdef',
+          color: '#00000',
+          confirmButtonText: 'Continuar',
+          buttonsStyling: false, // 🔹 Desactiva estilos por defecto
+          customClass: {
+            popup: 'max-w-xs p-4 rounded-xl shadow-lg',
+            title: 'text-lg font-bold',
+            htmlContainer: 'text-xs',
+            confirmButton: 'bg-[#909777] text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition'
+          },
+          showClass: {
+            popup: 'animate__animated animate__zoomIn'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__zoomOut'
+          }
+        }).then(() => {
+          navigate('/welcome');
+        });
       } else {
-        alert(data.message || 'Error al iniciar sesión');
+        Swal.fire({
+          title: 'Error',
+          text: data.message || 'Error al iniciar sesión',
+          icon: 'error',
+          confirmButtonColor: '#d33'
+        });
       }
     } catch (err) {
       console.error('Error de red:', err);
-      alert('Error de conexión con el servidor.');
+      Swal.fire({
+        title: 'Error de conexión',
+        text: 'No se pudo conectar con el servidor.',
+        icon: 'warning',
+        confirmButtonColor: '#f39c12'
+      });
     }
   };
 
@@ -105,8 +139,15 @@ export default function FormularioAnimalDialog() {
 
       if (response.ok) {
         console.log('Ganado agregado exitosamente:', data);
-        alert('Ganado agregado exitosamente');
-        window.location.reload();
+        toast.success('¡Ganado agregado!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar el ganado');
       }
@@ -119,7 +160,7 @@ export default function FormularioAnimalDialog() {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-      <span className="z-[9999] text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+      <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
           <FontAwesomeIcon icon={faPlus} />
         </span>
       </Dialog.Trigger>
@@ -268,8 +309,15 @@ export const FormularioGanadoEdit = ({ id }) => {
 
       if (response.ok) {
         console.log('Ganado editado exitosamente:', data);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Edicion Exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar el ganado');
       }
@@ -407,8 +455,15 @@ export const FormularioDescendenciaEdit = ({ id }) => {
 
       if (response.ok) {
         console.log('Descendencia editada exitosamente:', data);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Edicion Exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al editar la descendencia');
       }
@@ -482,8 +537,15 @@ export const FormularioUbicacionEdit = ({ id }) => {
 
       if (response.ok) {
         console.log('Ubicación editada exitosamente:', data);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Edicion Exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al editar la ubicacion');
       }
@@ -556,8 +618,15 @@ export const FormularioVisitas = ({ id, nombre }) => {
 
       if (response.ok) {
         console.log('Visita agregada exitosamente:', data);
-        alert('Visita agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion Exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la visita');
       }
@@ -696,8 +765,15 @@ export const FormularioSanidad = ({ id, nombre, personal }) => {
 
       if (response.ok) {
         console.log('Sanidad agregada exitosamente:', data);
-        alert('Sanidad agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Sanidad agregada exitosamente!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la visita');
       }
@@ -843,8 +919,15 @@ export const FormularioPasswordEdit = ({ user }) => {
 
       if (resUser.ok) {
         console.log('Contraseña editada exitosamente:', dataUser);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Contraseña editada exitosamente!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(dataUser.message || 'Error al editar la contraseña');
       }
@@ -906,8 +989,15 @@ export const FormularioEmailEdit = ({ user }) => {
 
       if (resEmpleado.ok) {
         console.log('Email editada exitosamente:', dataEmpleado);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(dataEmpleado.message || 'Error al editar la Email');
       }
@@ -976,8 +1066,15 @@ export const FormularioAddReqBpg = () => {
 
       if (response.ok) {
         console.log('Requerimiento agregado exitosamente:', data);
-        alert('Requerimiento agregado exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la requerimiento');
       }
@@ -1112,7 +1209,15 @@ export const FormularioEditReqBpg = ({ idReq, estado }) => {
 
       if (response.ok) {
         console.log('Requerimiento editado exitosamente:', data);
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al editar requerimiento');
       }
@@ -1125,14 +1230,14 @@ export const FormularioEditReqBpg = ({ idReq, estado }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <span className="">{<FontAwesomeIcon icon={faPen} />}</span>
+        <span className="cursor-pointer">{<FontAwesomeIcon icon={faPen} />}</span>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
         <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
           <Dialog.Title className="text-xl font-bold mb-2">
-            Registrar nuevo requerimiento
+            Editar requerimiento
           </Dialog.Title>
 
           <form className="flex flex-col gap-4 h-full" onSubmit={handleEditReq}>
@@ -1244,8 +1349,15 @@ export const FormularioPalpaciones = ({ }) => {
 
       if (response.ok) {
         console.log('Palpacion agregada exitosamente:', data);
-        alert('Palpacion agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar palpacion');
       }
@@ -1428,8 +1540,15 @@ export const FormularioAddPesaje = ({ id, nombre }) => {
 
       if (response.ok) {
         console.log('Peso agregado exitosamente:', data);
-        alert('Peso agregado exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar peso');
       }
@@ -1451,7 +1570,7 @@ export const FormularioAddPesaje = ({ id, nombre }) => {
         <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
         <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
           <Dialog.Title className="text-xl font-bold mb-2">
-            Registrar palpacion para {nombre} (ID: {idGanado})
+            Registrar pesaje para {nombre}
           </Dialog.Title>
 
           <form className="flex flex-col gap-4 h-full" onSubmit={handleAddPalpacion}>
@@ -1567,8 +1686,15 @@ export const FormularioEditEmpleado = ({ id_empleado }) => {
 
       if (response.ok) {
         console.log('Empleado y/o usuario editado exitosamente:', data);
-        alert('Edición exitosa');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al editar datos');
       }
@@ -1678,8 +1804,15 @@ export const FormularioAddProduccion = () => {
 
       if (response.ok) {
         console.log('Producción agregada exitosamente:', data);
-        alert('Producción agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la priducción');
       }
@@ -1803,8 +1936,15 @@ export const FormularioAddManoDeObra = () => {
 
       if (response.ok) {
         console.log('Mano de obra agregada exitosamente:', data);
-        alert('Mano de obra agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la mano de obra');
       }
@@ -1945,8 +2085,15 @@ export const FormularioNutricion = () => {
 
       if (response.ok) {
         console.log('Nutricion agregada exitosamente:', data);
-        alert('Nutricion agregada exitosamente');
-        window.location.reload();
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
       } else {
         alert(data.message || 'Error al registrar la nutricion');
       }

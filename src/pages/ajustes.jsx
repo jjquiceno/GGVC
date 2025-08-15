@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import { Menu } from '../components/Menuh.jsx';
 import { FormularioEmailEdit, FormularioPasswordEdit } from '../components/formLogin.jsx';
-
+import { motion } from 'framer-motion';
 
 function AjustesPage() {
 
@@ -21,15 +21,22 @@ function AjustesPage() {
     return (
         <>
             <div className="min-h-screen w-screen flex flex-col bg-[#fffdef]">
-                <Header nav={<Menu/>} text="Ajustes" img={"/img/dosVacas.png"} />
-                <div className="h-[70vh] w-full grid grid-cols-2 grid-rows-1 items-center mt-[30vh]">
+                <motion.div
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className='w-full'
+                >
+                    <Header nav={<Menu />} text="Ajustes" img={"/img/dosVacas.png"} />
+                </motion.div>
+                <div className="h-full w-full grid grid-cols-2 grid-rows-1 items-center">
                     <div className="flex flex-col items-center gap-4">
                         <h5 className="font-semibold text-black">Mis datos</h5>
                         <div className="grid gap-2 w-1/2 mx-auto">
-                            <FormularioEmailEdit user={decoded.usuario}/>
-                            <FormularioPasswordEdit user={decoded.usuario}/>
+                            <FormularioEmailEdit user={decoded.usuario} />
+                            <FormularioPasswordEdit user={decoded.usuario} />
                         </div>
-                        
+
                     </div>
 
                     <div className="w-4/5 h-[90%] flex flex-col mt-[25%]">

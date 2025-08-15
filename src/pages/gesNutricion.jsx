@@ -9,17 +9,17 @@ import { DataTable } from '../components/DataTables.jsx';
 import { Form } from 'react-router';
 import { FormularioNutricion, FormularioSanidad } from '../components/formLogin.jsx';
 
-
+import { motion } from 'framer-motion';
 
 function GesNutricion() {
   const [datosNutricion, setDatosNutricion] = useState([]);
 
-    // const formatearFecha = (fecha) => {
-    //     if (fecha) {
-    //     return fecha; 
-    //     }
-    //     return 'Fecha no disponible';
-    // };
+  // const formatearFecha = (fecha) => {
+  //     if (fecha) {
+  //     return fecha; 
+  //     }
+  //     return 'Fecha no disponible';
+  // };
 
   useEffect(() => {
     const fetchNutricion = async () => {
@@ -46,7 +46,7 @@ function GesNutricion() {
 
   const nutricionColumns = [
     { accessorKey: 'id_ganado', header: '# Animal' },
-    { accessorKey: 'fecha', header: 'Fecha'},
+    { accessorKey: 'fecha', header: 'Fecha' },
     { accessorKey: 'tipo_alimento', header: 'Tipo de alimento' },
     { accessorKey: 'nombre_alimento', header: 'Nombre de alimento' },
     { accessorKey: 'cantidad', header: 'Cantidad' },
@@ -57,9 +57,18 @@ function GesNutricion() {
 
   return (
     <>
-      <Header nav={<Anterior ruta={"/ganado"} />} text="Nutrición" img={"/img/vacaMirandoCamara.jpg"} />
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className='w-full'
+      >
+
+
+        <Header nav={<Anterior ruta={"/ganado"} />} text="Nutrición" img={"/img/vacaMirandoCamara.jpg"} />
+      </motion.div>
       <div className='flex justify-end items-center mx-10 p-5 mt-10'>
-        <FormularioNutricion/>
+        <FormularioNutricion />
       </div>
       <div className="contenido-ciclos -mt-25">
         <div className="p-10">

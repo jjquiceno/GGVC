@@ -9,7 +9,7 @@ import { Form } from 'react-router';
 import { FormularioAddManoDeObra, FormularioAddProduccion, FormularioSanidad } from '../components/formLogin.jsx';
 import GraficoBarras from '../components/graficoBarras.jsx';
 
-
+import { motion } from 'framer-motion';
 
 function ProduccionPage() {
 
@@ -104,7 +104,16 @@ function ProduccionPage() {
 
   return (
     <>
-      <Header nav={<Anterior ruta={"/ganado"} />} text="Produccion" img={"/img/vacaMirandoCamara.jpg"} />
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className='w-full'
+      >
+
+        <Header nav={<Anterior ruta={"/ganado"} />} text="Produccion" img={"/img/vacaMirandoCamara.jpg"} />
+      </motion.div>
+
       <div className='flex justify-end items-center mx-10 p-5 mt-10'>
         <FormularioAddProduccion />
       </div>
