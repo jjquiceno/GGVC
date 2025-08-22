@@ -29,6 +29,7 @@ import GesNutricion from "./pages/gesNutricion.jsx";
 import InventarioSuplementos from "./pages/inventarioSuplementos.jsx";
 import ProduccionPage from "./pages/produccion.jsx";
 import { Toaster } from 'sonner'
+import Reproduccion from "./pages/reproduccion.jsx";
 
 
 function App() {
@@ -152,6 +153,10 @@ function App() {
         <Route path="/produccion" element={
           <PrivateRoute>
             <ProduccionPage />
+          </PrivateRoute>} />
+          <Route path="/reproduccion" element={
+          <PrivateRoute>
+            <Reproduccion />
           </PrivateRoute>} />
         <Route path="*" element={<h1>404 - Not Found</h1>} />
 

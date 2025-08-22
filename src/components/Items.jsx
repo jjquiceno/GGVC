@@ -3,7 +3,7 @@ import './items.css'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowAltCircleRight, faArrowsRotate, faDownload, faExchangeAlt, faPen, faPencil, faUpload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormularioEditReqBpg } from './formLogin'
+import { FormularioEditReqBpg, FormularioGeneralFinalPrenez } from './formLogin'
 
 export const Items = ({ icono, text, ruta }) => {
 
@@ -435,3 +435,73 @@ export const AgregarHerramienta = ({ text, onAgregar, nombre }) => {
         </div>
     );
 };
+
+export const ItemsPrenez = ({ id_prenez, id_ganado, fecha, metodo, responsable, estado }) => {
+
+    const [activa, setActiva] = React.useState(estado);
+    const [openDialog, setOpenDialog] = useState(false);
+
+    React.useEffect(() => {
+        setActiva(estado === "activa");
+    }, [estado]);
+
+
+    const handleToggle = async (e) => {
+        e.preventDefault();
+
+        const nuevoEstado = !activa;
+        setActiva(nuevoEstado);
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/prenez/${id_prenez}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id_ganado,
+                    fecha_monta: fecha,
+                    metodo,
+                    responsable,
+                    estado: nuevoEstado ? "activa" : "finalizada"
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('El estado cambió exitosamente:', data);
+                setOpenDialog(true);
+            } else {
+                alert(data.message || 'Error al cambiar estado de preñez');
+            }
+        } catch (err) {
+            console.error('Error de red:', err);
+            alert('Error de conexión con el servidor.');
+        }
+    };
+
+
+
+    return (
+        <div className={`w-full min-h-[5vh] border-2 border-[#2b3701] rounded-[5px] flex justify-between items-center shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)] hover:shadow-[0px_0px_2px_0px_rgba(0,0,0,0.75)] transition ease-in-out duration-300 ${activa ? "bg-[#e9edc9]" : "bg-[#9b9b9b]"
+            }`}>
+            <div className='w-[90%] h-full flex items-center justify-between px-10'>
+                <strong className='max-w-[6%] w-[6%]'>{id_prenez}</strong>
+                <span className='max-w-[15%] w-[15%]'>{fecha}</span>
+                <span className='max-w-[20%] w-[20%]'>{metodo}</span>
+                <span className='max-w-[15%] w-[15%]'>{responsable}</span>
+            </div>
+            <div className="w-[12%] h-full flex items-center justify-between px-10">
+                <FormularioEditReqBpg />
+                {estado === 'activa' && (
+                    <span onClick={handleToggle} className="cursor-pointer">{<FontAwesomeIcon icon={faExchangeAlt} />}</span>
+                )}
+
+                <FormularioGeneralFinalPrenez
+                    id={id_ganado}
+                    open={openDialog}
+                    onOpenChange={setOpenDialog}
+                />
+            </div>
+        </div>
+    )
+}

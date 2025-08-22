@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './tablas.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormularioEditEmpleado, FormularioGeneralEdit } from './formLogin'
@@ -113,6 +113,7 @@ export const TablaAnimal = ({
     madre,
     padre,
     desc,
+    estado,
     rebano,
     onUpdateDes,
     onUpdateUbi // Recibimos la nueva prop aquí
@@ -124,8 +125,33 @@ export const TablaAnimal = ({
     const [editPotrero, setEditPotrero] = useState(false);
     const [nuevoPotrero, setNuevoPotrero] = useState('');
 
+    const [datosPrenez, setDatosPrenez] = useState('');
+    const [fechaParto, setFechaParto] = useState('');
 
-    
+    const calcularFechaParto = (fechaMonta) => {
+        const diasGestacion = 283; // promedio en vacas
+        const fechaParto = new Date(fechaMonta);
+        fechaParto.setDate(fechaParto.getDate() + diasGestacion);
+        return fechaParto;
+    };
+
+    console.log("id_ganado:", id)
+
+    useEffect(() => {
+
+        const fetchUltimaPrenez = async () => {
+            const response = await fetch(`http://localhost:3000/api/prenez/${id}/ultima`);
+            const data = await response.json();
+
+            if (!response.ok) return; // maneja 404 u otros
+            setDatosPrenez(data);
+            setFechaParto(calcularFechaParto(data.fecha_monta));
+        };
+        fetchUltimaPrenez();
+    }, []);
+
+
+
 
     const handleGuardarMadre = async () => {
         console.log('--- Llamando a handleGuardarMadre ---');
@@ -246,6 +272,14 @@ export const TablaAnimal = ({
                         <p className='bold'>Descripción: <span className='light'>{desc || 'No registrado'}</span></p>
                     </div>
 
+                    {estado === 'Prenez' && (
+                        <div className='flex flex-col h-fit'>
+                            <span className='bold text-lg mb-4'>Gestación</span>
+                            <p className='bold'>Fecha inicio de gestación: <span className='light'>{new Date(datosPrenez.fecha_monta).toLocaleDateString()}</span></p>
+                            <p className='bold'>Fecha estimada de parto: <span className='light'>{new Date(fechaParto).toLocaleDateString()}</span></p>
+                        </div>
+                    )}
+
                     <div>
                         <div className='evento flex flex-col'>
                             <div className='bold text-lg'>
@@ -279,7 +313,7 @@ export const TablaAnimal = ({
                                 </span>
                             </div>
                             <div className='bold text-lg'>
-                                <InfoMedica nombre={nombre} id={id} />
+                                <InfoMedica nombre={nombre} id={id} genero={sexo} />
                             </div>
                         </div>
                     </div>
@@ -297,7 +331,7 @@ export const TablaEmpleado = ({
     email,
     telefono,
 }) => {
-    
+
 
     return (
         <div className='tabla-animal-container'>
@@ -373,7 +407,7 @@ export const TablaDatosVisitaMed = ({ }) => {
     )
 }
 
-export const TablaDatosMedicos = ({ title, data, colums, name,  }) => {
+export const TablaDatosMedicos = ({ title, data, colums, name, }) => {
     return (
         <div className="tabla-d-m-container">
             <div className="tig-tittle">
@@ -384,7 +418,7 @@ export const TablaDatosMedicos = ({ title, data, colums, name,  }) => {
                     <span className="faicon iconotig"><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
-            
+
         </div>
     )
 }

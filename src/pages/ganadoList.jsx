@@ -286,6 +286,7 @@ function GanadoListPage() {
                                 madre={selectedAnimal.madre}
                                 padre={selectedAnimal.padre}
                                 desc={selectedAnimal.descripcion}
+                                estado={selectedAnimal.estado}
                                 rebano={selectedAnimal.potrero}
                                 onUpdateDes={handleUpdateDescendencia}
                                 onUpdateUbi={handleUpdateUbicacion}

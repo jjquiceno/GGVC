@@ -280,6 +280,34 @@ export const FormularioGeneralEdit = ({ id }) => {
   );
 }
 
+export const FormularioGeneralFinalPrenez = ({ id, open, onOpenChange }) => {
+
+  const navigate = useNavigate();
+
+  return (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-50" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <Dialog.Title className="text-xl font-bold mb-4">
+            Selecciona lo que quieres editar
+          </Dialog.Title>
+
+          <div className="flex flex-col gap-4">
+            <FormularioGanadoEdit id={id} />
+            <FormularioDescendenciaEdit id={id} />
+            <FormularioUbicacionEdit id={id} />
+          </div>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
 export const FormularioGanadoEdit = ({ id }) => {
 
   const [nombre, setNombre] = useState('');
@@ -2212,6 +2240,125 @@ export const FormularioNutricion = () => {
               <FontAwesomeIcon icon={faEye} className="icon" />
             </div>
 
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const FormularioAddPrenez = ({id}) => {
+
+  const [fecha_monta, setFechaMonta] = useState('');
+  const [metodo, setMetodo] = useState('');
+  const [responsable, setResponsable] = useState('');
+
+  const idGanado = id;
+
+  const handleAddProduccion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/prenez/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_ganado: idGanado,
+          fecha_monta,
+          metodo,
+          responsable,
+          estado: "activa"
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Preñez agregada exitosamente:', data);
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
+      } else {
+        alert(data.message || 'Error al registrar la preñez');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+          <FontAwesomeIcon icon={faPlus} />
+        </span>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Registrar preñez
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddProduccion}>
+
+            <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fecha_monta"
+                name="fecha_monta"
+                placeholder='Fecha'
+                required
+                value={fecha_monta}
+                onChange={(e) => setFechaMonta(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full"
+                value={metodo} onChange={(e) => setMetodo(e.target.value)}>
+                <option value="">Metodo</option>
+                <option value="Monta natural">Monta natural</option>
+                <option value="Inseminación artificial">Inseminación artificial</option>
+                <option value="Sincronización de celos">Sincronización de celos</option>
+                <option value="Transferencia de embriones">Transferencia de embriones</option>
+              </select>
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full">
+              <input
+                type="text"
+                className="m-auto ml-0.5 w-full"
+                id="responsable"
+                name="responsable"
+                placeholder='Responsable'
+                required
+                value={responsable}
+                onChange={(e) => setResponsable(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faClock} className="icon" />
+            </div>
+    
             <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
               Registrar
             </button>

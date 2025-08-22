@@ -7,15 +7,17 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from "react-router-dom"
 import { TablaDatosMedicos, TablaDatosVisitaMed, TablaInfoGanado } from './Tablas';
 import { DataTable } from '../components/DataTables.jsx';
-import { FormularioAddPesaje, FormularioAddReqBpg, FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
+import { FormularioAddPesaje, FormularioAddPrenez, FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
 import GraficoLineas from './graficoLineas.jsx';
+import { ItemsList, ItemsPrenez } from './Items.jsx';
 // import { Routes, Route, Link } from 'react-router-dom';
 
-export const InfoMedica = ({ nombre, id }) => {
+export const InfoMedica = ({ nombre, id, genero }) => {
 
   const [datosSanitarios, setDatosSanitarios] = useState([]);
   const [datosVisitas, setDatosVisitas] = useState([]);
   const [datosPesajes, setDatosPesajes] = useState([]);
+  const [datosPrenez, setDatosPrenez] = useState([]);
 
   const fetchVisitas = async (idActual) => {
     setDatosVisitas([]);
@@ -72,6 +74,24 @@ export const InfoMedica = ({ nombre, id }) => {
     }
   }
 
+  const fetchPrenez = async (idActual) => {
+    setDatosPesajes([]);
+    try {
+      const response = await fetch(`http://localhost:3000/api/prenez/${idActual}`);
+      const data = await response.json();
+
+
+      const datosPrenez = data.map((prenez) => ({
+        ...prenez,
+        fecha_monta: new Date(prenez.fecha_monta).toISOString().split("T")[0],
+      }));
+
+      setDatosPrenez(datosPrenez);
+    } catch (error) {
+      console.error('Error al obtener los registros de peñez:', error);
+    }
+  }
+
   const VisitaColums = [
     { accessorKey: 'id_visita', header: '#Visita' },
     { accessorKey: 'fecha_visita', header: 'Fecha y hora' },
@@ -101,7 +121,7 @@ export const InfoMedica = ({ nombre, id }) => {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          onClick={() => { fetchVisitas(id), fetchDatosSanitarios(id), fetchPeso(id) }}
+          onClick={() => { fetchVisitas(id), fetchDatosSanitarios(id), fetchPeso(id), fetchPrenez(id) }}
           className="text-[#6e9347] underline cursor-pointer"
         >
           Ver Información Médica
@@ -197,7 +217,45 @@ export const InfoMedica = ({ nombre, id }) => {
 
             </div>
 
+            {genero === 'H' && (
+              <div className='flex-1 p-6 gap-10'>
+                <div className="w-full h-fit content-center mb-10">
+                  <div className="h-[15%] rounded-lg flex items-center justify-between mb-4 text-lg">
+                    <div>
+                      <h2 className='font-bold'>Preñez</h2>
+                    </div>
+                    <div>
+                      <FormularioAddPrenez id={id}/>
+                    </div>
+                  </div>
+                  <div className='w-full flex flex-col gap-4'>
+                    {datosPrenez.length > 0 ? (
+                      datosPrenez.map((prenez) => (
+                        <ItemsPrenez
+                          key={prenez.id_prenez}
+                          id_prenez={prenez.id_prenez}
+                          id_ganado={id}
+                          fecha={prenez.fecha_monta}
+                          metodo={prenez.metodo}
+                          responsable={prenez.responsable}
+                          estado={prenez.estado}
+                        />
+                      ))
+                    ) : (
+                      <p className="text-black">No hay registros de preñez para {nombre}</p>
+                    )}
+                  </div>
+                </div>
+
+
+              </div>
+            )}
+
+
+
           </div>
+
+
 
           <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl">
             ✕
@@ -207,3 +265,4 @@ export const InfoMedica = ({ nombre, id }) => {
     </Dialog.Root>
   );
 }
+

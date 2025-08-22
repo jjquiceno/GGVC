@@ -5,7 +5,7 @@ import { ItemsTypes } from '../components/Items.jsx'
 import { Items } from '../components/Items.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCow, faHandPaper, faSyringe, faBox, faPills, faSeedling } from '@fortawesome/free-solid-svg-icons';
+import { faCow, faHandPaper, faSyringe, faBox, faPills, faSeedling, faVenusMars } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 
 function GanadoPage() {
@@ -33,8 +33,8 @@ function GanadoPage() {
                             <Items icono={<FontAwesomeIcon icon={faBox} />} text="Producción" ruta={"/produccion"} />
                             <Items icono={<FontAwesomeIcon icon={faPills} />} text="Suplementos" ruta={"/inventarioSuplementos"} />
                             <Items icono={<FontAwesomeIcon icon={faSeedling} />} text="Nutrición" ruta={"/gesNutricion"} />
+                            <Items icono={<FontAwesomeIcon icon={faVenusMars} />} text="Reproducción" ruta={"/reproduccion"}/>
                             {/* <Items icono={<FontAwesomeIcon icon={faHistory} />} text="Historiales" ruta={"/historiales"} />
-                            <Items icono={<FontAwesomeIcon icon={faVenusMars} />} text="Reproducción" />
                             <Items icono={<FontAwesomeIcon icon={faImage} />} text="Imagenes" ruta={"/imagenes"} /> */}
                         </div>
 
