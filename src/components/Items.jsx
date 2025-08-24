@@ -491,7 +491,6 @@ export const ItemsPrenez = ({ id_prenez, id_ganado, fecha, metodo, responsable, 
                 <span className='max-w-[15%] w-[15%]'>{responsable}</span>
             </div>
             <div className="w-[12%] h-full flex items-center justify-between px-10">
-                <FormularioEditReqBpg />
                 {estado === 'activa' && (
                     <span onClick={handleToggle} className="cursor-pointer">{<FontAwesomeIcon icon={faExchangeAlt} />}</span>
                 )}
@@ -500,6 +499,8 @@ export const ItemsPrenez = ({ id_prenez, id_ganado, fecha, metodo, responsable, 
                     id={id_ganado}
                     open={openDialog}
                     onOpenChange={setOpenDialog}
+                    id_prenez={id_prenez}
+                    metodo={metodo}
                 />
             </div>
         </div>

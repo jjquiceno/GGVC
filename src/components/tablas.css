@@ -204,7 +204,7 @@
 }
 .tabla-a-container, .tabla-sal-container{
     border: solid #2b3701;
-    width: 40vw;
+    width: 100%;
     height: fit-content;
     background-color: #e9edc9;
     margin-top: 40px;

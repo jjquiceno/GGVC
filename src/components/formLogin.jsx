@@ -160,7 +160,7 @@ export default function FormularioAnimalDialog() {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-      <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
+        <span className="text-2xl cursor-pointer transition duration-300 ease-in-out hover:drop-shadow-[1px_1px_2px_#2b370185]">
           <FontAwesomeIcon icon={faPlus} />
         </span>
       </Dialog.Trigger>
@@ -280,7 +280,7 @@ export const FormularioGeneralEdit = ({ id }) => {
   );
 }
 
-export const FormularioGeneralFinalPrenez = ({ id, open, onOpenChange }) => {
+export const FormularioGeneralFinalPrenez = ({ id, open, onOpenChange, id_prenez, metodo}) => {
 
   const navigate = useNavigate();
 
@@ -290,11 +290,11 @@ export const FormularioGeneralFinalPrenez = ({ id, open, onOpenChange }) => {
         <Dialog.Overlay className="bg-black/40 fixed inset-0 z-50" />
         <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-lg p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
           <Dialog.Title className="text-xl font-bold mb-4">
-            Selecciona lo que quieres editar
+            Finalización de preñez
           </Dialog.Title>
 
           <div className="flex flex-col gap-4">
-            <FormularioGanadoEdit id={id} />
+            <FormularioAddParto id_prenez={id_prenez} metodo={metodo}/>
             <FormularioDescendenciaEdit id={id} />
             <FormularioUbicacionEdit id={id} />
           </div>
@@ -307,6 +307,7 @@ export const FormularioGeneralFinalPrenez = ({ id, open, onOpenChange }) => {
     </Dialog.Root>
   );
 };
+
 
 export const FormularioGanadoEdit = ({ id }) => {
 
@@ -1649,7 +1650,6 @@ export const FormularioAddPesaje = ({ id, nombre }) => {
 };
 
 
-
 export const FormularioEditEmpleado = ({ id_empleado }) => {
 
   const [usuario, setUsuario] = useState('');
@@ -1921,7 +1921,7 @@ export const FormularioAddProduccion = () => {
               />
               <FontAwesomeIcon icon={faDochub} className="icon" />
             </div>
-    
+
             <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
               Registrar
             </button>
@@ -2066,7 +2066,7 @@ export const FormularioAddManoDeObra = () => {
               />
               <FontAwesomeIcon icon={faClock} className="icon" />
             </div>
-    
+
             <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
               Registrar
             </button>
@@ -2148,7 +2148,7 @@ export const FormularioNutricion = () => {
 
           <form className="flex flex-col gap-4 h-full" onSubmit={handleAddProduccion}>
 
-          <div className="input-icon w-full">
+            <div className="input-icon w-full">
               <input
                 type="number"
                 className="m-auto ml-0.5 w-full"
@@ -2199,7 +2199,7 @@ export const FormularioNutricion = () => {
                 value={nombreAlimento}
                 onChange={(e) => setNombreAlimento(e.target.value)}
               />
-              <FontAwesomeIcon icon={faBowlFood} className="icon"/>
+              <FontAwesomeIcon icon={faBowlFood} className="icon" />
             </div>
 
             <div className="input-icon w-full">
@@ -2229,7 +2229,7 @@ export const FormularioNutricion = () => {
                 value={supervisor}
                 onChange={(e) => setSupervisor(e.target.value)}
               />
-              <FontAwesomeIcon icon={faUser} className="icon"/>
+              <FontAwesomeIcon icon={faUser} className="icon" />
             </div>
 
             <div className="input-icon w-full mb-6">
@@ -2254,7 +2254,7 @@ export const FormularioNutricion = () => {
   );
 };
 
-export const FormularioAddPrenez = ({id}) => {
+export const FormularioAddPrenez = ({ id }) => {
 
   const [fecha_monta, setFechaMonta] = useState('');
   const [metodo, setMetodo] = useState('');
@@ -2358,7 +2358,123 @@ export const FormularioAddPrenez = ({id}) => {
               />
               <FontAwesomeIcon icon={faClock} className="icon" />
             </div>
-    
+
+            <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
+              Registrar
+            </button>
+          </form>
+
+          <Dialog.Close className="absolute top-2 right-4 text-gray-500 hover:text-black text-xl cursor-pointer">
+            ✕
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const FormularioAddParto = ({ id_prenez, metodo }) => {
+
+  const [fechaParto, setFechaParto] = useState('');
+  const [metodoSeleccionado, setMetodoSeleccionado] = useState(metodo);
+  const [resultado, setResultado] = useState('');
+  const [problemas, setProblemas] = useState('');
+  const [idPrenez, setIdPrenez] = useState(id_prenez);
+
+  console.log("id Preñez: ",idPrenez)
+
+  const handleAddParto = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/parto`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_prenez: idPrenez,
+          fecha_de_parto: fechaParto,
+          metodo: metodoSeleccionado,
+          problemas,
+          resultado
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Parto agregado exitosamente:', data);
+        toast.success('¡Edicion exitosa!', {
+          description: 'Se registró correctamente.',
+          action: {
+            label: 'OK',
+            onClick: () => {
+              window.location.reload();
+            }
+          }
+        })
+      } else {
+        alert(data.message || 'Error al registrar la requerimiento');
+      }
+    } catch (err) {
+      console.error('Error de red:', err);
+      alert('Error de conexión con el servidor.');
+    }
+  };
+
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+      <button className='boton-login w-[100%] bg-[#909777] shadow-md shadow-gray-300' type="submit">Añadir Parto</button>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/40 fixed inset-0 z-100" />
+        <Dialog.Content className="bg-[#fffdef] rounded-2xl shadow-2xl p-6 w-[90%] max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100">
+          <Dialog.Title className="text-xl font-bold mb-2">
+            Añadir el nuevo parto
+          </Dialog.Title>
+
+          <form className="flex flex-col gap-4 h-full" onSubmit={handleAddParto}>
+
+          <div className="input-icon w-full">
+              <input
+                type="date"
+                className="m-auto ml-0.5 w-full"
+                id="fechaParto"
+                name="fechaParto"
+                placeholder="Fecha del parto"
+                value={fechaParto}
+                onChange={(e) => setFechaParto(e.target.value)}
+              />
+              <FontAwesomeIcon icon={faCalendarDay} className="icon" />
+            </div>
+
+            <div className="input-icon w-full">
+              <select className="border rounded p-2 w-full"
+                value={resultado} onChange={(e) => setResultado(e.target.value)}>
+                <option value="">Resultado</option>
+                <option value="Vivo">Vivo</option>
+                <option value="Muerto">Muerto</option>
+              </select>
+              <FontAwesomeIcon icon={faUser} className="icon" />
+            </div>
+
+
+            <div className="input-icon w-full ml-0.5">
+              <select className="border rounded p-2 w-full" required
+                value={problemas} onChange={(e) => setProblemas(e.target.value)}>
+                <option value="">Problema</option>
+                <option value="Ninguno">Ninguno</option>
+                <option value="Retención de placenta">Retención de placenta</option>
+                <option value="Distocia">Distocia</option>
+                <option value="Prolapso">Prolapso</option>
+                <option value="Muerte fetal">Muerte fetal</option>
+              </select>
+
+              <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+            </div>
+
+
             <button className="boton-login w-[100%] cursor-pointer bg-[#909777]" type="submit">
               Registrar
             </button>

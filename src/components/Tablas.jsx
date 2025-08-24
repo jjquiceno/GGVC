@@ -443,73 +443,66 @@ export const TablaInfoCiclo = ({ ciclonum, ticDescripcion, ticDosis, ticDuracion
         </div>
     )
 }
-export const TablaAbortos = ({ taTittle, nombreA }) => {
+export const TablaAbortos = ({ taTittle, nombreA, id_ganado }) => {
+
+    const [datosPartos, setDatosPartos] = useState('');
     const [desplegado, setDesplegado] = useState(false);
 
     const toggleDesplegado = () => {
         setDesplegado(!desplegado);
     };
 
+    useEffect(() => {
+        const fetchPartos = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/parto/${id_ganado}`);
+                const data = await response.json();
+
+                const datosFormateados = data.map((parto) => ({
+                    ...parto,
+                    fecha_de_parto: new Date(parto.fecha_de_parto).toISOString().split("T")[0],
+                }));
+
+                setDatosPartos(datosFormateados);
+            } catch (error) {
+                console.error('Error al obtener los registros de partos:', error);
+            }
+        };
+
+        fetchPartos();
+    }, [id_ganado]);
+
+    console.log(datosPartos)
+
     return (
-        <div className="container">
-            <div className="tabla-a-container">
-                <div className={`ta-tittle ${desplegado ? 'active' : ''}`} onClick={toggleDesplegado}>
-                    <p>{taTittle}</p>
-                    <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown} />
-                </div>
-                <div className={`abortosContainer ${desplegado ? 'active' : ''}`}>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>isa</span>
+
+        <div className="tabla-a-container">
+            <div className={`ta-tittle ${desplegado ? 'active' : ''}`} onClick={toggleDesplegado}>
+                <p>{taTittle}</p>
+                <FontAwesomeIcon className={`flechaabajo ${desplegado ? 'active' : ''}`} icon={faAngleDown} />
+            </div>
+            <div className={`abortosContainer ${desplegado ? 'active' : ''}`}>
+                {datosPartos.length > 0 ? (
+                    datosPartos.map((parto) => (
+                        <div key={parto.id_parto} className="abortoitem">
+                            <div>
+                                <FontAwesomeIcon icon={faSkullCrossbones} />
+                                <span>
+                                    {parto.problemas} {/* Enum: Ninguno, Distocia, etc */}
+                                </span>
+                            </div>
+                            <div>{parto.fecha_de_parto}</div>
                         </div>
-                        <div>1/02/2020</div>
-                    </div>
+                    ))
+                ) : (
                     <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>quice</span>
-                        </div>
-                        <div>5/04/2025</div>
+                        <span>No hay partos registrados</span>
                     </div>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>el voce</span>
-                        </div>
-                        <div>6/01/2021</div>
-                    </div>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>lopera</span>
-                        </div>
-                        <div>05/03/2023</div>
-                    </div>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>santa</span>
-                        </div>
-                        <div>04/06/2024</div>
-                    </div>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>marlon</span>
-                        </div>
-                        <div>0909/2018</div>
-                    </div>
-                    <div className="abortoitem">
-                        <div>
-                            <FontAwesomeIcon icon={faSkullCrossbones} />
-                            <span>beltran</span>
-                        </div>
-                        <div>04/07/2025</div>
-                    </div>
-                </div>
+                )} 
+                {/* //Cambiar el diseño para que se vean los datos del parto */}
             </div>
         </div>
+
     )
 }
 export const TablaSal = ({ salIdAnimal, salper, pesok, salNomAnimal }) => {

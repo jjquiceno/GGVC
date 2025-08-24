@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, Link } from "react-router-dom"
-import { TablaDatosMedicos, TablaDatosVisitaMed, TablaInfoGanado } from './Tablas';
+import { TablaAbortos } from './Tablas';
 import { DataTable } from '../components/DataTables.jsx';
 import { FormularioAddPesaje, FormularioAddPrenez, FormularioSanidad, FormularioVisitas } from './formLogin.jsx';
 import GraficoLineas from './graficoLineas.jsx';
@@ -225,7 +225,7 @@ export const InfoMedica = ({ nombre, id, genero }) => {
                       <h2 className='font-bold'>Preñez</h2>
                     </div>
                     <div>
-                      <FormularioAddPrenez id={id}/>
+                      <FormularioAddPrenez id={id} />
                     </div>
                   </div>
                   <div className='w-full flex flex-col gap-4'>
@@ -244,6 +244,14 @@ export const InfoMedica = ({ nombre, id, genero }) => {
                     ) : (
                       <p className="text-black">No hay registros de preñez para {nombre}</p>
                     )}
+                  </div>
+                </div>
+
+
+                <div className='flex-1 gap-10'>
+                  <div className="w-full h-fit content-center mb-10">
+
+                    <TablaAbortos taTittle={"Partos"} id_ganado={id}/>
                   </div>
                 </div>
 
